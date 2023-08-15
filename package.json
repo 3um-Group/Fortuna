@@ -1,14 +1,23 @@
 {
   "private": true,
   "devDependencies": {
+    "@babel/core": "^7.22.10",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-transform-react-jsx": "^7.22.5",
+    "@ethersproject/bignumber": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "@ethersproject/signing-key": "^5.7.0",
     "@heroicons/react": "^2.0.18",
     "@types/jest": "^29.5.3",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
+    "@web3-react/core": "^8.2.2",
+    "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/metamask": "^8.2.3",
     "@web3-react/store": "^8.2.2",
     "@web3-react/types": "^8.2.2",
+    "@web3-react/walletconnect-connector": "^6.2.13",
+    "@web3-react/walletlink-connector": "^6.2.14",
     "assert": "^2.0.0",
     "browserify": "^17.0.0",
     "crypto": "^1.0.1",
@@ -38,12 +47,13 @@
     ]
   },
   "dependencies": {
+    "@babel/plugin-syntax-flow": "^7.22.5",
     "buffer": "^6.0.3",
     "react-scripts": "^5.0.1",
     "tailwindcss": "^3.3.3",
     "typescript": ">=4",
-    "webpack": "^5.88.2",
-    "web3": "^4.1.0"
+    "web3": "^4.1.0",
+    "webpack": "^5.88.2"
   },
   "scripts": {
     "start": "node ./start.js",

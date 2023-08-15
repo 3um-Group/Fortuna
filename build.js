@@ -12,6 +12,7 @@ config.resolve.fallback = {
   os: require.resolve("os-browserify"),
   url: require.resolve("url"),
 };
+
 config.plugins = (config.plugins || []).concat([
   new webpack.ProvidePlugin({
     process: "process/browser",
