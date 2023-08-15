@@ -1,0 +1,22 @@
+Unused dependencies
+* create-react-script
+* react-scripts
+Unused devDependencies
+* @heroicons/react
+* @types/jest
+* classnames
+* jest
+* prop-types
+* react-gtm-module
+* react-helmet
+* react-web3-provider
+* tailwindcss
+* typescript
+* @web3-react/metamask
+* @web3-react/store
+* @web3-react/types
+Missing dependencies
+* tslint: ./tslint.json
+* tslint-react: ./tslint.json
+* tslint-config-prettier: ./tslint.json
+* @openzeppelin/network: ./src/App.tsx
