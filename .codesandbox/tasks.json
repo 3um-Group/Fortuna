@@ -19,6 +19,10 @@
       "preview": {
         "port": 3000
       }
+    },
+    "npm build": {
+      "name": "npm build",
+      "command": "npm run build"
     }
   }
 }
