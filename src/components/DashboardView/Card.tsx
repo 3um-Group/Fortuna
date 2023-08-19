@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import {twMerge} from 'tailwind-merge';
-import {clsx} from 'clsx';
+import * as React from 'react'
+
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
 import { Button, Card } from 'react-daisyui';
 import { Doughnut } from 'react-chartjs-2';
 
@@ -16,7 +18,8 @@ type Dataset = {
     datasets: Array<DatasetItems>
 }
 
-type DatasetProps = typeof defaultProps & {
+export type DatasetProps = React.HTMLAttributes<HTMLDivElement> & typeof defaultProps & {
+    className: string
     title: string
     data: Array<Dataset>
 };
@@ -50,19 +53,22 @@ const defaultProps = {
     }]
 };
 
-
-export default class GraphCard extends Component<HTMLElement, DatasetProps> {
-    render() {
-        const { data, title, children } = this.props;
+const GraphCard = React.forwardRef<HTMLElement, DatasetProps>(
+    ({...props }): JSX.Element => {
+        const {title, data, children, className} = props;
 
         return (
-            <div className={twMerge('card', clsx('lg:card-side', 'bg-base-100', 'shadow-x1')}>
+            <div 
+                aria-label="GraphCard"
+                className={twMerge('card', 
+                    clsx('lg:card-side', 'bg-base-100', 'shadow-x1'), 
+                    className)}>
                 <figure>
-                    <Doughnut data={data}/>
+                    <Doughnut data={data[0]}/>
                 </figure>
                 <div className={twMerge("card-body")}>
                     <Card.CardTitle tag="h2">{title}</Card.CardTitle>
-                    {this.props.children?}
+                    {children?}
                     <Card.CardAction className='justify-end'>
                         <Button size="lg" color={true}>Learn More</Button>
                     </Card.CardAction>
@@ -70,5 +76,7 @@ export default class GraphCard extends Component<HTMLElement, DatasetProps> {
             </div>
         )
     }
+);
 
-}
+
+export default GraphCard;
