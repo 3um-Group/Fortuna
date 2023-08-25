@@ -12,6 +12,7 @@
     "@types/jest": "^29.5.3",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
+    "@types/graphql": "^14.5.0",
     "@web3-react/core": "^8.2.2",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/metamask": "^8.2.3",
@@ -44,7 +45,9 @@
     "stream-http": "^3.2.0",
     "web3": "^4.1.0",
     "buffer": "^6.0.3",
-    "url": "^0.11.1"
+    "url": "^0.11.1",
+    "ethers": "^6.7.1",
+    "urql": "^4.0.5"
   },
   "browserslist": {
     "production": [
@@ -60,6 +63,7 @@
   },
   "dependencies": {
     "typescript": ">=4",
+    "react-scripts": "^5.0.1",
     "webpack": "^5.88.2"
   },
   "scripts": {
@@ -72,3 +76,6 @@
     "extends": "react-app"
   }
 }
+
+
+
