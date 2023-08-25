@@ -133,3 +133,5 @@ dist
 # NPM and yarn locsk
 package-lock.json
 yarn.lock
+
+docs
