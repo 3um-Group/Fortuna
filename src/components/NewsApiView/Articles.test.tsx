@@ -1,8 +1,11 @@
+import { renderHook } from '@testing-library/react-hooks'
+
 import * as React from "react";
-import * as ReactDOMClient from "react-dom/client";
-import NewsApiView, {ArticleQuery, ArticleQuerySchema} from "./components/NewsApiView";
-import { Client, Provider, useQuery } from "urql";
-import NewsClient from './NewsApiClient';
+import * as ReactDOMClient from "react-dom/client"
+import { Client, Provider, useQuery } from "urql"
+
+import NewsApiView, {ArticleQuery, ArticleQuerySchema} from "./NewsApiView"
+import NewsClient from '../../api/NewsApiClient'
 
 const NewsApi:Client = NewsClient({
   region: 'us-east-1-shared-usea1-02', 
@@ -12,13 +15,20 @@ const NewsApi:Client = NewsClient({
 });
 
 it("returns more than one article from provider without error", () => {
-  const [result] = useQuery<ArticleQuery>({ query: ArticleQuerySchema });
+  const div = document.createElement("div");
+  const root = ReactDOMClient.createRoot(div);
+
+  root.render(<Provider value={NewsApi}><NewsApiView/></Provider>)
+  
+  const [result] = renderHook(() => useQuery<ArticleQuery>({ query: ArticleQuerySchema }));
   const { data, fetching, error } = result;
 
   expect(fetching).toBeFalsy();
   expect(error?.message.length).toBeGreaterThan(0);
   expect(data).toHaveProperty("Article");
   expect(data?.Articles).toBeGreaterThan(0);
+
+  root.unmount();
 });
 
 it("renders without crashing", () => {

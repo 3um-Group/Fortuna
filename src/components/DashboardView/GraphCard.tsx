@@ -24,7 +24,7 @@ export type DatasetProps = React.HTMLAttributes<HTMLDivElement> & typeof default
     data: Array<Dataset>
 };
 
-const defaultProps = {
+export const defaultProps = {
     title: 'Example GraphCard',
     data: [{
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -54,7 +54,7 @@ const defaultProps = {
 };
 
 const GraphCard = React.forwardRef<HTMLElement, DatasetProps>(
-    ({...props }): JSX.Element => {
+    ({...props }, ref): JSX.Element => {
         const {title, data, children, className} = props;
 
         return (
@@ -68,9 +68,9 @@ const GraphCard = React.forwardRef<HTMLElement, DatasetProps>(
                 </figure>
                 <div className={twMerge("card-body")}>
                     <Card.CardTitle tag="h2">{title}</Card.CardTitle>
-                    {children?}
+                    {children}
                     <Card.CardAction className='justify-end'>
-                        <Button size="lg" color={true}>Learn More</Button>
+                        <Button size="lg" color="primary">Learn More</Button>
                     </Card.CardAction>
                 </div>
             </div>

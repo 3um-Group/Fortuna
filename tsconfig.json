@@ -9,7 +9,7 @@
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
@@ -17,7 +17,7 @@
     "noImplicitAny": true,
     "importHelpers": true,
     "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
+    "suppressImplicitAnyIndexErrors": false,
     "noUnusedLocals": true
   },
   "exclude": [
@@ -27,6 +27,8 @@
     "acceptance-tests",
     "webpack",
     "jest",
-    "src/setupTests.ts"
+    "src/setupTests.ts",
+    "scripts/*.js",
+    "tailwind.config.js"
   ]
 }
