@@ -1,5 +1,17 @@
+import clsx from 'clsx';
 import * as React from 'react'
 
+
+import { Web3ReactProvider } from '@web3-react/core'
+import { BrowserProvider } from '@ethersproject/providers'
+import { useWeb3React } from '@web3-react/core'
+import { InjectedConnector } from '@web3-react/injected-connector'
+
+interface WalletViewProps {
+  className: string
+  abi: string
+  contractAddress: string
+}
 /*
 import { WalletLinkConnector } from "@web3-react/walletlink-connector";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
@@ -58,6 +70,67 @@ const WalletView = React.forwardRef<HTMLElement>(
     });
 
 */
-const WalletView = React.forwardRef<HTMLDivElement>(({...props}, ref)=><div/>);
+
+import * as Connectors from '@web3-react/core/connectors'
+const { InjectedConnector, NetworkOnlyConnector } = Connectors
+
+export const injectedConnector = new InjectedConnector({
+  supportedChainIds: [
+    1, // Mainet
+    4, // Rinkeby
+  ],
+})
+
+const Infura = new NetworkOnlyConnector({
+  providerURL: 'https://mainnet.infura.io/v3/...'
+})
+
+export const connectors = { injectedConnector, Infura }
+
+export function getLibrary(provider: any): BrowserProvider {
+  const library = new BrowserProvider(provider)
+        library.pollingInterval = 12000;
+
+  return library
+}
+
+export const Wallet = () => {
+  const { chainId, account, isActivating, isActive } = useWeb3React<BrowserProvider>()
+
+  const onClick = () => {
+    isActivating(injectedConnector)
+  }
+
+  return (
+    <div>
+      <div>ChainId: {chainId}</div>
+      <div>Account: {account}</div>
+      {isActive ? (
+        <div>✅ </div>
+      ) : (
+        <button type="button" onClick={onClick}>
+          Connect
+        </button>
+      )}
+    </div>
+  )
+}
+
+const WalletView = React.forwardRef<HTMLDivElement,WalletViewProps>(({...props}, ref): JSX.Element => {
+  const {abi, contractAddress, className} = props;
+
+  return(<div className={clsx(className)} ref={ref}>
+    <Wallet/>
+  </div>)
+});
 
 export default WalletView;
+
+
+ 
+const MetaMask = new InjectedConnector({ supportedNetworks: [1, 4] })
+ 
+const Infura = new NetworkOnlyConnector({
+  providerURL: 'https://mainnet.infura.io/v3/...'
+})
+ 
