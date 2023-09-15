@@ -1,7 +1,8 @@
-const rewire = require("rewire");
+import {rewire} from 'rewire';
+import {webpack} from 'webpack';
+
 const defaults = rewire("react-scripts/scripts/start.js");
 const config = defaults.__get__("config");
-const webpack = require("webpack");
 
 config.resolve.fallback = {
   crypto: require.resolve("crypto-browserify"),

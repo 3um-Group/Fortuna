@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useQuery } from 'urql'
-import Card from 'daisyui';
+import {Card} from 'react-daisyui';
 
 export type ArticleProps = React.HTMLAttributes<HTMLDivElement>
 
