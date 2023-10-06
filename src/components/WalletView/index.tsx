@@ -101,6 +101,8 @@ export const Wallet = () => {
     isActivating(injectedConnector)
   }
 
+  ReactGA.send({ hitType: "pageview", page: "/wallet", title: "WalletView Called" });
+
   return (
     <div>
       <div>ChainId: {chainId}</div>
