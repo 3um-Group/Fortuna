@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Provider } from "urql";
+//import { Provider } from "urql";
 
 /*
 import NewsClient from "./api/NewsApiClient";
