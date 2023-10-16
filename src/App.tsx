@@ -1,6 +1,9 @@
 import * as React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ReactGA from "react-ga4";
+
+import {usePageTracking} from './middleware/usePageTracking';
+
+//import ReactGA from "react-ga4";
 
 //import { Client, Provider } from "urql";
 
@@ -50,7 +53,8 @@ const routeFactory = (props) => ({
 */
 
 function App(): React.JSX.Element {
-  ReactGA.initialize("GA-1231243");
+  usePageTracking();
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -65,7 +69,6 @@ function App(): React.JSX.Element {
     },
   ]);
   return (<>
-          <ReactGA.initialize />
           <RouterProvider router={router} />;
   </>);
 }
