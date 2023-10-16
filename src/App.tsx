@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ReactGA from "react-ga4";
 
 //import { Client, Provider } from "urql";
->>>>>>> 5019dd254473c13c2949cdf0cbf496d4112907cc
 
 /*
 import NewsClient from "./api/NewsApiClient";
