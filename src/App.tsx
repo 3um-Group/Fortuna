@@ -1,6 +1,9 @@
 import * as React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-//import { Provider } from "urql";
+import ReactGA from "react-ga4";
+
+//import { Client, Provider } from "urql";
+>>>>>>> 5019dd254473c13c2949cdf0cbf496d4112907cc
 
 /*
 import NewsClient from "./api/NewsApiClient";
@@ -13,6 +16,7 @@ const NewsApi:Client = NewsClient({
 });
 */
 
+/*
 type routeItem = {
   path: string,
   errorElement: JSX.Element,
@@ -23,19 +27,48 @@ function routeFactory(path:string, errorElement: JSX.Element, element:JSX.Elemen
   return {path, errorElement, element}
 }
 
-/*
     routeFactory("/NewsView",
 (<div><h1>Error loading route...</h1></div>),
 (<Provider value={NewsApi}><NewsApiView /></Provider>)),
+
+
+const routeFactory = (props) => ({
+  path: `/${props.slug}` || "/",
+  key: props.slug || "ROOT",
+  component: props.component,
+  isRestricted: props.restricted || false,
+  isExact: props.exact || true,
+  childProps: props.childProps || {}
+});
+    {
+    path: "/NewsView",
+    errorElement: (
+      <div>
+        <h1> Error loading route...</h1>
+      </div>
+    ),
+    element: (<Provider value={NewsApi}><NewsApiView/></Provider>)},
 */
 
-function App(): JSX.Element {
+function App(): React.JSX.Element {
+  ReactGA.initialize("GA-1231243");
   const router = createBrowserRouter([
-    routeFactory("/",
-          (<div><h1>Error loading route...</h1></div>),
-          (<><p>Loading main view</p></>))
+    {
+      path: "/",
+      errorElement: (
+        <div>
+          <h1> Error loading route...</h1>
+        </div>
+      ),
+      element: (
+       <><p>Loading main view</p></>
+      ),
+    },
   ]);
-  return <RouterProvider router={router} />;
+  return (<>
+          <ReactGA.initialize />
+          <RouterProvider router={router} />;
+  </>);
 }
 
 export default App;
