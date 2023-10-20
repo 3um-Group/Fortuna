@@ -1,22 +1,11 @@
-//import type { Meta, StoryObj } from '@storybook/react';
-//import GraphCard, {defaultProps} from './GraphCard';
-
-import type { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import GraphCard from './GraphCard';
 
-const meta = {
+const meta: Meta<typeof GraphCard> = {
   title: 'DashboardView/UX/GraphCard',
   component: GraphCard,
   tags: ['autodocs'],
-  parameters: {
-    layout: 'centered',
-  }
-} satisfies Meta<typeof GraphCard>;
+};
 
+export const CSF3Story: StoryObj<typeof GraphCard> = { args: {'title': 'Example'}};
 export default meta;
-
-/*
-type Story = StoryObj<typeof meta>;
-
-export const UX: Story = {{args: {}};
-*/

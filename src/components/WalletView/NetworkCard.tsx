@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+//import { useEffect, useState } from 'react'
 
+/*
 import { URLS } from '../../chains'
 import { hooks, network } from '../../connectors/network'
 import { Card } from '../Card'
@@ -42,3 +43,4 @@ export default function NetworkCard() {
     />
   )
 }
+*/

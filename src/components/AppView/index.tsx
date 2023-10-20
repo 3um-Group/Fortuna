@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {
+/*import {
   Form,
   Link,
   Outlet,
@@ -12,7 +12,18 @@ import {
   useNavigate,
   useRouteLoaderData,
   LoaderFunctionArgs
+} from "react-router-dom";*/
+
+import {
+  Link,
+  Outlet,
+  redirect,
+  Navigate,
+  useLocation,
+  useNavigate,
+  LoaderFunctionArgs
 } from "react-router-dom";
+
 import clsx from "clsx";
 import * as UI from 'react-daisyui';
 import { twMerge } from 'tailwind-merge';
@@ -124,12 +135,8 @@ export const LoginPage = (): React.JSX.Element => {
       </div>
     );
 };
-  
-export type ErrorViewProps = {
-    msg?: string
-};
-  
-export const ErrorView = <HTMLDivElement, ErrorViewProps>({...props}): React.JSX.Element => {
+
+export const ErrorView = ({...props}): React.JSX.Element => {
     const {msg} = props;
   
     return (
@@ -145,9 +152,7 @@ export const ErrorView = <HTMLDivElement, ErrorViewProps>({...props}): React.JSX
     );
 };
 
-export type LayoutProps = {};
-
-export const Layout = <HTMLDivElement, LayoutProps>({...props}): React.JSX.Element => {
+export const Layout = ({...props}): React.JSX.Element => {
     const {className} = props;
     const [visible, setVisible] = React.useState(false);
 

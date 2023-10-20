@@ -1,11 +1,11 @@
-import 'module-alias/register';
-
 //import { Client, Provider, useQuery } from "urql"
 
 //import {cleanup, fireEvent, render, waitFoFor } '@testing-library/react';
 //import { renderHook, RenderOptions, RenderResult } from '@testing-library/react-hooks'
 
-import {cleanup, render, waitFor } from '@testing-library/react';
+//import {cleanup, render, waitFor } from '@testing-library/react';
+import {cleanup, render } from '@testing-library/react';
+
 import { Client, Provider } from "urql";
 
 //import NewsApiView, {ArticleQuery, ArticleQuerySchema} from "./NewsApiView"
@@ -45,8 +45,9 @@ it("renders without crashing", async() => {
   //const { queryByTestId, asFragment } = render(<Provider value={NewsApi}><NewsApiView /></Provider>);
   const { asFragment } = render(<Provider value={NewsApi}><NewsApiView /></Provider>);
 
-  await waitFor(() => {
-    expect(asFragment()).toMatchSnapshot();
+  expect(asFragment()).toMatchSnapshot();
+//  await waitFor(() => {
+
     //expect(queryByTestId('Articles').childNodes.length).toBeGreaterThan(0)
-  });
+  //});
 });
