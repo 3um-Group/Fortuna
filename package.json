@@ -105,7 +105,8 @@
     "docs": "npx sb build -o ./docs -s ./public",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "upgrade": "npx npm-check-updates -u"
+    "upgrade": "npx npm-check-updates -u",
+    "debug": "npx react-scripts start"
   },
   "eslintConfig": {
     "extends": [
