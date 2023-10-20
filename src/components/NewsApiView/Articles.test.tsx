@@ -1,5 +1,3 @@
-import 'module-alias/register';
-
 //import { Client, Provider, useQuery } from "urql"
 
 //import {cleanup, fireEvent, render, waitFoFor } '@testing-library/react';

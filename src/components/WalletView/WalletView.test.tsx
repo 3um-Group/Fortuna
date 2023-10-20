@@ -1,5 +1,3 @@
-import 'module-alias/register';
-
 //import {cleanup, fireEvent, render, waitFoFor } '@testing-library/react';
 //import { renderHook, RenderOptions, RenderResult } from '@testing-library/react-hooks'
 
