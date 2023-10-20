@@ -1,7 +1,7 @@
 //import {cleanup, fireEvent, render, waitFoFor } '@testing-library/react';
 //import { renderHook, RenderOptions, RenderResult } from '@testing-library/react-hooks'
 
-import {cleanup, render, waitFor } from '@testing-library/react';
+import {cleanup, render } from '@testing-library/react';
 
 import WalletView from "."
 
@@ -31,8 +31,8 @@ it("renders without crashing", async() => {
   //const { queryByTestId, asFragment } = render(<WalletView/>);
   const { asFragment } = render(<WalletView/>);
 
-  await waitFor(() => {
-    expect(asFragment()).toMatchSnapshot();
+  expect(asFragment()).toMatchSnapshot();
+  //await waitFor(() => {
     //expect(queryByTestId('Articles').childNodes.length).toBeGreaterThan(0)
-  });
+  //});
 });

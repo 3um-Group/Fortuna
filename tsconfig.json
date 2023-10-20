@@ -2,6 +2,7 @@
   "types": ["react/next", "react-dom/next"],
   "compilerOptions": {
     "baseUrl": ".",
+    "traceResolution": false,
     "outDir": "dist",
     "module": "esnext",
     "target": "es5",

@@ -19,7 +19,7 @@ const DashboardView = React.forwardRef<HTMLDivElement, DashboardViewProps>(
     );
 
     return (
-        <div aria-id="DashboardView" ref={ref} className={styles} {...props}>
+        <div aria-label='DashboardView' ref={ref} className={styles} {...props}>
             {children}
         </div>
     )

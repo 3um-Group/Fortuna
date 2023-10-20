@@ -1,13 +1,12 @@
-import type { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import WalletView from '.';
 
-const meta = {
+export const MetaStory:Meta<typeof WalletView> = {
   title: 'WalletView/UX/Compoent',
   component: WalletView,
   tags: ['autodocs'],
-  parameters: {
-    layout: 'centered',
-  }
-} satisfies Meta<typeof WalletView>;
+};
 
-export default meta;
+export default MetaStory;
+
+export const Story: StoryObj<typeof WalletView> = { args: {contractAddress: 'fubar', abi: "fazbar"}};
