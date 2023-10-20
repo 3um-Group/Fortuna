@@ -3,7 +3,8 @@ import * as React from 'react'
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-import { Button, Card } from 'react-daisyui';
+//import { Button } from 'react-daisyui';
+//import { CardCardAction, CardTitle } from 'react-daisyui';
 import { Doughnut } from 'react-chartjs-2';
 
 type DatasetItems = {
@@ -19,7 +20,7 @@ type Dataset = {
 }
 
 export type DatasetProps = React.HTMLAttributes<HTMLDivElement> & typeof defaultProps & {
-    className: string
+    className?: string
     title: string
     data: Array<Dataset>
 };
@@ -53,29 +54,33 @@ export const defaultProps = {
     }]
 };
 
-const GraphCard = React.forwardRef<HTMLElement, DatasetProps>(
-    ({...props }, ref): JSX.Element => {
+const GraphCard = React.forwardRef<HTMLDivElement, DatasetProps>(
+    ({...props }, ref): React.JSX.Element => {
         const {title, data, children, className} = props;
 
         return (
             <div 
                 aria-label="GraphCard"
+                ref={ref}
                 className={twMerge('card', 
                     clsx('lg:card-side', 'bg-base-100', 'shadow-x1'), 
                     className)}>
                 <figure>
                     <Doughnut data={data[0]}/>
                 </figure>
-                <div className={twMerge("card-body")}>
-                    <Card.CardTitle tag="h2">{title}</Card.CardTitle>
-                    {children}
-                    <Card.CardAction className='justify-end'>
-                        <Button size="lg" color="primary">Learn More</Button>
-                    </Card.CardAction>
-                </div>
+                <h1>{title}</h1>
+                {children}
             </div>
         )
     }
+    /*                <div className={twMerge("card-body")}>
+                    <CardTitle tag="h2">{title}</CardTitle>
+                    {children}
+                    <CardAction className='justify-end'>
+                        <Button size="lg" color="primary">Learn More</Button>
+                    </CardAction>
+                </div> 
+*/
 );
 
 

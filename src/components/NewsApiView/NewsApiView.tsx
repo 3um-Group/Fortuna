@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useQuery } from 'urql'
 import {Card} from 'react-daisyui';
+import ReactGA from "react-ga4";
+
 
 export type ArticleProps = React.HTMLAttributes<HTMLDivElement>
 
@@ -41,6 +43,8 @@ const NewsApiView = React.forwardRef<HTMLDivElement, ArticleProps>(
 
     if (fetching) return (<><p>Loading...</p></>);
     if (error) return (<><p>Oh no... {error.message}</p></>);
+
+    ReactGA.send({ hitType: "pageview", page: "/news", title: "NewsApiView Called" });
 
     return (data && data.Articles)
       ? <>{data.Articles.map((article: ArticleItem) => <Card>{article.body}</Card>)}</>

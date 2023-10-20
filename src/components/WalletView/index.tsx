@@ -1,51 +1,22 @@
-import clsx from 'clsx';
+import clsx from 'clsx'
 import * as React from 'react'
+import { Loading } from 'react-daisyui';
 
-import { Web3ReactProvider, useWeb3React } from '@web3-react/core'
-import { BrowserProvider } from '@ethersproject/providers'
-import { InjectedConnector } from '@web3-react/injected-connector'
-
-interface WalletViewProps {
-  className: string
-  abi: string
-  contractAddress: string
-}
-
-export const Wallet = (): React.JSX.Element => {
-  const { chainId, account, isActivating, isActive } = useWeb3React<BrowserProvider>()
-
-  const onClick = () => {
-    isActivating(injectedConnector)
-  }
-
-  return (
-    <div>
-      <div>ChainId: {chainId}</div>
-      <div>Account: {account}</div>
-      {isActive ? (
-        <div>✅ </div>
-      ) : (
-        <button type="button" onClick={onClick}>
-          Connect
-        </button>
-      )}
-    </div>
-  )
+export interface WalletViewProps {
+  className?: string
+  abi?: string
+  contractAddress?: string
 }
 
 const WalletView = React.forwardRef<HTMLDivElement,WalletViewProps>(({...props}, ref): React.JSX.Element => {
-  const {abi, contractAddress, className} = props;
+  const {className} = props;
 
-  return(<div className={clsx(className)} ref={ref}>
-    <Wallet/>
-  </div>)
+  return(
+    <div className={clsx(className)} ref={ref}>
+        <h1>Wallet View</h1>
+        <Loading variant={"ring"} />
+    </div>
+  )
 });
 
 export default WalletView;
- 
-const MetaMask = new InjectedConnector({ supportedNetworks: [1, 4] })
- 
-const Infura = new NetworkOnlyConnector({
-  providerURL: 'https://mainnet.infura.io/v3/...'
-})
- 

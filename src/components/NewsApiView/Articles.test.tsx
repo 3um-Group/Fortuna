@@ -8,7 +8,8 @@ import 'module-alias/register';
 import {cleanup, render, waitFor } from '@testing-library/react';
 import { Client, Provider } from "urql";
 
-import NewsApiView, {ArticleQuery, ArticleQuerySchema} from "./NewsApiView"
+//import NewsApiView, {ArticleQuery, ArticleQuerySchema} from "./NewsApiView"
+import NewsApiView from "./NewsApiView"
 import NewsClient from '../../api/NewsApiClient'
 
 afterEach(cleanup);
@@ -41,7 +42,8 @@ it("returns more than one article from provider without error", () => {
 */
 
 it("renders without crashing", async() => {
-  const { queryByTestId, asFragment } = render(<Provider value={NewsApi}><NewsApiView /></Provider>);
+  //const { queryByTestId, asFragment } = render(<Provider value={NewsApi}><NewsApiView /></Provider>);
+  const { asFragment } = render(<Provider value={NewsApi}><NewsApiView /></Provider>);
 
   await waitFor(() => {
     expect(asFragment()).toMatchSnapshot();

@@ -30,7 +30,8 @@ it("returns more than one article from provider without error", () => {
 */
 
 it("renders without crashing", async() => {
-  const { queryByTestId, asFragment } = render(<WalletView/>);
+  //const { queryByTestId, asFragment } = render(<WalletView/>);
+  const { asFragment } = render(<WalletView/>);
 
   await waitFor(() => {
     expect(asFragment()).toMatchSnapshot();
