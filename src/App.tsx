@@ -146,7 +146,24 @@ const App = (): React.JSX.Element => {
           <UI.Loading/>
           </>)
         },
-      ]
+        {
+          path: "dashboard",
+          errorElement: (<ErrorView/>),
+          element: (
+            <RequireAuth>
+              <><h2>Protected page</h2></>
+            </RequireAuth>
+          )
+        }
+      ],
+    }, {
+      path: "/login",
+      element: (<><h2>Login</h2></>),
+      errorElement: (<ErrorView/>),
+    }, {
+      path: "/logout",
+      element: (<><h2>Logout</h2></>),
+      errorElement: (<ErrorView/>),
     },
   ]);
 
