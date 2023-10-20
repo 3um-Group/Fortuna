@@ -249,7 +249,7 @@ const App = (): React.JSX.Element => {
           path: "protected",
           loader: protectedLoader,
           Component: ProtectedPage
-        }
+        },
         {
           path: "dashboard",
           errorElement: (<ErrorView/>),
