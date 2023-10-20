@@ -1,9 +1,23 @@
 import * as React from "react";
-import { createBrowserRouter, RouterProvider, Outlet, Navigate, useLocation } from "react-router-dom";
 import * as UI from 'react-daisyui';
-
 import clsx from "clsx";
-
+  
+import type { LoaderFunctionArgs } from "react-router-dom";
+import {
+  Form,
+  Link,
+  Outlet,
+  RouterProvider,
+  createBrowserRouter,
+  redirect,
+  Navigate,
+  useActionData,
+  useFetcher,
+  useLocation,
+  useNavigation,
+  useNavigate,
+  useRouteLoaderData,
+} from "react-router-dom";
 
 import {usePageTracking} from './middleware/usePageTracking';
 
@@ -83,11 +97,11 @@ function Layout({...args}): React.JSX.Element {
   );
 }
 
-type ErrorViewProps = {
+export type ErrorViewProps = {
   msg?: string
 }
 
-const ErrorView = <HTMLDivElement, ErrorViewProps>({...props}): React.JSX.Element => {
+export const ErrorView = <HTMLDivElement, ErrorViewProps>({...props}): React.JSX.Element => {
   const {msg} = props;
 
   return (
@@ -102,8 +116,7 @@ const ErrorView = <HTMLDivElement, ErrorViewProps>({...props}): React.JSX.Elemen
  </UI.Card>);
 }
 
-
-interface AuthContextType {
+export interface AuthContextType {
   user: any;
   signin: (user: string, callback: VoidFunction) => void;
   signout: (callback: VoidFunction) => void;
@@ -114,6 +127,30 @@ let AuthContext = React.createContext<AuthContextType>(null!);
 function useAuth() {
   return React.useContext(AuthContext);
 }
+
+
+const AuthStatus = (): React.JSX.Element => {
+  let auth = useAuth();
+  let navigate = useNavigate();
+
+  if (!auth.user) {
+    return <p>You are not logged in.</p>;
+  }
+
+  return (
+    <p>
+      Welcome {auth.user}!{" "}
+      <button
+        onClick={() => {
+          auth.signout(() => navigate("/"));
+        }}
+      >
+        Sign out
+      </button>
+    </p>
+  );
+}
+
 
 const RequireAuth = ({ children }: { children: React.JSX.Element }) => {
   let auth = useAuth();
@@ -130,13 +167,75 @@ const RequireAuth = ({ children }: { children: React.JSX.Element }) => {
   return children;
 }
 
+
+function LoginPage() {
+  let navigate = useNavigate();
+  let location = useLocation();
+  let auth = useAuth();
+
+  let from = location.state?.from?.pathname || "/";
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    let formData = new FormData(event.currentTarget);
+    let username = formData.get("username") as string;
+
+    auth.signin(username, () => {
+      // Send them back to the page they tried to visit when they were
+      // redirected to the login page. Use { replace: true } so we don't create
+      // another entry in the history stack for the login page.  This means that
+      // when they get to the protected page and click the back button, they
+      // won't end up back on the login page, which is also really nice for the
+      // user experience.
+      navigate(from, { replace: true });
+    });
+  }
+
+  return (
+    <div>
+      <p>You must log in to view the page at {from}</p>
+
+      <form onSubmit={handleSubmit}>
+        <label>
+          Username: <input name="username" type="text" />
+        </label>{" "}
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+}
+
+function protectedLoader({ request }: LoaderFunctionArgs) {
+  // If the user is not logged in and tries to access `/protected`, we redirect
+  // them to `/login` with a `from` parameter that allows login to redirect back
+  // to this page upon successful authentication
+
+  const fakeAuthProvider = {
+    isAuthenticated: false
+  }
+
+  if (!fakeAuthProvider.isAuthenticated) {
+    let params = new URLSearchParams();
+    params.set("from", new URL(request.url).pathname);
+    return redirect("/login?" + params.toString());
+  }
+
+  return null;
+}
+
+function ProtectedPage() {
+  return <h3>Protected</h3>;
+}
+
 const App = (): React.JSX.Element => {
   usePageTracking();
 
   const router = createBrowserRouter([
     {
+      id: "root",
       path: "/",
-      element: (<Layout />),
+      Component: Layout,
       errorElement: (<ErrorView/>),
       children: [
         {
@@ -146,6 +245,11 @@ const App = (): React.JSX.Element => {
           <UI.Loading/>
           </>)
         },
+        {
+          path: "protected",
+          loader: protectedLoader,
+          Component: ProtectedPage
+        }
         {
           path: "dashboard",
           errorElement: (<ErrorView/>),
@@ -158,12 +262,15 @@ const App = (): React.JSX.Element => {
       ],
     }, {
       path: "/login",
-      element: (<><h2>Login</h2></>),
+      element: (<LoginPage/>),
       errorElement: (<ErrorView/>),
     }, {
       path: "/logout",
-      element: (<><h2>Logout</h2></>),
-      errorElement: (<ErrorView/>),
+      async action() {
+        // We signout in a "resource route" that we can hit from a fetcher.Form
+        //await fakeAuthProvider.signout();
+        return redirect("/");
+      }  
     },
   ]);
 
