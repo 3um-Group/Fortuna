@@ -1,27 +1,66 @@
 import React from 'react';
 import * as UI from 'react-daisyui';
+import { useAuth0 } from "@auth0/auth0-react";
 
 // Basic Login button for auth0
-const LoginButton = (): React.JSX.Element => {
-    // const {isAuthorized, user} = useAuth0();
+export const LoginButton = (): React.JSX.Element => {
+  // const {isAuthorized, user} = useAuth0();
 
-    return (
-        <UI.Theme dataTheme="dark">
-            <UI.Button>Login</UI.Button>
-        </UI.Theme>
-    );
+  const { loginWithRedirect } = useAuth0();
+
+  const handleLogin = async () => {
+    await loginWithRedirect({
+      appState: {
+        returnTo: "/profile",
+      },
+    });
+  };
+
+  return (
+    <UI.Theme dataTheme="dark">
+      <UI.Button onClick={handleLogin}>Login</UI.Button>
+    </UI.Theme>
+  );
 }
 
 // Basic Logout button for auth0
-const LogoutButton = (): React.JSX.Element => {
+export const LogoutButton = (): React.JSX.Element => {
     // const {isAuthorized, user} = useAuth0();
+
+  const { logout } = useAuth0();
+
+  const handleLogout = () => {
+    logout({
+      logoutParams: {
+        returnTo: window.location.origin,
+      },
+    });
+  };
 
     return (
         <UI.Theme dataTheme="dark">
-            <UI.Button>Logout</UI.Button>
+            <UI.Button onClick={handleLogout}>Logout</UI.Button>
         </UI.Theme>
     );
 }
 
-export LoginButton;
-export LogoutButton;
+export const SignupButton = (): React.JSX.Element => {
+  const { loginWithRedirect } = useAuth0();
+
+  const handleSignUp = async () => {
+    await loginWithRedirect({
+      appState: {
+        returnTo: "/profile",
+      },
+      authorizationParams: {
+        screen_hint: "signup",
+      },
+    });
+  };
+
+  return (
+    <UI.Theme dataTheme="dark">
+        <UI.Button onClick={handleSignUp}>Logout</UI.Button>
+    </UI.Theme>
+  );
+};
