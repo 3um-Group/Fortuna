@@ -4,6 +4,8 @@ import clsx from 'clsx';
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { Client, Provider } from "urql";
+import LogRocket from 'logrocket';
+import setupLogRocketReact from 'logrocket-react';
 
 import {
   RouterProvider,
@@ -76,7 +78,34 @@ const AuthButtons = (): React.JSX.Element => {
 const App = (): React.JSX.Element => {
   usePageTracking();
 
+  LogRocket.init('kmfzyf/secret-squirrel');
+  setupLogRocketReact(LogRocket);
+
+  /*
+  LogRocket.identify('THE_USER_ID_IN_YOUR_LOGROCKET_APP', {
+    name: Auth0.user.name,
+    email: Auth0.user.email,
+    subscriptionType: Auth0.user.roles[0]
+  });
+  */
+
   const router = createBrowserRouter([
+    {
+      path: "/login",
+      Component: LoginPage,
+      errorElement: (<ErrorView/>),
+    }, {
+      path: "/logout",
+      async action() {
+        // We signout in a "resource route" that we can hit from a fetcher.Form
+        //await fakeAuthProvider.signout();
+        return redirect("/");
+      }
+    },
+    {
+      path: "/callback",
+      Component: OauthCallback
+    },
     {
       id: "root",
       path: "/",
@@ -108,22 +137,7 @@ const App = (): React.JSX.Element => {
           )
         }
       ],
-    }, {
-      path: "/login",
-      Component: LoginPage,
-      errorElement: (<ErrorView/>),
-    }, {
-      path: "/logout",
-      async action() {
-        // We signout in a "resource route" that we can hit from a fetcher.Form
-        //await fakeAuthProvider.signout();
-        return redirect("/");
-      }
-    },
-    {
-      path: "/callback",
-      Component: OauthCallback
-    },
+    }
   ]);
 
   return (<RouterProvider router={router} />);

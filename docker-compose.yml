@@ -1,0 +1,62 @@
+---
+version: '3'
+
+x-builder: &builder_tmpl
+  context: .
+  dockerfile: Dockerfile
+
+networks:
+  default: {}
+
+volumes: {}
+
+services:
+
+  build_runner:
+    build: *builder_tmpl
+    image: baseimage:latest
+    command: ["build"]
+    volumes:
+      - ./assets/build:/src/build:rw
+    ports:
+      - 3000/tcp
+
+  test_runner:
+    depends_on:
+      - build_runner
+    image: baseimage:latest
+    command: ["test"]
+    volumes:
+      - ./assets/build:/src/playright_report:rw
+    ports:
+      - 3000/tcp
+
+  docs_runner:
+    image: baseimage:latest
+    command: ["docs"]
+    depends_on:
+      - build_runner
+    volumes:
+      - ./assets/build:/src/docs:rw
+    ports:
+      - 3000/tcp
+
+  storybook_runner:
+    image: baseimage:latest
+    command: ["storybook"]
+    depends_on:
+      - build_runner
+    volumes:
+      - ./assets/build:/src/docs:rw
+    ports:
+      - 3000/tcp
+
+  server_runner:
+    image: baseimage:latest
+    command: ["start"]
+    depends_on:
+      - build_runner
+      - test_runner
+    ports:
+      - 3000:3000/tcp
+...
