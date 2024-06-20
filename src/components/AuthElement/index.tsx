@@ -1,44 +1,39 @@
 import React from 'react';
-import * as UI from 'react-daisyui';
-import { clsx } from 'clsx'
-import { twMerge } from 'tailwind-merge'
-import { useAuth0 } from "@auth0/auth0-react";
+import { Theme, Button } from 'react-daisyui';
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+import { useAuth0 } from '@auth0/auth0-react';
 
 type ButtonProps = {
-    theme?: string;
-} & typeof defaultProps;
-
-const defaultProps = {
-    theme: "dark"
+  theme?: string;
+  className?: string;
 };
 
-// Basic Login button for auth0
-export const LoginButton = (props: React.ReactNode<ButtonProps>): React.JSX.Element => {
-  // const {isAuthorized, user} = useAuth0();
-  //
-  const { theme, className } = props;
+const defaultProps: Partial<ButtonProps> = {
+  theme: 'dark',
+};
+
+// Login Button
+export const LoginButton: React.FC<ButtonProps> = ({ theme = 'dark', className }) => {
   const { loginWithRedirect } = useAuth0();
 
   const handleLogin = async () => {
     await loginWithRedirect({
       appState: {
-        returnTo: "/profile",
+        returnTo: '/profile',
       },
     });
   };
 
   return (
-    <UI.Theme className={twMerge(className,clsx(['bg-primary']))} dataTheme={theme}>
-      <UI.Button onClick={handleLogin}>Login</UI.Button>
-    </UI.Theme>
+    <Theme className={twMerge(className, clsx(['bg-primary']))} dataTheme={theme}>
+      <Button onClick={handleLogin}>Login</Button>
+    </Theme>
   );
-}
+};
 
-// Basic Logout button for auth0
-export const LogoutButton = (props: React.ReactNode<ButtonProps>): React.JSX.Element => {
-    // const {isAuthorized, user} = useAuth0();
-
-  const { theme, className } = props;
+// Logout Button
+export const LogoutButton: React.FC<ButtonProps> = ({ theme = 'dark', className }) => {
   const { logout } = useAuth0();
 
   const handleLogout = () => {
@@ -49,37 +44,37 @@ export const LogoutButton = (props: React.ReactNode<ButtonProps>): React.JSX.Ele
     });
   };
 
-    return (
-      <UI.Theme className={twMerge(className,clsx(['bg-primary']))} dataTheme={theme}>
-        <UI.Button onClick={handleLogout}>Logout</UI.Button>
-      </UI.Theme>
-    );
-}
+  return (
+    <Theme className={twMerge(className, clsx(['bg-primary']))} dataTheme={theme}>
+      <Button onClick={handleLogout}>Logout</Button>
+    </Theme>
+  );
+};
 
-export const SignupButton = (props: React.ReactNode<ButtonProps>): React.JSX.Element => {
-  const { theme, className } = props;
+// Signup Button
+export const SignupButton: React.FC<ButtonProps> = ({ theme = 'dark', className }) => {
   const { loginWithRedirect } = useAuth0();
 
   const handleSignUp = async () => {
     await loginWithRedirect({
       appState: {
-        returnTo: "/profile",
+        returnTo: '/profile',
       },
       authorizationParams: {
-        screen_hint: "signup",
+        screen_hint: 'signup',
       },
     });
   };
 
   return (
-    <UI.Theme className={twMerge(className,clsx(['bg-primary']))}>
-      <UI.Button onClick={handleSignUp}>Logout</UI.Button>
-    </UI.Theme>
+    <Theme className={twMerge(className, clsx(['bg-primary']))} dataTheme={theme}>
+      <Button onClick={handleSignUp}>Sign Up</Button>
+    </Theme>
   );
 };
 
-export default Object.assign("AuthElement", {
-    SignupButton,
-    LoginButton,
-    LogoutButton
-});
+export default {
+  LoginButton,
+  LogoutButton,
+  SignupButton,
+};

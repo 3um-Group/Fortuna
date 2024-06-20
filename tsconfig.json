@@ -1,39 +1,19 @@
 {
-  "types": ["react/next", "react-dom/next"],
   "compilerOptions": {
-    "baseUrl": ".",
-    "traceResolution": false,
-    "outDir": "dist",
-    "module": "esnext",
-    "target": "es5",
-    "lib": ["es6", "dom"],
-    "sourceMap": true,
+    "target": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "jsx": "react-jsx",
-    "moduleResolution": "bundler",
-    "rootDir": "src",
+    "skipLibCheck": true,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "importHelpers": true,
-    "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": false,
-    "noUnusedLocals": true,
-    "paths": {
-      "@views/*": ["dist/components/*"],
-      "@api/*": ["dist/api/*"]
-    }
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx"
   },
-  "exclude": [
-    "node_modules",
-    "build",
-    "scripts",
-    "acceptance-tests",
-    "webpack",
-    "jest",
-    "src/setupTests.ts",
-    "scripts/*.js",
-    "tailwind.config.js"
-  ]
+  "include": ["src", "tmp", "types", "types.d.ts"],
+  "exclude": ["node_modules"]
 }

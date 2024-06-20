@@ -1,5 +1,4 @@
-//import * as React from 'react';
-
+import * as React from 'react';
 import { Button } from './Button';
 import './header.css';
 
@@ -14,7 +13,7 @@ interface HeaderProps {
   onCreateAccount: () => void;
 }
 
-export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps) => (
+export const Header: React.FC<HeaderProps> = ({ user, onLogin, onLogout, onCreateAccount }) => (
   <header>
     <div className="storybook-header">
       <div>

@@ -2,6 +2,10 @@ const playwright = require('playwright');
 const { setConfig } = require('storybook-addon-playwright/configs');
 const { toMatchScreenshots } = require('storybook-addon-playwright');
 
+import { toMatchImageSnapshot } from 'jest-image-snapshot';
+
+expect.extend({ toMatchImageSnapshot });
+
 expect.extend({ toMatchScreenshots });
 
 let browser = {};

@@ -1,13 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-
 import WalletView from '.';
-
-export const Story: StoryObj<typeof WalletView> = {
-  args: {
-    contractAddress: 'fubar',
-    abi: "fazbar"
-  }
-};
 
 export const MetaStory:Meta<typeof WalletView> = {
   title: 'WalletView/UX/Compoent',
@@ -16,3 +8,5 @@ export const MetaStory:Meta<typeof WalletView> = {
 };
 
 export default MetaStory;
+
+export const Story: StoryObj<typeof WalletView> = { args: {contractAddress: 'fubar', abi: "fazbar"}};

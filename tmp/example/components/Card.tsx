@@ -1,24 +1,25 @@
-import type { Web3ReactHooks } from '@web3-react/core'
-import type { MetaMask } from '@web3-react/metamask'
-import type { Network } from '@web3-react/network'
+// Card.tsx
+import type { Web3ReactHooks } from '@web3-react/core';
+import type { MetaMask } from '@web3-react/metamask';
+import type { Network } from '@web3-react/network';
 
-import { getName } from '../utils'
-import { Accounts } from './Accounts'
-import { Chain } from './Chain'
-import { ConnectWithSelect } from './ConnectWithSelect'
-import { Status } from './Status'
+import { getName } from '../utils';
+import { Accounts } from './Accounts';
+import { Chain } from './Chain';
+import { ConnectWithSelect } from './ConnectWithSelect';
+import { Status } from './Status';
 
 interface Props {
-  connector: MetaMask | Network
-  activeChainId: ReturnType<Web3ReactHooks['useChainId']>
-  chainIds?: ReturnType<Web3ReactHooks['useChainId']>[]
-  isActivating: ReturnType<Web3ReactHooks['useIsActivating']>
-  isActive: ReturnType<Web3ReactHooks['useIsActive']>
-  error: Error | undefined
-  setError: (error: Error | undefined) => void
-  ENSNames: ReturnType<Web3ReactHooks['useENSNames']>
-  provider?: ReturnType<Web3ReactHooks['useProvider']>
-  accounts?: string[]
+  connector: MetaMask | Network;
+  activeChainId: ReturnType<Web3ReactHooks['useChainId']>;
+  chainIds?: ReturnType<Web3ReactHooks['useChainId']>[];
+  isActivating: ReturnType<Web3ReactHooks['useIsActivating']>;
+  isActive: ReturnType<Web3ReactHooks['useIsActive']>;
+  error: Error | undefined;
+  setError: React.Dispatch<React.SetStateAction<Error | undefined>>;
+  ENSNames: ReturnType<Web3ReactHooks['useENSNames']>;
+  provider?: ReturnType<Web3ReactHooks['useProvider']>;
+  accounts?: string[];
 }
 
 export function Card({
@@ -65,5 +66,5 @@ export function Card({
         setError={setError}
       />
     </div>
-  )
+  );
 }

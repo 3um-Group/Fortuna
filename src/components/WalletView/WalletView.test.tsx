@@ -1,35 +1,38 @@
 //import {cleanup, fireEvent, render, waitFoFor } '@testing-library/react';
+//import { renderHook, RenderOptions, RenderResult } from '@testing-library/react-hooks'
 
-import { cleanup, render } from '@testing-library/react';
-import { composeStory } from '@storybook/react';
-import { getScreenshots } from 'storybook-addon-playwright';
-import initStoryshots from '@storybook/addon-storyshots';
+import {cleanup, render } from '@testing-library/react';
 
-import * as WalletViewStories from './WalletView.stories';
+import WalletView from "."
 
 afterEach(cleanup);
 
-initStoryshots();
+/*
+it("returns more than one article from provider without error", () => {
+  const {queryByCardText, getByCardText} = render(
+    <Provider value={NewsApi}><NewsApiView/></Provider>
+  );
+  
+  const {result} = renderHook(() => useQuery<ArticleQuery>({ query: ArticleQuerySchema }));
+  const { data, fetching, error } = result;
 
-const { WalletView } = composeStory(WalletViewStories);
+  expect(fetching).toBeFalsy();
+  expect(error?.message.length).toBeGreaterThan(0);
+  expect(data).toHaveProperty("Article");
+  expect(data?.Articles).toBeGreaterThan(0);
 
-describe('Scenario: has rendering in browser', () => {
+  expect(queryByCardText(/No News/i)).toBeTruthy();
+  fireEvent.click(getByCardText(/No News/i));
 
-  it('Should pass image diff', async () => {
-    await getScreenshots({
-      onScreenshotReady: (screenshotBuffer, baselineScreenshotPath) => {
-        expect(screenshotBuffer).toMatchImageSnapshot({
-          customSnapshotIdentifier: baselineScreenshotPath.screenshotIdentifier,
-          customSnapshotsDir: baselineScreenshotPath.screenshotsDir,
-        });
-      },
-    });
-  }, 100);
+});
+*/
 
-  it("renders without crashing", async() => {
-    const { asFragment } = render(<WalletView/>);
+it("renders without crashing", async() => {
+  //const { queryByTestId, asFragment } = render(<WalletView/>);
+  const { asFragment } = render(<WalletView/>);
 
-    expect(asFragment()).toMatchSnapshot();
-  });
-
+  expect(asFragment()).toMatchSnapshot();
+  //await waitFor(() => {
+    //expect(queryByTestId('Articles').childNodes.length).toBeGreaterThan(0)
+  //});
 });

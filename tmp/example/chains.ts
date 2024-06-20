@@ -56,25 +56,30 @@ const getAlchemyUrlFor = (network: string) =>
 
 type ChainConfig = { [chainId: number]: BasicChainInformation | ExtendedChainInformation }
 
+const filterValidUrls = (urls: (string | undefined)[]): string[] => {
+  return urls.filter((url): url is string => url !== undefined);
+};
+
+
 export const MAINNET_CHAINS: ChainConfig = {
   1: {
-    urls: [getInfuraUrlFor('mainnet'), getAlchemyUrlFor('eth-mainnet'), 'https://cloudflare-eth.com'].filter(Boolean),
+    urls: filterValidUrls([getInfuraUrlFor('mainnet'), getAlchemyUrlFor('eth-mainnet'), 'https://cloudflare-eth.com']),
     name: 'Mainnet',
   },
   10: {
-    urls: [getInfuraUrlFor('optimism-mainnet'), 'https://mainnet.optimism.io'].filter(Boolean),
+    urls: filterValidUrls([getInfuraUrlFor('optimism-mainnet'), 'https://mainnet.optimism.io']),
     name: 'Optimism',
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://optimistic.etherscan.io'],
   },
   42161: {
-    urls: [getInfuraUrlFor('arbitrum-mainnet'), 'https://arb1.arbitrum.io/rpc'].filter(Boolean),
+    urls: filterValidUrls([getInfuraUrlFor('arbitrum-mainnet'), 'https://arb1.arbitrum.io/rpc']),
     name: 'Arbitrum One',
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://arbiscan.io'],
   },
   137: {
-    urls: [getInfuraUrlFor('polygon-mainnet'), 'https://polygon-rpc.com'].filter(Boolean),
+    urls: filterValidUrls([getInfuraUrlFor('polygon-mainnet'), 'https://polygon-rpc.com']),
     name: 'Polygon Mainnet',
     nativeCurrency: MATIC,
     blockExplorerUrls: ['https://polygonscan.com'],
@@ -85,27 +90,27 @@ export const MAINNET_CHAINS: ChainConfig = {
     nativeCurrency: CELO,
     blockExplorerUrls: ['https://explorer.celo.org'],
   },
-}
+};
 
 export const TESTNET_CHAINS: ChainConfig = {
   5: {
-    urls: [getInfuraUrlFor('goerli')].filter(Boolean),
+    urls: filterValidUrls([getInfuraUrlFor('goerli')]),
     name: 'Görli',
   },
   420: {
-    urls: [getInfuraUrlFor('optimism-goerli'), 'https://goerli.optimism.io'].filter(Boolean),
+    urls: filterValidUrls([getInfuraUrlFor('optimism-goerli'), 'https://goerli.optimism.io']),
     name: 'Optimism Goerli',
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://goerli-explorer.optimism.io'],
   },
   421613: {
-    urls: [getInfuraUrlFor('arbitrum-goerli'), 'https://goerli-rollup.arbitrum.io/rpc'].filter(Boolean),
+    urls: filterValidUrls([getInfuraUrlFor('arbitrum-goerli'), 'https://goerli-rollup.arbitrum.io/rpc']),
     name: 'Arbitrum Goerli',
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://testnet.arbiscan.io'],
   },
   80001: {
-    urls: [getInfuraUrlFor('polygon-mumbai')].filter(Boolean),
+    urls: filterValidUrls([getInfuraUrlFor('polygon-mumbai')]),
     name: 'Polygon Mumbai',
     nativeCurrency: MATIC,
     blockExplorerUrls: ['https://mumbai.polygonscan.com'],
@@ -116,7 +121,7 @@ export const TESTNET_CHAINS: ChainConfig = {
     nativeCurrency: CELO,
     blockExplorerUrls: ['https://alfajores-blockscout.celo-testnet.org'],
   },
-}
+};
 
 export const CHAINS: ChainConfig = {
   ...MAINNET_CHAINS,
