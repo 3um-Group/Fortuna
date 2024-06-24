@@ -7,11 +7,8 @@ import { Client, Provider } from "urql";
 import LogRocket from 'logrocket';
 import setupLogRocketReact from 'logrocket-react';
 
-import {
-  RouterProvider,
-  createBrowserRouter,
-  redirect
-} from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
+
 
 import {usePageTracking} from './middleware/usePageTracking';
 
@@ -89,58 +86,32 @@ const App = (): React.JSX.Element => {
   });
   */
 
-  const router = createBrowserRouter([
-    {
-      path: "/login",
-      Component: LoginPage,
-      errorElement: (<ErrorView/>),
-    }, {
-      path: "/logout",
-      async action() {
-        // We signout in a "resource route" that we can hit from a fetcher.Form
-        //await fakeAuthProvider.signout();
-        return redirect("/");
-      }
-    },
-    {
-      path: "/callback",
-      Component: OauthCallback
-    },
-    {
-      id: "root",
-      path: "/",
-      Component: Layout,
-      errorElement: (<ErrorView/>),
-      children: [
-        {
-          path: "main",
-          errorElement: (<ErrorView/>),
-          element: (
-            <Provider value={Client}>
-              <UI.Loading/>
-              <AuthButtons/>
-            </Provider>
-          )
-        },
-        {
-          path: "protected",
-          loader: protectedLoader,
-          Component: ProtectedPage
-        },
-        {
-          path: "dashboard",
-          errorElement: (<ErrorView/>),
-          element: (
-            <RequireAuth>
-              <><h2>Protected page</h2></>
-            </RequireAuth>
-          )
-        }
-      ],
-    }
-  ]);
-
-  return (<RouterProvider router={router} />);
-}
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/logout" element={<ErrorView />} /> {/* Handle logout logic elsewhere */}
+        <Route path="/callback" element={<OauthCallback />} />
+        <Route path="/protected" element={
+          <RequireAuth>
+            <ProtectedPage />
+          </RequireAuth>
+        } />
+        <Route path="/dashboard" element={
+          <RequireAuth>
+            <h2>Protected page</h2>
+          </RequireAuth>
+        } />
+        <Route path="/" element={
+          <Provider value={Client}>
+            <Loading />
+            <AuthButtons />
+          </Provider>
+        } />
+        <Route path="*" element={<ErrorView />} />
+      </Routes>
+    </Layout>
+  );
+};
 
 export default App;
