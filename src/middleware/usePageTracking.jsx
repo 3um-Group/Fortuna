@@ -5,10 +5,12 @@ export const usePageTracking = () => {
   const location = useLocation();
 
   useEffect(() => {
-    window.gtag("event", "page_view", {
-      page_path: location.pathname + location.search + location.hash,
-      page_search: location.search,
-      page_hash: location.hash,
-    });
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", "page_view", {
+        page_path: location.pathname + location.search + location.hash,
+        page_search: location.search,
+        page_hash: location.hash,
+      });
+    }
   }, [location]);
 };
