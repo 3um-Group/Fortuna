@@ -18,9 +18,9 @@ const Auth0ProviderWithNavigate = (props: Auth0ProviderWithNavigateProps) => {
   const {children} = props
   const navigate = useNavigate();
 
-  const domain = process.env.REACT_APP_AUTH0_DOMAIN;
-  const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
-  const redirectUri = process.env.REACT_APP_AUTH0_CALLBACK_URL;
+  const domain = "3umgroup-idp.us.auth0.com";
+  const clientId = "QHEYXUwTI9Ga8vXvzB3os7ZjW6u00yIX"
+  const redirectUri = "http://app.3umgroup.com/callback"
 
   const onRedirectCallback = (appStat: any) => {
     navigate(appStat?.returnTo || window.location.pathname)

@@ -4,8 +4,8 @@ import clsx from 'clsx';
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { Client, Provider } from "urql";
-import LogRocket from 'logrocket';
-import setupLogRocketReact from 'logrocket-react';
+// import LogRocket from 'logrocket';
+// import setupLogRocketReact from 'logrocket-react';
 
 import { Routes, Route } from 'react-router-dom';
 
@@ -16,7 +16,6 @@ import {
   LoginPage,
   Layout,
   ErrorView,
-  protectedLoader,
   ProtectedPage,
   RequireAuth
 } from './components/AppView';
@@ -75,8 +74,8 @@ const AuthButtons = (): React.JSX.Element => {
 const App = (): React.JSX.Element => {
   usePageTracking();
 
-  LogRocket.init('kmfzyf/secret-squirrel');
-  setupLogRocketReact(LogRocket);
+  // LogRocket.init('kmfzyf/secret-squirrel');
+  // setupLogRocketReact(LogRocket);
 
   /*
   LogRocket.identify('THE_USER_ID_IN_YOUR_LOGROCKET_APP', {
@@ -104,7 +103,6 @@ const App = (): React.JSX.Element => {
         } />
         <Route path="/" element={
           <Provider value={Client}>
-            <Loading />
             <AuthButtons />
           </Provider>
         } />
