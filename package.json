@@ -113,7 +113,7 @@
   },
   "dependencies": {
     "react-scripts": "^5.0.1",
-    "sb": "^7.5.3",
+    "sb": "^8.1.5",
     "typescript": ">=5.0",
     "webpack": "^5.88.2"
   },
