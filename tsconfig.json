@@ -9,7 +9,6 @@
     "lib": ["es6", "dom"],
     "sourceMap": true,
     "allowJs": true,
-    "jsx": "react-jsx",
     "moduleResolution": "bundler",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
@@ -23,7 +22,10 @@
     "paths": {
       "@views/*": ["dist/components/*"],
       "@api/*": ["dist/api/*"]
-    }
+    },
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "node_modules",
