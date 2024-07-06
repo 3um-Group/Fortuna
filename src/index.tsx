@@ -31,10 +31,7 @@ const Auth0ProviderWithNavigate = (props: Auth0ProviderWithNavigateProps) => {
   if (!(process.env.REACT_APP_AUTH0_DOMAIN && process.env.REACT_APP_AUTH0_CLIENT_ID )) {
     return null
   }
-  if (isDevelopment()) {
-    console.log('This is the development environment',process.env.REACT_APP_AUTH0_CALLBACK_URL);
-    
-  }
+
   return (
     <Auth0Provider
       domain={process.env.REACT_APP_AUTH0_DOMAIN}
