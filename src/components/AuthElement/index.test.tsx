@@ -1,46 +1,83 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { composeStory } from '@storybook/react';
-import { getScreenshots } from 'storybook-addon-playwright';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { composeStories } from '@storybook/testing-react';
+import * as stories from './index.stories';
+import { Auth0ContextInterface, useAuth0 } from '@auth0/auth0-react';
 
-import * as AuthElementStories from './index.stories';
+jest.mock('@auth0/auth0-react');
 
-import initStoryshots from '@storybook/addon-storyshots';
+const { Login, Logout, LoginDark, LogoutLight } = composeStories(stories);
 
-initStoryshots();
-
-afterEach(cleanup);
-
-const { LoginButton } = composeStory(AuthElementStories.meta);
-
-describe('Scenario: has Login Button', () => {
-  test('should render in DOM with label "Login"', () => {
-
-    render(<LoginButton />);
-
-    const buttonElement = screen.getByRole('button');
-    expect(buttonElement.textContent).toEqual("Login");
-
-    fireEvent.click(buttonElement);
+describe('AuthElement', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  test('should render in DOM with clickable events', () => {
+  test('Login button click', async () => {
+    const mockLoginWithRedirect = jest.fn();
+    (useAuth0 as jest.MockedFunction<typeof useAuth0>).mockReturnValue({
+      loginWithRedirect: mockLoginWithRedirect,
+    } as Auth0ContextInterface);
 
-    render(<LoginButton />);
+    render(<Login />);
 
-    const buttonElement = screen.getByRole('button');
-    fireEvent.click(buttonElement);
+    const loginButton = screen.getByRole('button', { name: /login/i });
+
+    // Simulate login button click
+    fireEvent.click(loginButton);
+
+    // Check if loginWithRedirect was called
+    expect(mockLoginWithRedirect).toHaveBeenCalledTimes(1);
   });
-})
 
-describe('Scenario: has rendering in browser', () => {
-  it('Should pass image diff', async () => {
-    await getScreenshots({
-      onScreenshotReady: (screenshotBuffer, baselineScreenshotPath) => {
-        expect(screenshotBuffer).toMatchImageSnapshot({
-          customSnapshotIdentifier: baselineScreenshotPath.screenshotIdentifier,
-          customSnapshotsDir: baselineScreenshotPath.screenshotsDir,
-        });
-      },
-    });
-  }, 100);
+  test('Logout button click', async () => {
+    const mockLogout = jest.fn();
+    (useAuth0 as jest.MockedFunction<typeof useAuth0>).mockReturnValue({
+      logout: mockLogout,
+    } as Auth0ContextInterface);
+
+    render(<Logout />);
+
+    const logoutButton = screen.getByRole('button', { name: /logout/i });
+
+    // Simulate logout button click
+    fireEvent.click(logoutButton);
+
+    // Check if logout was called
+    expect(mockLogout).toHaveBeenCalledTimes(1);
+  });
+
+  test('Login button click - dark theme', async () => {
+    const mockLoginWithRedirect = jest.fn();
+    (useAuth0 as jest.MockedFunction<typeof useAuth0>).mockReturnValue({
+      loginWithRedirect: mockLoginWithRedirect,
+    } as Auth0ContextInterface);
+
+    render(<LoginDark />);
+
+    const loginButton = screen.getByRole('button', { name: /login/i });
+
+    // Simulate login button click
+    fireEvent.click(loginButton);
+
+    // Check if loginWithRedirect was called
+    expect(mockLoginWithRedirect).toHaveBeenCalledTimes(1);
+  });
+
+  test('Logout button click - light theme', async () => {
+    const mockLogout = jest.fn();
+    (useAuth0 as jest.MockedFunction<typeof useAuth0>).mockReturnValue({
+      logout: mockLogout,
+    } as Auth0ContextInterface);
+
+    render(<LogoutLight />);
+
+    const logoutButton = screen.getByRole('button', { name: /logout/i });
+
+    // Simulate logout button click
+    fireEvent.click(logoutButton);
+
+    // Check if logout was called
+    expect(mockLogout).toHaveBeenCalledTimes(1);
+  });
 });

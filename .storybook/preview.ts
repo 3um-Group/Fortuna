@@ -1,4 +1,5 @@
 import type { Preview } from "@storybook/react";
+import '../src/index.css'
 
 const preview: Preview = {
   parameters: {
@@ -9,6 +10,8 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    // Enable interactions debugger
+    interactions: { panelPosition: 'bottom' },
   },
 };
 
