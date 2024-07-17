@@ -1,60 +1,87 @@
-import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+// import React from 'react';
+// import React from 'react';
+import { Story, Meta } from '@storybook/react';
+import { Auth0Provider } from '@auth0/auth0-react'; // Import Auth0Provider
 import { LoginButton, LogoutButton } from './index';
-import { Auth0Provider } from '@auth0/auth0-react';
+
+type ButtonProps = {
+  theme: string;
+  className?: string;
+};
 
 export default {
-  title: 'AuthElement',
-  component: LoginButton,
-} as ComponentMeta<typeof LoginButton>;
+  title: 'Components/AuthElement',
+  component: LoginButton, // We'll use LoginButton as the primary component
+  decorators: [
+    (Story) => (
+      <Auth0Provider
+      domain={process.env.REACT_APP_AUTH0_DOMAIN || ''}
+      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ''}
+      >
+        <Story />
+      </Auth0Provider>
+    ),
+  ],
+} as Meta;
 
-const MockAuth0Provider: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <Auth0Provider
-    domain={process.env.REACT_APP_AUTH0_DOMAIN || ''}
-    clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ''}
-    authorizationParams={{
-      redirect_uri: window.location.origin,
-    }}
-  >
-    {children}
-  </Auth0Provider>
-);
+// Template for LoginButton
+const LoginButtonTemplate: Story<ButtonProps> = (args) => <LoginButton {...args} />;
 
-const LoginTemplate: ComponentStory<typeof LoginButton> = (args) => (
-  <MockAuth0Provider>
-    <LoginButton {...args} />
-  </MockAuth0Provider>
-);
-
-
-
-const LogoutTemplate: ComponentStory<typeof LogoutButton> = (args) => (
-  <MockAuth0Provider>
-    <LogoutButton {...args} />
-  </MockAuth0Provider>
-);
-
-export const Login = LoginTemplate.bind({});
+export const Login = LoginButtonTemplate.bind({});
 Login.args = {
   theme: 'light',
-  className: 'bg-gray-100',
+  className: '',
+};
+Login.argTypes = {
+  theme: {
+    control: 'select',
+    options: ['light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate', 'synthwave', 'retro', 'cyberpunk'],
+  },
+  className: {
+    control: 'text',
+  },
 };
 
-export const Logout = LogoutTemplate.bind({});
+// Template for LogoutButton
+const LogoutButtonTemplate: Story<ButtonProps> = (args) => <LogoutButton {...args} />;
+
+export const Logout = LogoutButtonTemplate.bind({});
 Logout.args = {
-  theme: 'dark',
-  className: 'bg-gray-800',
-};
-
-// Variations
-export const LoginDark = LoginTemplate.bind({});
-LoginDark.args = {
-  theme: 'dark',
-  className: 'bg-gray-800',
-};
-
-export const LogoutLight = LogoutTemplate.bind({});
-LogoutLight.args = {
   theme: 'light',
-  className: 'bg-gray-100',
+  className: '',
+};
+Logout.argTypes = {
+  theme: {
+    control: 'select',
+    options: ['light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate', 'synthwave', 'retro', 'cyberpunk'],
+  },
+  className: {
+    control: 'text',
+  },
+};
+
+// Combined AuthElement story
+const AuthElementTemplate: Story<ButtonProps & { isLoggedIn: boolean }> = ({ isLoggedIn, ...args }) => (
+  <div>
+    {isLoggedIn ? <LogoutButton {...args} /> : <LoginButton {...args} />}
+  </div>
+);
+
+export const AuthElementCombined = AuthElementTemplate.bind({});
+AuthElementCombined.args = {
+  theme: 'light',
+  className: '',
+  isLoggedIn: false,
+};
+AuthElementCombined.argTypes = {
+  theme: {
+    control: 'select',
+    options: ['light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate', 'synthwave', 'retro', 'cyberpunk'],
+  },
+  className: {
+    control: 'text',
+  },
+  isLoggedIn: {
+    control: 'boolean',
+  },
 };

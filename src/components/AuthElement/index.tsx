@@ -1,6 +1,6 @@
 import React from 'react';
 import * as UI from 'react-daisyui';
-import { twMerge } from 'tailwind-merge';
+// import { twMerge } from 'tailwind-merge';
 import { useAuth0 } from "@auth0/auth0-react";
 
 type ButtonProps = {
@@ -17,12 +17,13 @@ export const LoginButton: React.FC<ButtonProps> = ({ theme, className }) => {
   };
 
   return (
-    <UI.Theme
-      className={twMerge('flex justify-center items-center h-10', className)}
-      dataTheme={theme}
-    >
-      <UI.Button onClick={handleLogin}>Login</UI.Button>
-    </UI.Theme>
+    // <UI.Theme
+    //   className={twMerge('flex justify-center items-center h-10', className)}
+    //   dataTheme={theme}
+    // >
+    
+      <UI.Button  dataTheme={theme} onClick={handleLogin}>Login</UI.Button>
+    // </UI.Theme>
   );
 }
 
@@ -39,12 +40,12 @@ export const LogoutButton: React.FC<ButtonProps> = ({ theme, className }) => {
   };
 
   return (
-    <UI.Theme
-      className={twMerge('flex justify-center items-center h-10', className)}
-      dataTheme={theme}
-    >
-      <UI.Button onClick={handleLogout}>Logout</UI.Button>
-    </UI.Theme>
+    // <UI.Theme
+    //   className={twMerge('flex justify-center items-center h-10', className)}
+    //   dataTheme={theme}
+    // >
+      <UI.Button  dataTheme={theme} onClick={handleLogout}>Logout</UI.Button>
+    // </UI.Theme>
   );
 }
 

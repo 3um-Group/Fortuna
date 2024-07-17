@@ -1,5 +1,7 @@
 import type { Preview } from "@storybook/react";
-import '../src/index.css'
+import { withTests } from '@storybook/addon-jest';
+
+import '../src/index.css';
 
 const preview: Preview = {
   parameters: {
@@ -13,6 +15,11 @@ const preview: Preview = {
     // Enable interactions debugger
     interactions: { panelPosition: 'bottom' },
   },
+  decorators: [
+    withTests({
+      results: [], // You can load your Jest results here if needed
+    }),
+  ],
 };
 
 export default preview;
