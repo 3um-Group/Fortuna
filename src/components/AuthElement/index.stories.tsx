@@ -1,34 +1,38 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { LoginButton, LogoutButton } from './index';
-import { Auth0Provider } from "@auth0/auth0-react";
+import { Auth0Provider } from '@auth0/auth0-react';
 
-// Mock Auth0Provider for Storybook
-const MockAuth0Provider = ({ children }: { children: React.ReactNode }) => (
+export default {
+  title: 'AuthElement',
+  component: LoginButton,
+} as ComponentMeta<typeof LoginButton>;
+
+const MockAuth0Provider: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <Auth0Provider
-  domain={process.env.REACT_APP_AUTH0_DOMAIN}
-  clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
+    domain={process.env.REACT_APP_AUTH0_DOMAIN || ''}
+    clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ''}
     authorizationParams={{
-      redirect_uri: window.location.origin
+      redirect_uri: window.location.origin,
     }}
   >
     {children}
   </Auth0Provider>
 );
 
-export default {
-  title: 'Components/AuthElement',
-  decorators: [
-    (Story) => (
-      <MockAuth0Provider>
-        <Story />
-      </MockAuth0Provider>
-    ),
-  ],
-} as Meta;
+const LoginTemplate: ComponentStory<typeof LoginButton> = (args) => (
+  <MockAuth0Provider>
+    <LoginButton {...args} />
+  </MockAuth0Provider>
+);
 
-const LoginTemplate: Story = (args) => <LoginButton {...args} />;
-const LogoutTemplate: Story = (args) => <LogoutButton {...args} />;
+
+
+const LogoutTemplate: ComponentStory<typeof LogoutButton> = (args) => (
+  <MockAuth0Provider>
+    <LogoutButton {...args} />
+  </MockAuth0Provider>
+);
 
 export const Login = LoginTemplate.bind({});
 Login.args = {

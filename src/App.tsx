@@ -9,15 +9,13 @@ import Header from './components/Header/Header';
 // };
 
 const App: React.FC = () => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated } = useAuth0();
   console.log("Authorized ?", isAuthenticated)
 
   return (
     <>
-      <Header isLoggedIn={isAuthenticated} onLogin={() => loginWithRedirect()} onLogout={() => logout({
-        returnTo: window.location.origin,
-      })} />
-
+      <Header isLoggedIn={isAuthenticated}
+      />
       {isAuthenticated && <p>Welcome! You are logged in.</p>}
     </>
   );

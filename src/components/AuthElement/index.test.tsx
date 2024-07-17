@@ -13,11 +13,25 @@ describe('AuthElement', () => {
     jest.clearAllMocks();
   });
 
+  const mockAuth0Context: Auth0ContextInterface = {
+    isAuthenticated: false,
+    user: undefined,
+    isLoading: false,
+    getAccessTokenSilently: jest.fn(),
+    getAccessTokenWithPopup: jest.fn(),
+    getIdTokenClaims: jest.fn(),
+    loginWithRedirect: jest.fn(),
+    loginWithPopup: jest.fn(),
+    logout: jest.fn(),
+    handleRedirectCallback: jest.fn(), // Add this line
+  };
+
   test('Login button click', async () => {
     const mockLoginWithRedirect = jest.fn();
     (useAuth0 as jest.MockedFunction<typeof useAuth0>).mockReturnValue({
+      ...mockAuth0Context,
       loginWithRedirect: mockLoginWithRedirect,
-    } as Auth0ContextInterface);
+    });
 
     render(<Login />);
 
@@ -33,8 +47,9 @@ describe('AuthElement', () => {
   test('Logout button click', async () => {
     const mockLogout = jest.fn();
     (useAuth0 as jest.MockedFunction<typeof useAuth0>).mockReturnValue({
+      ...mockAuth0Context,
       logout: mockLogout,
-    } as Auth0ContextInterface);
+    });
 
     render(<Logout />);
 
@@ -50,8 +65,9 @@ describe('AuthElement', () => {
   test('Login button click - dark theme', async () => {
     const mockLoginWithRedirect = jest.fn();
     (useAuth0 as jest.MockedFunction<typeof useAuth0>).mockReturnValue({
+      ...mockAuth0Context,
       loginWithRedirect: mockLoginWithRedirect,
-    } as Auth0ContextInterface);
+    });
 
     render(<LoginDark />);
 
@@ -67,8 +83,9 @@ describe('AuthElement', () => {
   test('Logout button click - light theme', async () => {
     const mockLogout = jest.fn();
     (useAuth0 as jest.MockedFunction<typeof useAuth0>).mockReturnValue({
+      ...mockAuth0Context,
       logout: mockLogout,
-    } as Auth0ContextInterface);
+    });
 
     render(<LogoutLight />);
 

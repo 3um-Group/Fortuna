@@ -1,15 +1,14 @@
-// components/Header/Header.tsx
-import React, { useState } from 'react';
-import Button from '../Button/Button';
+import { useState } from 'react';
+import { LoginButton, LogoutButton } from '../AuthElement';
 import NavLink from '../NavLink/NavLink';
-// import logo from '../../../public/assets/3UM-dark-logo.png'
+
 interface HeaderProps {
     isLoggedIn: boolean;
-    onLogin: () => void;
-    onLogout: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ isLoggedIn, onLogin, onLogout }) => {
+const theme = 'dark';
+
+const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
@@ -17,9 +16,9 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, onLogin, onLogout }) => {
             <div className="container mx-auto flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                     {/* Desktop logo */}
-                    <img src="" alt="Full Logo" className="h-8 md:block hidden" />
+                    <img src="/assets/3UM-dark-logo.png" alt="Full Logo" className="h-8 md:block hidden" />
                     {/* Mobile logo */}
-                    <img src="" alt="Icon Logo" className="h-8 w-8 md:hidden block rounded-full" />
+                    <img src="/assets/3UM-icon-logo.png" alt="Icon Logo" className="h-8 w-8 md:hidden block rounded-full" />
                     <nav className="hidden md:flex space-x-4">
                         <NavLink href="/" className="hover:text-gray-300">Buy</NavLink>
                         <NavLink href="/stake" className="hover:text-gray-300">Stake</NavLink>
@@ -28,11 +27,10 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, onLogin, onLogout }) => {
                 </div>
 
                 <div className="hidden md:flex items-center space-x-4">
-
                     {isLoggedIn ? (
-                        <Button onClick={onLogout} className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">Logout</Button>
+                        <LogoutButton theme={theme} />
                     ) : (
-                        <Button onClick={onLogin} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Sign up or Log In</Button>
+                        <LoginButton theme={theme} />
                     )}
                 </div>
 
@@ -53,13 +51,13 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, onLogin, onLogout }) => {
                     <nav className="flex flex-col space-y-2">
                         <NavLink href="/" className="hover:text-gray-300">Buy</NavLink>
                         <NavLink href="/stake" className="hover:text-gray-300">Stake</NavLink>
-                        <NavLink href="/Farm" className="hover:text-gray-300">Farm</NavLink>
+                        <NavLink href="/farm" className="hover:text-gray-300">Farm</NavLink>
                     </nav>
                     <div className="mt-4">
                         {isLoggedIn ? (
-                            <Button onClick={onLogout} className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">Logout</Button>
+                            <LogoutButton theme={theme} />
                         ) : (
-                            <Button onClick={onLogin} className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Sign up or Log In</Button>
+                            <LoginButton theme={theme} />
                         )}
                     </div>
                 </div>
