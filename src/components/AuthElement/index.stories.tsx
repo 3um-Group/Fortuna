@@ -1,7 +1,5 @@
-// import React from 'react';
-// import React from 'react';
 import { Story, Meta } from '@storybook/react';
-import { Auth0Provider } from '@auth0/auth0-react'; // Import Auth0Provider
+import { Auth0Provider } from '@auth0/auth0-react'; 
 import { LoginButton, LogoutButton } from './index';
 
 type ButtonProps = {
@@ -10,8 +8,8 @@ type ButtonProps = {
 };
 
 export default {
-  title: 'Components/AuthElement',
-  component: LoginButton, // We'll use LoginButton as the primary component
+  title: '@3UM-Components/AuthElements',
+  component: LoginButton, 
   decorators: [
     (Story) => (
       <Auth0Provider
