@@ -1,48 +1,67 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+// import React from 'react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { composeStories } from '@storybook/testing-react';
-import * as stories from './index.stories';
-import { useAuth0 } from '@auth0/auth0-react';
+import { LoginButton, LogoutButton } from './index';
 
-jest.mock('@auth0/auth0-react');
+// Mock the useAuth0 hook
+const loginWithRedirectMock = jest.fn();
+const logoutMock = jest.fn();
 
-const { Login, Logout } = composeStories(stories);
+jest.mock('@auth0/auth0-react', () => ({
+  useAuth0: () => ({
+    loginWithRedirect: loginWithRedirectMock,
+    logout: logoutMock,
+  }),
+}));
 
 describe('AuthElement', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
+  describe('LoginButton', () => {
+    it('renders correctly', () => {
+      render(<LoginButton theme="light" />);
+      expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
+    });
+
+    it('calls loginWithRedirect when clicked', async () => {
+      render(<LoginButton theme="light" />);
+      const button = screen.getByRole('button', { name: /login/i });
+      
+      await act(async () => {
+        fireEvent.click(button);
+      });
+  
+      expect(loginWithRedirectMock).toHaveBeenCalled();
+    });
+
+    it('applies the correct theme', () => {
+      render(<LoginButton theme="dark" />);
+      expect(screen.getByRole('button', { name: /login/i })).toHaveAttribute('data-theme', 'dark');
+    });
   });
 
-  const mockLoginWithRedirect = jest.fn();
-  const mockLogout = jest.fn();
+  describe('LogoutButton', () => {
+    it('renders correctly', () => {
+      render(<LogoutButton theme="light" />);
+      expect(screen.getByRole('button', { name: /logout/i })).toBeInTheDocument();
+    });
 
-  (useAuth0 as jest.Mock).mockReturnValue({
-    isAuthenticated: false,
-    loginWithRedirect: mockLoginWithRedirect,
-    logout: mockLogout,
-  });
+    it('calls logout when clicked', async () => {
+      render(<LogoutButton theme="light" />);
+      const button = screen.getByRole('button', { name: /logout/i });
+      
+      await act(async () => {
+        fireEvent.click(button);
+      });
+  
+      expect(logoutMock).toHaveBeenCalledWith({
+        logoutParams: {
+          returnTo: window.location.origin,
+        },
+      });
+    });
 
-  test('Login button click', async () => {
-    render(<Login />);
-
-    const loginButton = screen.getByRole('button', { name: /login/i });
-
-    // Simulate login button click
-    fireEvent.click(loginButton);
-
-    // Check if loginWithRedirect was called
-    expect(mockLoginWithRedirect).toHaveBeenCalledTimes(1);
-  });
-
-  test('Logout button click', async () => {
-    render(<Logout />);
-
-    const logoutButton = screen.getByRole('button', { name: /logout/i });
-
-    // Simulate logout button click
-    fireEvent.click(logoutButton);
-
-    // Check if logout was called
-    expect(mockLogout).toHaveBeenCalledTimes(1);
+    it('applies the correct theme', () => {
+      render(<LogoutButton theme="dark" />);
+      expect(screen.getByRole('button', { name: /logout/i })).toHaveAttribute('data-theme', 'dark');
+    });
   });
 });
