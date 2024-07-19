@@ -43,35 +43,31 @@ export const LoggedOut: Story = {
   ...Template,
   args: {
     theme: 'light',
+    children: <LoginButton theme="light" />,
   },
-  render: (args) => (
-    <div data-theme={args.theme}>
-      <Header {...args}>
-        <LoginButton theme={args.theme || 'light'} />
-      </Header>
-    </div>
-  ),
 };
 
 export const LoggedIn: Story = {
   ...Template,
   args: {
     theme: 'light',
+    children: <LogoutButton theme="light" />,
   },
-  render: (args) => (
-    <div data-theme={args.theme}>
-      <Header {...args}>
-        <LogoutButton theme={args.theme || 'light'} />
-      </Header>
-    </div>
-  ),
+};
+
+export const DarkTheme: Story = {
+  ...Template,
+  args: {
+    theme: 'dark',
+    children: <LoginButton theme="dark" />,
+  },
 };
 
 export const NoAuthButtons: Story = {
   ...Template,
   args: {
     children: null,
-    theme: 'light',
+    theme: 'dark',
   },
 };
 
@@ -79,6 +75,6 @@ export const CustomContent: Story = {
   ...Template,
   args: {
     children: <button className="btn btn-primary">Custom Button</button>,
-    theme: 'light',
+    theme: 'dark',
   },
 };

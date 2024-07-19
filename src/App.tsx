@@ -9,7 +9,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      <Header>
+      <Header theme="dark">
         {isAuthenticated ? (
           <LogoutButton theme="dark" />
         ) : (

@@ -9,12 +9,16 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ children, theme = 'light' }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    // Function to determine which logo to use based on the theme
+    const getLogoSrc = () => {
+        return theme === 'dark' ? '/assets/3UM-white-logo.png' : '/assets/3UM-dark-logo.png';
+    };
+
     return (
-        <header className={`bg-base-100 text-base-content p-4 ${theme}`}>
+        <header className={`bg-base-100 text-base-content p-4 ${theme} border-b border-base-300 shadow-sm`}>
             <div className="container mx-auto flex justify-between items-center">
-                <div className="flex items-center space-x-4">
-                    <img src="/assets/3UM-dark-logo.png" alt="Full Logo" className="h-8 md:block hidden" />
-                    <img src="/assets/3UM-icon-logo.png" alt="Icon Logo" className="h-8 w-8 md:hidden block rounded-full" />
+                <div className="flex items-center space-x-10">
+                <img src={getLogoSrc()} alt="Logo" className="h-10 w-10" />
                     <nav className="hidden md:flex space-x-4">
                         <NavLink href="/" className="hover:text-primary">Buy</NavLink>
                         <NavLink href="/stake" className="hover:text-primary">Stake</NavLink>
