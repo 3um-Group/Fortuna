@@ -1,40 +1,31 @@
 import { useState } from 'react';
-import { LoginButton, LogoutButton } from '../AuthElement';
 import NavLink from '../NavLink/NavLink';
 
 interface HeaderProps {
-    isLoggedIn: boolean;
+    children: React.ReactNode;
+    theme?: string;
 }
 
-const theme = 'dark';
-
-const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
+const Header: React.FC<HeaderProps> = ({ children, theme = 'light' }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <header className="bg-gray-900 text-white p-4">
+        <header className={`bg-base-100 text-base-content p-4 ${theme}`}>
             <div className="container mx-auto flex justify-between items-center">
                 <div className="flex items-center space-x-4">
-                    {/* Desktop logo */}
                     <img src="/assets/3UM-dark-logo.png" alt="Full Logo" className="h-8 md:block hidden" />
-                    {/* Mobile logo */}
                     <img src="/assets/3UM-icon-logo.png" alt="Icon Logo" className="h-8 w-8 md:hidden block rounded-full" />
                     <nav className="hidden md:flex space-x-4">
-                        <NavLink href="/" className="hover:text-gray-300">Buy</NavLink>
-                        <NavLink href="/stake" className="hover:text-gray-300">Stake</NavLink>
-                        <NavLink href="/farm" className="hover:text-gray-300">Farm</NavLink>
+                        <NavLink href="/" className="hover:text-primary">Buy</NavLink>
+                        <NavLink href="/stake" className="hover:text-primary">Stake</NavLink>
+                        <NavLink href="/farm" className="hover:text-primary">Farm</NavLink>
                     </nav>
                 </div>
 
                 <div className="hidden md:flex items-center space-x-4">
-                    {isLoggedIn ? (
-                        <LogoutButton theme={theme} />
-                    ) : (
-                        <LoginButton theme={theme} />
-                    )}
+                    {children}
                 </div>
 
-                {/* Mobile menu button */}
                 <button
                     className="md:hidden"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -45,20 +36,15 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
                 </button>
             </div>
 
-            {/* Mobile menu */}
             {isMenuOpen && (
                 <div className="md:hidden mt-4">
                     <nav className="flex flex-col space-y-2">
-                        <NavLink href="/" className="hover:text-gray-300">Buy</NavLink>
-                        <NavLink href="/stake" className="hover:text-gray-300">Stake</NavLink>
-                        <NavLink href="/farm" className="hover:text-gray-300">Farm</NavLink>
+                        <NavLink href="/" className="hover:text-primary">Buy</NavLink>
+                        <NavLink href="/stake" className="hover:text-primary">Stake</NavLink>
+                        <NavLink href="/farm" className="hover:text-primary">Farm</NavLink>
                     </nav>
                     <div className="mt-4">
-                        {isLoggedIn ? (
-                            <LogoutButton theme={theme} />
-                        ) : (
-                            <LoginButton theme={theme} />
-                        )}
+                        {children}
                     </div>
                 </div>
             )}
