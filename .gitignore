@@ -137,3 +137,5 @@ yarn.lock
 ## Build assets
 docs
 playright-report
+
+*storybook.log

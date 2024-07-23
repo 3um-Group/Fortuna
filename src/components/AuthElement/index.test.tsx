@@ -1,46 +1,67 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { composeStory } from '@storybook/react';
-import { getScreenshots } from 'storybook-addon-playwright';
+// import React from 'react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { LoginButton, LogoutButton } from './index';
 
-import * as AuthElementStories from './index.stories';
+// Mock the useAuth0 hook
+const loginWithRedirectMock = jest.fn();
+const logoutMock = jest.fn();
 
-import initStoryshots from '@storybook/addon-storyshots';
+jest.mock('@auth0/auth0-react', () => ({
+  useAuth0: () => ({
+    loginWithRedirect: loginWithRedirectMock,
+    logout: logoutMock,
+  }),
+}));
 
-initStoryshots();
-
-afterEach(cleanup);
-
-const { LoginButton } = composeStory(AuthElementStories.meta);
-
-describe('Scenario: has Login Button', () => {
-  test('should render in DOM with label "Login"', () => {
-
-    render(<LoginButton />);
-
-    const buttonElement = screen.getByRole('button');
-    expect(buttonElement.textContent).toEqual("Login");
-
-    fireEvent.click(buttonElement);
-  });
-
-  test('should render in DOM with clickable events', () => {
-
-    render(<LoginButton />);
-
-    const buttonElement = screen.getByRole('button');
-    fireEvent.click(buttonElement);
-  });
-})
-
-describe('Scenario: has rendering in browser', () => {
-  it('Should pass image diff', async () => {
-    await getScreenshots({
-      onScreenshotReady: (screenshotBuffer, baselineScreenshotPath) => {
-        expect(screenshotBuffer).toMatchImageSnapshot({
-          customSnapshotIdentifier: baselineScreenshotPath.screenshotIdentifier,
-          customSnapshotsDir: baselineScreenshotPath.screenshotsDir,
-        });
-      },
+describe('AuthElement', () => {
+  describe('LoginButton', () => {
+    it('renders correctly', () => {
+      render(<LoginButton theme="light" />);
+      expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
     });
-  }, 100);
+
+    it('calls loginWithRedirect when clicked', async () => {
+      render(<LoginButton theme="light" />);
+      const button = screen.getByRole('button', { name: /login/i });
+      
+      await act(async () => {
+        fireEvent.click(button);
+      });
+  
+      expect(loginWithRedirectMock).toHaveBeenCalled();
+    });
+
+    it('applies the correct theme', () => {
+      render(<LoginButton theme="dark" />);
+      expect(screen.getByRole('button', { name: /login/i })).toHaveAttribute('data-theme', 'dark');
+    });
+  });
+
+  describe('LogoutButton', () => {
+    it('renders correctly', () => {
+      render(<LogoutButton theme="light" />);
+      expect(screen.getByRole('button', { name: /logout/i })).toBeInTheDocument();
+    });
+
+    it('calls logout when clicked', async () => {
+      render(<LogoutButton theme="light" />);
+      const button = screen.getByRole('button', { name: /logout/i });
+      
+      await act(async () => {
+        fireEvent.click(button);
+      });
+  
+      expect(logoutMock).toHaveBeenCalledWith({
+        logoutParams: {
+          returnTo: window.location.origin,
+        },
+      });
+    });
+
+    it('applies the correct theme', () => {
+      render(<LogoutButton theme="dark" />);
+      expect(screen.getByRole('button', { name: /logout/i })).toHaveAttribute('data-theme', 'dark');
+    });
+  });
 });

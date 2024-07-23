@@ -163,7 +163,7 @@ export const Layout = ({...props}): React.JSX.Element => {
                     <Link to="/">Home</Link>
                 </UI.Menu.Item>
                 <UI.Menu.Item>
-                    <Link to="/logout">Log out</Link>
+                    <Link to="/about">Log out</Link>
                 </UI.Menu.Item>
             </UI.Menu>}>
             <UI.Button color="primary" onClick={toggleVisible}>
