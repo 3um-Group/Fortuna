@@ -13,7 +13,7 @@ const OPTIONS: EmblaOptionsType = { dragFree: true, loop: true, slidesToScroll: 
 const SLIDE_COUNT = 5
 // const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
 
-const SLIDES = Array.from(Array(SLIDE_COUNT).keys()).map(i => `/properties/property${i + 1}.jpg`);
+const SLIDES = Array.from(Array(SLIDE_COUNT).keys()).map(i => `/assets/properties/property${i + 1}.jpg`);
 
 console.log(SLIDES)
 console.log(OPTIONS)
