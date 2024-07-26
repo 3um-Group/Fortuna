@@ -3,7 +3,8 @@ FROM node:20.14-bookworm-slim
 WORKDIR /src
 COPY . /src
 #RUN apk add git && \
-RUN apt-get install git && \
+RUN apt-get update && \
+    apt-get install -y git && \
     npm install -g npm@10.2.3 && \
     yarn add storybook-addon-playwright @storybook/addon-knobs --dev
 #RUN chown -R node. /src

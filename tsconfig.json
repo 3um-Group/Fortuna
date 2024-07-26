@@ -29,7 +29,10 @@
     "noUnusedLocals": true,
     "paths": {
       "@views/*": ["dist/components/*"],
-      "@api/*": ["dist/api/*"]
+      "@api/*": ["dist/api/*"],
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
   "include": ["src"],
