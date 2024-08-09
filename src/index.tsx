@@ -1,31 +1,26 @@
+// src/index.tsx
+
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { BrowserRouter, useNavigate } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 import registerServiceWorker from "./registerServiceWorker";
+import { ThemeProvider } from "./context/ThemeContext"; // Import ThemeProvider
 
 import App from "./App";
 import "./index.css";
 
 registerServiceWorker();
 
-type Auth0ProviderWithNavigateProps = {
-  children?: React.ReactNode;
-};
-
-const Auth0ProviderWithNavigate = (props: Auth0ProviderWithNavigateProps) => {
-
-  const { children } = props
+const Auth0ProviderWithNavigate = ({ children }: { children?: React.ReactNode }) => {
   const navigate = useNavigate();
 
-
-
   const onRedirectCallback = (appStat: any) => {
-    navigate(appStat?.returnTo || window.location.pathname)
+    navigate(appStat?.returnTo || window.location.pathname);
   };
 
-  if (!(process.env.REACT_APP_AUTH0_DOMAIN && process.env.REACT_APP_AUTH0_CLIENT_ID )) {
-    return null
+  if (!(process.env.REACT_APP_AUTH0_DOMAIN && process.env.REACT_APP_AUTH0_CLIENT_ID)) {
+    return null;
   }
 
   return (
@@ -39,17 +34,19 @@ const Auth0ProviderWithNavigate = (props: Auth0ProviderWithNavigateProps) => {
   );
 };
 
-const rootElement = document.getElementById('root');
-if (!rootElement) throw new Error('Failed to find the root element');
+const rootElement = document.getElementById("root");
+if (!rootElement) throw new Error("Failed to find the root element");
 
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Auth0ProviderWithNavigate>
-        <App />
-      </Auth0ProviderWithNavigate>
+      <ThemeProvider> {/* Wrap your app with ThemeProvider */}
+        <Auth0ProviderWithNavigate>
+          <App />
+        </Auth0ProviderWithNavigate>
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
