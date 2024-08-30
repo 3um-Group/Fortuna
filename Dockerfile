@@ -1,5 +1,5 @@
 #FROM node:20.9.0-alpine3.18
-FROM node:20.14-bookworm-slim
+FROM node:20.17-bookworm-slim
 WORKDIR /src
 COPY . /src
 #RUN apk add git && \
