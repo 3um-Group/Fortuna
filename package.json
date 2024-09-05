@@ -74,7 +74,7 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.5.0",
+    // eslint-disable-next-line spellcheck/spell-checker
     "@testing-library/react": "^16.0.1",
     "@types/jest": "^29.5.12",
     "jest": "^29.7.0",
