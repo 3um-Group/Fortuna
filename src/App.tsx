@@ -9,7 +9,7 @@ const App: React.FC = () => {
 // };
   // const { theme } = useThemeContext();
 
-  const properties = [
+  var properties = [
     {
       id: 1,
       location: "Atlanta, GA 30306",
@@ -19,16 +19,14 @@ const App: React.FC = () => {
       description:"1941 Lenox Rd NE",
       badges:[{
         label: 'Cash Only'
-      },
-      {
+      },{
         label: 'Reported Vacant'
       },
       {
         label: 'No Buyers Premium'
       },
       {
-        label: 'Open House'
-      }],
+        label: 'Open House' }],
       beds:3,
       baths:3,
       sqft:3567,
@@ -47,8 +45,7 @@ const App: React.FC = () => {
         label: 'No Buyers Premium'
       },
       {
-        label: 'Open House'
-      }],
+        label: 'Open House' }],
       beds:3,
       baths:3,
       sqft:3567,
@@ -100,8 +97,7 @@ const App: React.FC = () => {
         label: 'Cash Only'
       },
       {
-        label: 'Open House'
-      }],
+        label: 'Open House' }],
       beds:3,
       baths:3,
       sqft:3567,
@@ -117,8 +113,7 @@ const App: React.FC = () => {
         label: 'Cash Only'
       },
       {
-        label: 'Open House'
-      }],
+        label: 'Open House' }],
       beds:3,
       baths:3,
       sqft:3567,
@@ -130,9 +125,7 @@ const App: React.FC = () => {
       imageSrc:"https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/1f0675b4218cef35f9e9f062b947fff2-full.webp",
       imageAlt:"Beautiful Home",
       description:'',
-      badges:[{
-        label: 'Open House'
-      }],
+      badges:[{ label: 'Open House' }],
       beds:3,
       baths:3,
       sqft:3567,
@@ -144,9 +137,7 @@ const App: React.FC = () => {
       imageSrc:"https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/228e3a80c0a443392135daaf714a7041-full.webp",
       imageAlt:"Beautiful Home",
       description:'',
-      badges:[{
-        label: 'Open House'
-      }],
+      badges:[{ label: 'Open House' }],
       beds:3,
       baths:3,
       sqft:3567,
@@ -158,19 +149,17 @@ const App: React.FC = () => {
       imageSrc:"https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/680e1d487784cf004c5e9bbe2f3bb9ed-full.webp",
       imageAlt:"Beautiful Home",
       description:"",
-      badges:[{
-        label: 'Open House'
-      }],
+      badges:[{ label: 'Open House' }],
       beds:3,
       baths:3,
       sqft:3567,
     }
   ];
 
-  const PropertyList: React.FC = () => {
+  var PropertyList: React.FC = () => {
     return (
       <>
-        {properties.map(property => (
+        {_.map(properties, property => (
             <PropertyListCard
               key={property.id}
               badgeColors={{
@@ -224,8 +213,8 @@ const App: React.FC = () => {
         showNavItems
       />
       <div>
-        <SearchBar
-          onChange={() => {}}
+        <SearchBar data-test-id="search-bar"
+          onChange={(event) => { console.log(event); }}
           onSearch={() => {}}
           placeholder="Enter to search"
           value=""
