@@ -185,7 +185,7 @@ const App: React.FC = () => {
       </>
     );
   };
-
+    
   const useAuth = () => {
     const auth0 = useAuth0();
     return {
@@ -205,10 +205,8 @@ const App: React.FC = () => {
           customLightSrc:'/assets/3UM-dark-logo.png',
           customDarkSrc:'/assets/3UM-white-logo.png',
           height: 50,
-          // theme: 'light',
           width: 50,
         }}
-        // theme= {theme}
         useAuth={useAuth}
         showNavItems
       />
