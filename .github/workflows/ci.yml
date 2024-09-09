@@ -1,0 +1,102 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  scan-code:
+    name: Scan Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Snyk Scan
+        uses: snyk/actions/npm@v2
+        with:
+          args: test
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    needs: scan-code
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: npm install
+      
+      - name: Run Jest Tests
+        run: npm test
+
+      - name: Run Storybook Visual Tests
+        run: npm run storybook:test
+
+  code-sandbox:
+    name: CodeSandbox CI
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create CodeSandbox Environment
+        run: |
+          npx codesandbox-cli create
+
+  integration-tests:
+    name: Run Integration and E2E Tests
+    runs-on: ubuntu-latest
+    needs: code-sandbox
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Integration Tests
+        run: npm run integration-tests
+      
+      - name: Run E2E Tests
+        run: npm run e2e-tests
+
+  codacy:
+    name: Update Code Quality Findings
+    runs-on: ubuntu-latest
+    needs: integration-tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Codacy Analysis
+        uses: codacy/codacy-analysis-cli-action@v4
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+
+  pr-label-checker:
+    name: PR Label Checker
+    runs-on: ubuntu-latest
+    needs: codacy
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: PR Label Checker
+        uses: pr-label-checker-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      
+  update-project-column:
+    name: Update Quarterly GitHub Project Column
+    runs-on: ubuntu-latest
+    needs: pr-label-checker
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Update Project Column
+        uses: github-actions-automate-projects@v1
+        with:
+          project-column: 'Quarterly'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
