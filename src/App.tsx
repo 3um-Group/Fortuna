@@ -159,7 +159,7 @@ const App: React.FC = () => {
   var PropertyList: React.FC = () => {
     return (
       <>
-        {_.map(properties, property => (
+        {properties.map(property => (
             <PropertyListCard
               key={property.id}
               badgeColors={{
@@ -198,7 +198,7 @@ const App: React.FC = () => {
   // console.log("yey",useAuth().loginWithRedirect())
 
   return (
-    <div className='h-screen flex flex-col'>
+    <div className='h-screen'>
       <Header
         logoProps={{
           alt: 'Company Logo',
