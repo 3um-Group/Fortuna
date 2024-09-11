@@ -16,11 +16,10 @@ const App: React.FC = () => {
   function sidebarItems() {
     return (
       <>
-        <li></li>
-        <li><a>Sidebar Item 1</a></li>
-        <li><a>Sidebar Item 2</a></li>
-        <li></li>
-        <li><a className='btn btn-primary'>Wallet</a></li>
+        <li><a>Account Activity</a></li>
+        <li><a>Messages</a></li>
+        <li><a>Change Theme</a></li>
+        <li><a className='btn btn-primary'>Connect Wallet</a></li>
       </>
     );
   }
