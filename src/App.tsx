@@ -1,6 +1,7 @@
 import React from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 import { Header, Sidebar, SearchBar, PropertyListCard } from '@3um-group/atomic-sdk';
+import AuthButton from './components/AuthButton';
 // import { useThemeContext } from './context/ThemeContext';
 const App: React.FC = () => {
 
@@ -214,35 +215,42 @@ const App: React.FC = () => {
   // console.log("yey",useAuth().loginWithRedirect())
 
   return (
-    <div className='h-screen'>
-      <Header
-        logoProps={{
-          alt: 'Company Logo',
-          customLightSrc:'/assets/3UM-dark-logo.png',
-          customDarkSrc:'/assets/3UM-white-logo.png',
-          height: 50,
-          width: 50,
-        }}
-        useAuth={useAuth}
-        showNavItems
-      />
-      <div className="flex flex-row">
-        <div className="basis-3/4">
-          <SearchBar data-test-id="search-bar"
-            onChange={(event) => { console.log(event); }}
-            onSearch={() => {}}
-            placeholder="Enter to search"
-            value=""
-          />
+    <Auth0Provider
+      domain={process.env.REACT_APP_AUTH0_DOMAIN!}
+      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID!}
+      // redirectUri={window.location.origin}
+    >
+      <div className='h-screen'>
+        <Header
+          logoProps={{
+            alt: 'Company Logo',
+            customLightSrc:'/assets/3UM-dark-logo.png',
+            customDarkSrc:'/assets/3UM-white-logo.png',
+            height: 50,
+            width: 50,
+          }}
+          useAuth={useAuth}
+          showNavItems
+        />
+        <div className="flex flex-row">
+          <div className="basis-3/4">
+            <SearchBar data-test-id="search-bar"
+              onChange={(event) => { console.log(event); }}
+              onSearch={() => {}}
+              placeholder="Enter to search"
+              value=""
+            />
+            <AuthButton />
+          </div>
+          <div className="basis-1/4">
+            <Sidebar children={sidebarItems()} />
+          </div>
         </div>
-        <div className="basis-1/4">
-          <Sidebar children={sidebarItems()} />
+        <div className="viewContainer">
+          <PropertyList />
         </div>
       </div>
-      <div className="viewContainer">
-        <PropertyList />
-      </div>
-    </div>
+    </Auth0Provider>
   );
 };
 
