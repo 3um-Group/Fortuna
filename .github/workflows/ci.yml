@@ -32,7 +32,7 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
 
       - name: Install Packages
-        run: npm ci
+        run: npm install
 
       - name: Run Test
         run: npm run test
