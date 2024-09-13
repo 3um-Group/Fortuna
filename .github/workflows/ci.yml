@@ -1,66 +1,37 @@
-name: CI Pipeline
-
+name: CI
+# on: push
 on:
-  push: {}
-  release: {}
-  pull_request:
-    branches:
-      - main
-  issues:
-  issue_comment:
+  workflow_call:
+    inputs:
+      project:
+        required: true
+        type: string
+      node_version:
+        required: true
+        type: string
+    #secrets: 
+     # MTF_CHECKMARX_PASSWORD:
+      #  required: true
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+        
 jobs:
-  scan-code:
-    name: Scan Code
-    runs-on: ubuntu-latest
+  Continous_Integration:
+    runs-on: self-hosted
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      
-      - name: Snyk Scan
-        uses: snyk/actions/npm@v2
-        with:
-          args: test
-
-  test:
-    name: Run Tests
-    runs-on: ubuntu-latest
-    needs: scan-code
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install Dependencies
-        run: npm install
-      
-      - name: Run Jest Tests
-        run: npm test
-
-      - name: Run Storybook Visual Tests
-        run: npm run storybook:test
-
-  code-sandbox:
-    name: CodeSandbox CI
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Create CodeSandbox Environment
-        run: |
-          npx codesandbox-cli create
-
-  integration-tests:
-    name: Run Integration and E2E Tests
-    runs-on: ubuntu-latest
-    needs: code-sandbox
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Run Integration Tests
-        run: npm run integration-tests
-      
-      - name: Run E2E Tests
-        run: npm run e2e-tests
+    - name: Code Checkout 🛎️
+      uses: actions/checkout@v4
+      with:
+        clean: true
+    - name: Set Node Version
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node_version }}
+    - name: Install Packages
+      run: npm i
+    - name: Run Lint Report
+      run: npm run lintreport
+    - name: Run Test Coverage
+      run: npm run coverage
