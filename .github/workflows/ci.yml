@@ -28,7 +28,7 @@ jobs:
       - name: Authenticate with GitHub Package Registry
         run: |
           echo "@3um-group:registry=https://npm.pkg.github.com/" >> ~/.npmrc
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_AUTH_TOKEN }}" > ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GIT_AUTH_TOKEN }}" > ~/.npmrc
       - name: Install Packages
         run: npm install
 
