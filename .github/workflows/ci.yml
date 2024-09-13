@@ -25,11 +25,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20.13.1
+
+      - name: Setup .npmrc file
+        run: |
+          echo "@3um-group:registry=https://npm.pkg.github.com/" > ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+
       - name: Install Packages
-        run: npm install
+        run: npm ci
 
-      - name: Run Lint Report
-        run: npm run lintreport
-
-      - name: Run Test Coverage
-        run: npm run coverage
+      - name: Run Test
+        run: npm run test
