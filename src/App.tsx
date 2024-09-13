@@ -1,6 +1,8 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Header, Sidebar, SearchBar, PropertyListCard } from '@3um-group/atomic-sdk';
+import { Routes, Route } from 'react-router-dom';
+import Wallet from './pages/Wallet';
 // import { useThemeContext } from './context/ThemeContext';
 const App: React.FC = () => {
 
@@ -240,7 +242,12 @@ const App: React.FC = () => {
         </div>
       </div>
       <div className="viewContainer">
-        <PropertyList />
+        
+        <Routes>
+          <Route path="/" element={<PropertyList />} />
+          <Route path="/wallet" element={<Wallet />} />
+          {/* Add more routes as needed */}
+        </Routes>
       </div>
     </div>
   );
