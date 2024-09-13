@@ -36,3 +36,18 @@ jobs:
 
       - name: Run Test
         run: npm run test
+      - name: Deploy to CodeSandbox
+        env:
+          CODESANDBOX_API_TOKEN: ${{ secrets.CODESANDBOX_API_TOKEN }}
+        run: |
+          # Install CodeSandbox CLI if not already installed
+          npm install -g codesandbox
+
+          # Log in to CodeSandbox
+          codesandbox login --token $CODESANDBOX_API_TOKEN
+
+          # Create or update sandbox (replace with appropriate command or API call)
+          codesandbox create --name "Fortuna" --directory .
+
+          # Optional: Publish or serve the sandbox (replace with appropriate command or API call)
+          codesandbox publish --sandbox "Fortuna" --port 3000
