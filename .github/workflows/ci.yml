@@ -1,49 +1,36 @@
-name: Continous integration
-## on: push
-on: pull_request
-  
-jobs:     
-  CI:
-    uses:
-      name: CI
-        # on: push
-        on:
-          workflow_call:
-            inputs:
-              project:
-                required: true
-                type: string
-              node_version:
-                required: true
-                type: string
-            #secrets: 
-            # MTF_CHECKMARX_PASSWORD:
-              #  required: true
+name: Continuous Integration
 
-        concurrency:
-          group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-          cancel-in-progress: true
-                
-        jobs:
-          Continous_Integration:
-            runs-on: self-hosted
-            steps:
-            - name: Code Checkout 🛎️
-              uses: actions/checkout@v4
-              with:
-                clean: true
-            - name: Set Node Version
-              uses: actions/setup-node@v4
-              with:
-                node-version: ${{ inputs.node_version }}
-            - name: Install Packages
-              run: npm i
-            - name: Run Lint Report
-              run: npm run lintreport
-            - name: Run Test Coverage
-              run: npm run coverage
-    with:
-      project: FORTUNA
-      node_version: 20.13.1
-    secrets: inherit
-##
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  continuous_integration:
+    runs-on: self-hosted
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout code 🛎️
+        uses: actions/checkout@v3
+        with:
+          clean: true
+
+      - name: Set Node Version
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.13.1
+
+      - name: Install Packages
+        run: npm install
+
+      - name: Run Lint Report
+        run: npm run lintreport
+
+      - name: Run Test Coverage
+        run: npm run coverage
