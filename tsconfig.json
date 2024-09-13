@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
+    "baseUrl": "./",
     "traceResolution": false,
     "outDir": "dist",
     "sourceMap": true,
@@ -31,9 +31,10 @@
     "paths": {
       "@views/*": ["dist/components/*"],
       "@api/*": ["dist/api/*"]
-    }
+    },
+    "typeRoots": ["node_modules/@types"]
   },
-  "include": ["src"],
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules",
     "build",
