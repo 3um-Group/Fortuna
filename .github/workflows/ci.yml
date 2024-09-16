@@ -42,19 +42,24 @@ jobs:
 
       - name: Deploy to CodeSandbox
         env:
-          CODESANDBOX_API_TOKEN: ${{ secrets.CODESANDBOX_API_TOKEN }}
+          CODESANDBOX_TOKEN: ${{ secrets.CODESANDBOX_API_TOKEN }}
         run: |
           # Install CodeSandbox CLI
           npm install -g codesandbox
 
-          # Log in to CodeSandbox
-          echo $CODESANDBOX_API_TOKEN | codesandbox login
+          # Create a sandbox.config.json file
+          echo '{
+            "container": {
+              "node": "20"
+            },
+            "template": "create-react-app"
+          }' > sandbox.config.json
 
-          # Create or update sandbox
-          codesandbox deploy -s .
+          # Deploy to CodeSandbox
+          SANDBOX_ID=$(codesandbox deploy)
 
-          # Get the sandbox URL and output it
-          SANDBOX_URL=$(codesandbox deploy -s . | grep -o 'https://.*')
+          # Extract the sandbox ID and construct the URL
+          SANDBOX_URL="https://codesandbox.io/s/${SANDBOX_ID}"
           echo "Sandbox URL: $SANDBOX_URL"
           echo "SANDBOX_URL=$SANDBOX_URL" >> $GITHUB_ENV
 
