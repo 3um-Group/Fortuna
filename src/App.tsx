@@ -1,5 +1,5 @@
 import React from 'react';
-import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { Header, Sidebar, SearchBar, PropertyListCard } from '@3um-group/atomic-sdk';
 import AuthButton from './components/AuthButton';
 import { Routes, Route } from 'react-router-dom';
@@ -18,11 +18,13 @@ const App: React.FC = () => {
 
   function sidebarItems() {
     return (
+      
       <>
         <li><a>Account Activity</a></li>
         <li><a>Messages</a></li>
         <li><a>Change Theme</a></li>
         <li><a className='btn btn-primary'>Connect Wallet</a></li>
+        <li><AuthButton /></li>
       </>
     );
   }
@@ -217,11 +219,7 @@ const App: React.FC = () => {
   // console.log("yey",useAuth().loginWithRedirect())
 
   return (
-    <Auth0Provider
-      domain={process.env.REACT_APP_AUTH0_DOMAIN!}
-      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID!}
-      // redirectUri={window.location.origin}
-    >
+    <>
       <div className='h-screen'>
         <Header
           logoProps={{
@@ -242,7 +240,6 @@ const App: React.FC = () => {
               placeholder="Enter to search"
               value=""
             />
-            <AuthButton />
           </div>
           <div className="basis-1/4">
             <Sidebar children={sidebarItems()} />
@@ -255,7 +252,7 @@ const App: React.FC = () => {
           </Routes>
         </div>
       </div>
-    </Auth0Provider>
+    </>
   );
 };
 
