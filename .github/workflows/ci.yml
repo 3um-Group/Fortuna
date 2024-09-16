@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: Continuous Integration and Deployment
 
 on:
   push:
@@ -36,18 +36,37 @@ jobs:
 
       - name: Run Test
         run: npm run test
+
+      - name: Build Project
+        run: npm run build
+
       - name: Deploy to CodeSandbox
         env:
           CODESANDBOX_API_TOKEN: ${{ secrets.CODESANDBOX_API_TOKEN }}
         run: |
-          # Install CodeSandbox CLI if not already installed
+          # Install CodeSandbox CLI
           npm install -g codesandbox
 
           # Log in to CodeSandbox
-          codesandbox login --token $CODESANDBOX_API_TOKEN
+          echo $CODESANDBOX_API_TOKEN | codesandbox login
 
-          # Create or update sandbox (replace with appropriate command or API call)
-          codesandbox create --name "Fortuna" --directory .
+          # Create or update sandbox
+          codesandbox deploy -s .
 
-          # Optional: Publish or serve the sandbox (replace with appropriate command or API call)
-          codesandbox publish --sandbox "Fortuna" --port 3000
+          # Get the sandbox URL and output it
+          SANDBOX_URL=$(codesandbox deploy -s . | grep -o 'https://.*')
+          echo "Sandbox URL: $SANDBOX_URL"
+          echo "SANDBOX_URL=$SANDBOX_URL" >> $GITHUB_ENV
+
+      - name: Comment PR
+        uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Deployed to CodeSandbox: ${process.env.SANDBOX_URL}`
+            })
