@@ -32,13 +32,20 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
 
       - name: Install Packages
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Run Test
         run: npm run test
 
       - name: Build Project
         run: npm run build
+
+      - name: Check for .codesandbox/tasks.json
+        run: |
+          if [ ! -f .codesandbox/tasks.json ]; then
+            echo "Error: .codesandbox/tasks.json not found"
+            exit 1
+          fi
 
       - name: Deploy to CodeSandbox
         env:
@@ -47,19 +54,8 @@ jobs:
           # Install CodeSandbox CLI
           npm install -g codesandbox
 
-          # Create a sandbox.config.json file
-          echo '{
-            "container": {
-              "node": "20"
-            },
-            "template": "create-react-app"
-          }' > sandbox.config.json
-
           # Deploy to CodeSandbox
-          SANDBOX_ID=$(codesandbox deploy)
-
-          # Extract the sandbox ID and construct the URL
-          SANDBOX_URL="https://codesandbox.io/s/${SANDBOX_ID}"
+          SANDBOX_URL=$(codesandbox deploy --json | jq -r '.url')
           echo "Sandbox URL: $SANDBOX_URL"
           echo "SANDBOX_URL=$SANDBOX_URL" >> $GITHUB_ENV
 
