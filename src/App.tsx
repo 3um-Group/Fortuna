@@ -18,7 +18,6 @@ const App: React.FC = () => {
 
   function sidebarItems() {
     return (
-      
       <>
         <li><a>Account Activity</a></li>
         <li><a>Messages</a></li>
@@ -233,7 +232,7 @@ const App: React.FC = () => {
           showNavItems
         />
         <div className="flex flex-row">
-          <div className="basis-3/4">
+          <div className="basis-11/12">
             <SearchBar data-test-id="search-bar"
               onChange={(event) => { console.log(event); }}
               onSearch={() => {}}
@@ -241,7 +240,7 @@ const App: React.FC = () => {
               value=""
             />
           </div>
-          <div className="basis-1/4">
+          <div className="basis-1/12">
             <Sidebar children={sidebarItems()} />
           </div>
         </div>
