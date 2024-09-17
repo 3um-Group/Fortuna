@@ -1,6 +1,8 @@
 {
   // These tasks will run in order when initializing your CodeSandbox project.
   "setupTasks": [],
+"installCommand": "install",
+"buildCommand": "build",
 
   // These tasks can be run from CodeSandbox. Running one will open a log in the app.
   "tasks": {
@@ -24,5 +26,6 @@
       "name": "npm build",
       "command": "npm run build"
     }
-  }
+  },
+  "node": "20"
 }
