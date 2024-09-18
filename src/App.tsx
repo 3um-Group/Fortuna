@@ -4,8 +4,18 @@ import { Header, Sidebar, SearchBar, PropertyListCard } from '@3um-group/atomic-
 import AuthButton from './components/AuthButton';
 import { Routes, Route } from 'react-router-dom';
 import Wallet from './pages/Wallet';
+// import { useThemeContext } from './context/ThemeContext';
 
 const App: React.FC = () => {
+
+  //   const getLogoSrc = () => {
+//     return theme === 'dark' ? '/assets/3UM-white-logo.png' : '/assets/3UM-dark-logo.png';
+// };
+  // const { theme } = useThemeContext();
+
+  // interface Props {
+  //   children: React.ReactElement
+  // }
 
   function sidebarItems() {
     return (
@@ -168,7 +178,7 @@ const App: React.FC = () => {
     ];
 
     return (
-      <div className="flex flex-col items-center gap-6 mt-6 w-full max-w-3xl"> {/* Center the cards and search bar */}
+      <div className="flex flex-col items-center gap-6 mt-6 w-full max-w-3xl"> 
         <SearchBar
           data-test-id="search-bar"
           onChange={(event) => { console.log(event); }}
@@ -233,10 +243,8 @@ const App: React.FC = () => {
           showNavItems
         />
 
-        {/* Sidebar added outside of the main layout */}
         <Sidebar children={sidebarItems()} />
 
-        {/* Main content, fully centered */}
         <div className="flex-1 flex justify-center items-center">
           <div className="w-full max-w-3xl">
             <Routes>
