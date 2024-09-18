@@ -4,17 +4,8 @@ import { Header, Sidebar, SearchBar, PropertyListCard } from '@3um-group/atomic-
 import AuthButton from './components/AuthButton';
 import { Routes, Route } from 'react-router-dom';
 import Wallet from './pages/Wallet';
-// import { useThemeContext } from './context/ThemeContext';
+
 const App: React.FC = () => {
-
-//   const getLogoSrc = () => {
-//     return theme === 'dark' ? '/assets/3UM-white-logo.png' : '/assets/3UM-dark-logo.png';
-// };
-  // const { theme } = useThemeContext();
-
-  // interface Props {
-  //   children: React.ReactElement
-  // }
 
   function sidebarItems() {
     return (
@@ -26,7 +17,7 @@ const App: React.FC = () => {
       </>
     );
   }
-  
+
   function PropertyList() {
 
     const properties = [
@@ -177,10 +168,19 @@ const App: React.FC = () => {
     ];
 
     return (
-      <>
+      <div className="flex flex-col items-center gap-6 mt-6 w-full max-w-3xl"> {/* Center the cards and search bar */}
+        <SearchBar
+          data-test-id="search-bar"
+          onChange={(event) => { console.log(event); }}
+          onSearch={() => {}}
+          placeholder="Enter to search"
+          value=""
+          className="w-full"
+        />
+        <AuthButton />
         {properties.map((property) => (
           <PropertyListCard
-            key={property.id} // Adding a unique 'key' prop to avoid React warnings
+            key={property.id}
             badgeColors={{
               'Cash Only': 'bg-transparent text-red-500 border border-red-500',
               'No Buyers Premium': 'bg-transparent text-blue-500 border border-blue-500',
@@ -196,15 +196,16 @@ const App: React.FC = () => {
             beds={property.beds}
             baths={property.baths}
             sqft={property.sqft}
+            className="max-w-3xl w-full"
             onRegister={() => {
               console.log("Register function not implemented");
             }}
           />
         ))}
-      </>
+      </div>
     );
-  };
-    
+  }
+
   const useAuth = () => {
     const auth0 = useAuth0();
     return {
@@ -214,45 +215,35 @@ const App: React.FC = () => {
     };
   };
 
-  // console.log("yey",useAuth().loginWithRedirect())
-
   return (
     <Auth0Provider
       domain={process.env.REACT_APP_AUTH0_DOMAIN!}
       clientId={process.env.REACT_APP_AUTH0_CLIENT_ID!}
-      // redirectUri={window.location.origin}
     >
-      <div className='h-screen'>
+      <div className="h-screen flex flex-col">
         <Header
           logoProps={{
             alt: 'Company Logo',
-            customLightSrc:'/assets/3UM-dark-logo.png',
-            customDarkSrc:'/assets/3UM-white-logo.png',
+            customLightSrc: '/assets/3UM-dark-logo.png',
+            customDarkSrc: '/assets/3UM-white-logo.png',
             height: 50,
             width: 50,
           }}
           useAuth={useAuth}
           showNavItems
         />
-        <div className="flex flex-row">
-          <div className="basis-3/4">
-            <SearchBar data-test-id="search-bar"
-              onChange={(event) => { console.log(event); }}
-              onSearch={() => {}}
-              placeholder="Enter to search"
-              value=""
-            />
-            <AuthButton />
+
+        {/* Sidebar added outside of the main layout */}
+        <Sidebar children={sidebarItems()} />
+
+        {/* Main content, fully centered */}
+        <div className="flex-1 flex justify-center items-center">
+          <div className="w-full max-w-3xl">
+            <Routes>
+              <Route path="/" element={<PropertyList />} /> {/* Render PropertyList via Routes */}
+              <Route path="/wallet" element={<Wallet />} />
+            </Routes>
           </div>
-          <div className="basis-1/4">
-            <Sidebar children={sidebarItems()} />
-          </div>
-        </div>
-        <div className="viewContainer">
-          <Routes>
-            <Route path="/" element={<PropertyList />} />
-            <Route path="/wallet" element={<Wallet />} />
-          </Routes>
         </div>
       </div>
     </Auth0Provider>
