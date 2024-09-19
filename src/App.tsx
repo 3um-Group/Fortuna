@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
-import { Header, Sidebar, SearchBar, PropertyListCard, NewsCard } from '@3um-group/atomic-sdk';
+import { Header, Sidebar, SearchBar, PropertyListCard, NewsCard, Footer } from '@3um-group/atomic-sdk'; 
 import AuthButton from './components/AuthButton';
 import { Routes, Route } from 'react-router-dom';
 import Wallet from './pages/Wallet';
@@ -26,6 +26,7 @@ const App: React.FC = () => {
 
     fetchNews();
   }, []); 
+  
   function sidebarItems() {
     return (
       <>
@@ -187,7 +188,7 @@ const App: React.FC = () => {
     ];
 
     return (
-      <div className="flex flex-col md:flex-row gap-6 justify-center w-full"> 
+      <div className="flex flex-col md:flex-row gap-6 justify-center w-full mb-7"> 
         <div className="flex-1 w-full max-w-3xl flex flex-col gap-6"> 
           <SearchBar
             data-test-id="search-bar"
@@ -286,6 +287,26 @@ const App: React.FC = () => {
             </Routes>
           </div>
         </div>
+
+        <Footer
+          logoSrc="/assets/3UM-dark-logo.png" 
+          footerSections={[
+            {
+              name: 'Company',
+              links: [
+                { title: 'About Us', href: '/about' },
+                { title: 'Careers', href: '/careers' },
+              ],
+            },
+            {
+              name: 'Help',
+              links: [
+                { title: 'Contact Us', href: '/contact' },
+                { title: 'Support', href: '/support' },
+              ],
+            },
+          ]}
+        />
       </div>
     </Auth0Provider>
   );

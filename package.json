@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@3um-group/atomic-sdk": "^1.0.18",
+    "@3um-group/atomic-sdk": "^1.0.19",
     "@auth0/auth0-react": "^2.2.4",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
