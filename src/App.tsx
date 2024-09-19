@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
-import { Header, Sidebar, SearchBar, PropertyListCard, NewsCard } from '@3um-group/atomic-sdk';
+import { Header, Sidebar, PropertyListCard, NewsCard } from '@3um-group/atomic-sdk';
 import AuthButton from './components/AuthButton';
 import { Routes, Route } from 'react-router-dom';
 import Wallet from './pages/Wallet';
@@ -33,6 +33,7 @@ const App: React.FC = () => {
         <li><a>Messages</a></li>
         <li><a>Change Theme</a></li>
         <li><a className='btn btn-primary'>Connect Wallet</a></li>
+        <AuthButton />
       </>
     );
   }
@@ -189,15 +190,6 @@ const App: React.FC = () => {
     return (
       <div className="flex flex-col md:flex-row gap-6 justify-center w-full"> 
         <div className="flex-1 w-full max-w-3xl flex flex-col gap-6"> 
-          <SearchBar
-            data-test-id="search-bar"
-            onChange={(event) => { console.log(event); }}
-            onSearch={() => {}}
-            placeholder="Enter to search"
-            value=""
-            className="w-full"
-          />
-          <AuthButton />
           {properties.map((property) => (
             <PropertyListCard
               key={property.id}
@@ -273,7 +265,6 @@ const App: React.FC = () => {
             width: 50,
           }}
           useAuth={useAuth}
-          showNavItems
         />
 
         <Sidebar children={sidebarItems()} />
