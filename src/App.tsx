@@ -233,7 +233,7 @@ const App: React.FC = () => {
                 key={index}
                 imageSrc={article.urlToImage || 'https://via.placeholder.com/150'}
                 title={article.title}
-                description={article.description || 'No description available'}
+                description={article.description}
                 date={new Date(article.publishedAt).toLocaleDateString('en-GB', {
                   day: 'numeric',
                   month: 'long',
