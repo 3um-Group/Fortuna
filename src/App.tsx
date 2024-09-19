@@ -1,22 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
-import { Header, Sidebar, SearchBar, PropertyListCard } from '@3um-group/atomic-sdk';
+import { Header, Sidebar, SearchBar, PropertyListCard, NewsCard } from '@3um-group/atomic-sdk';
 import AuthButton from './components/AuthButton';
 import { Routes, Route } from 'react-router-dom';
 import Wallet from './pages/Wallet';
-// import { useThemeContext } from './context/ThemeContext';
 
 const App: React.FC = () => {
+  const [newsArticles, setNewsArticles] = useState<any[]>([]); 
+  const [loading, setLoading] = useState<boolean>(true); 
 
-  //   const getLogoSrc = () => {
-//     return theme === 'dark' ? '/assets/3UM-white-logo.png' : '/assets/3UM-dark-logo.png';
-// };
-  // const { theme } = useThemeContext();
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await fetch(
+          'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=07f43684d91543c3a708314441a617d0'
+        );
+        const data = await response.json();
+        setNewsArticles(data.articles); 
+        setLoading(false); 
+      } catch (error) {
+        console.error("Error fetching news:", error);
+        setLoading(false);
+      }
+    };
 
-  // interface Props {
-  //   children: React.ReactElement
-  // }
-
+    fetchNews();
+  }, []); 
   function sidebarItems() {
     return (
       <>
@@ -178,40 +187,64 @@ const App: React.FC = () => {
     ];
 
     return (
-      <div className="flex flex-col items-center gap-6 mt-6 w-full max-w-3xl"> 
-        <SearchBar
-          data-test-id="search-bar"
-          onChange={(event) => { console.log(event); }}
-          onSearch={() => {}}
-          placeholder="Enter to search"
-          value=""
-          className="w-full"
-        />
-        <AuthButton />
-        {properties.map((property) => (
-          <PropertyListCard
-            key={property.id}
-            badgeColors={{
-              'Cash Only': 'bg-transparent text-red-500 border border-red-500',
-              'No Buyers Premium': 'bg-transparent text-blue-500 border border-blue-500',
-              'Open House': 'bg-transparent text-orange-500 border border-orange-500',
-              'Reported Vacant': 'bg-transparent text-black border border-black'
-            }}
-            imageSrc={property.imageSrc}
-            imageAlt={property.imageAlt}
-            price={property.price}
-            description={property.description}
-            location={property.location}
-            badges={property.badges}
-            beds={property.beds}
-            baths={property.baths}
-            sqft={property.sqft}
-            className="max-w-3xl w-full"
-            onRegister={() => {
-              console.log("Register function not implemented");
-            }}
+      <div className="flex flex-col md:flex-row gap-6 justify-center w-full"> 
+        <div className="flex-1 w-full max-w-3xl flex flex-col gap-6"> 
+          <SearchBar
+            data-test-id="search-bar"
+            onChange={(event) => { console.log(event); }}
+            onSearch={() => {}}
+            placeholder="Enter to search"
+            value=""
+            className="w-full"
           />
-        ))}
+          <AuthButton />
+          {properties.map((property) => (
+            <PropertyListCard
+              key={property.id}
+              badgeColors={{
+                'Cash Only': 'bg-transparent text-red-500 border border-red-500',
+                'No Buyers Premium': 'bg-transparent text-blue-500 border border-blue-500',
+                'Open House': 'bg-transparent text-orange-500 border border-orange-500',
+                'Reported Vacant': 'bg-transparent text-black border border-black'
+              }}
+              imageSrc={property.imageSrc}
+              imageAlt={property.imageAlt}
+              price={property.price}
+              description={property.description}
+              location={property.location}
+              badges={property.badges}
+              beds={property.beds}
+              baths={property.baths}
+              sqft={property.sqft}
+              className="w-full"
+              onRegister={() => {
+                console.log("Register function not implemented");
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="w-full md:w-1/4 flex flex-col gap-6"> 
+          {loading ? (
+            <p>Loading news...</p> 
+          ) : (
+            newsArticles.slice(0, 4).map((article, index) => (
+              <NewsCard
+                key={index}
+                imageSrc={article.urlToImage || 'https://via.placeholder.com/150'}
+                title={article.title}
+                description={article.description}
+                date={new Date(article.publishedAt).toLocaleDateString('en-GB', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })}
+                linkUrl={article.url}
+                className="w-full"
+              />
+            ))
+          )}
+        </div>
       </div>
     );
   }
@@ -245,10 +278,10 @@ const App: React.FC = () => {
 
         <Sidebar children={sidebarItems()} />
 
-        <div className="flex-1 flex justify-center items-center">
-          <div className="w-full max-w-3xl">
+        <div className="flex-1 flex justify-center items-start">
+          <div className="w-full max-w-6xl"> 
             <Routes>
-              <Route path="/" element={<PropertyList />} /> {/* Render PropertyList via Routes */}
+              <Route path="/" element={<PropertyList />} />
               <Route path="/wallet" element={<Wallet />} />
             </Routes>
           </div>
