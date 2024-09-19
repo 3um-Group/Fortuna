@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
-import { Header, Sidebar, SearchBar, PropertyListCard, NewsCard, Footer } from '@3um-group/atomic-sdk'; // Import Footer from atomic-sdk
+import { Header, Sidebar, SearchBar, PropertyListCard, NewsCard, Footer } from '@3um-group/atomic-sdk'; 
 import AuthButton from './components/AuthButton';
 import { Routes, Route } from 'react-router-dom';
 import Wallet from './pages/Wallet';
