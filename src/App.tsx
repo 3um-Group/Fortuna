@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
-import { Header, Sidebar, SearchBar, PropertyListCard, NewsCard, Footer } from '@3um-group/atomic-sdk'; 
+import { Header, SearchBar, PropertyListCard, NewsCard, Footer } from '@3um-group/atomic-sdk'; 
 import AuthButton from './components/AuthButton';
 import { Routes, Route, Link } from 'react-router-dom';
 import Wallet from './pages/Wallet';
@@ -32,10 +32,10 @@ const App: React.FC = () => {
   function sidebarItems() {
     return (
       <>
-        <li><a>Account Activity</a></li>
-        <li><a>Messages</a></li>
-        <li><a>Change Theme</a></li>
-        <li><a className='btn btn-primary'>Connect Wallet</a></li>
+        <li key="account-activity"><a>Account Activity</a></li>
+        <li key="messages"><a>Messages</a></li>
+        <li key="change-theme"><a>Change Theme</a></li>
+        <li key="connect-wallet"><a className="btn btn-primary">Connect Wallet</a></li>
       </>
     );
   }
@@ -130,11 +130,12 @@ const App: React.FC = () => {
             width: 50,
           }}
           useAuth={useAuth}
+          sidebarProps={{
+            children: sidebarItems(), // Pass sidebarItems as children
+          }}
         />
 
-        <Sidebar children={sidebarItems()} />
-
-        <div className="flex-1 flex justify-center items-start">
+        <div className="flex-1 flex justify-center items-start -z-10">
           <div className="w-full max-w-6xl"> 
             <Routes>
               <Route path="/" element={<PropertyList />} />
