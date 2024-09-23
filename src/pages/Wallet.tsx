@@ -1,7 +1,6 @@
 import React from 'react';
 import BalanceCard from '../components/Wallet/BalanceCard';
 import TransactionItem from '../components/Wallet/TransactionItem';
-import DrawerMenu from '../components/Wallet/DrawerMenu';
 import WalletCard from '../components/Wallet/WalletCard';
 import { FaAmazon, FaStore, FaMoneyBill } from "react-icons/fa";
 
@@ -40,8 +39,6 @@ const Wallet: React.FC = () => {
           icon={<FaMoneyBill   />}
         />
       </div>
-
-      <DrawerMenu />
     </div>
   );
 };
