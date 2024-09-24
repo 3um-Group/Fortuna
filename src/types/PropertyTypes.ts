@@ -9,5 +9,8 @@ export interface Property {
     price: string;
     description: string;
     location: string;
+    initialMessage: string;
+    initialPhone: string;
+    initialEmail: string;
+    propertyLink: string;
   }
-  

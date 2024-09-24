@@ -2,9 +2,19 @@ import React from 'react';
 import BalanceCard from '../components/Wallet/BalanceCard';
 import TransactionItem from '../components/Wallet/TransactionItem';
 import WalletCard from '../components/Wallet/WalletCard';
-import { FaAmazon, FaStore, FaMoneyBill } from "react-icons/fa";
-
+import { FaPlus, FaAmazon, FaStore, FaMoneyBill } from "react-icons/fa";
+import WalletItem from '../components/ManageWallet/WalletItem';
+import wallets  from '../data/wallets';
 const Wallet: React.FC = () => {
+  const handleWalletClick = (walletLabel: string) => {
+    console.log(`Clicked on ${walletLabel}`);
+    // Handle wallet click logic here (e.g., navigate to wallet details page)
+  };
+
+  const handleAddWalletClick = () => {
+    console.log('Add new wallet');
+    // Handle add wallet logic here (e.g., open a modal to add a new wallet)
+  };
   return (
     <div className="flex flex-col items-center bg-gray-100 min-h-screen relative">
       <div className="mt-6 grid grid-cols-1 gap-4 w-10/12">
@@ -39,6 +49,25 @@ const Wallet: React.FC = () => {
           icon={<FaMoneyBill   />}
         />
       </div>
+      <div className="bg-white p-6 rounded-xl shadow-md w-80">
+      <div className="space-y-2">
+        {wallets.map((wallet) => (
+          <WalletItem
+            key={wallet.label}
+            icon={wallet.icon}
+            label={wallet.label}
+            subLabel={wallet.subLabel}
+            onClick={() => handleWalletClick(wallet.label)}
+          />
+        ))}
+      </div>
+      <WalletItem
+        icon={FaPlus}
+        label="Add wallet"
+        addNew
+        onClick={handleAddWalletClick}
+      />
+    </div>
     </div>
   );
 };

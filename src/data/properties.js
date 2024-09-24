@@ -17,7 +17,12 @@ const properties = [
       baths:3,
       sqft:3567,
       originalPrice: "$3,000,000",
-      mortgage: "$10,000"
+      mortgage: "$10,000",
+      initialMessage: '',
+      initialPhone: '',
+      initialEmail: '',
+      propertyLink: '#'
+
     },
     {
       id: "2",
@@ -36,7 +41,12 @@ const properties = [
       baths:3,
       sqft:3567,
       originalPrice: "$3,000,000",
-      mortgage: "$10,000"
+      mortgage: "$10,000",
+      initialMessage: '',
+      initialPhone: '',
+      initialEmail: '',
+      propertyLink: '#'
+
     },
     {
       id: "3",
@@ -54,7 +64,12 @@ const properties = [
       baths:3,
       sqft:3567,
       originalPrice: "$3,500,000",
-      mortgage: "$10,000"
+      mortgage: "$10,000",
+      initialMessage: '',
+      initialPhone: '',
+      initialEmail: '',
+      propertyLink: '#'
+
     },
     {
       id: "4",
@@ -71,7 +86,12 @@ const properties = [
       baths:3,
       sqft:3567,
       originalPrice: "$3,000,000",
-      mortgage: "$10,000"
+      mortgage: "$10,000",
+      initialMessage: '',
+      initialPhone: '',
+      initialEmail: '',
+      propertyLink: '#'
+
     },
     {
       id: "5",
@@ -88,7 +108,12 @@ const properties = [
       baths:3,
       sqft:3567,
       originalPrice: "$3,000,000",
-      mortgage: "$10,000"
+      mortgage: "$10,000",
+      initialMessage: '',
+      initialPhone: '',
+      initialEmail: '',
+      propertyLink: '#'
+
     },
     {
       id: "6",
@@ -106,7 +131,11 @@ const properties = [
       baths:3,
       sqft:3567,
       originalPrice: "$3,000,000",
-      mortgage: "$10,000"
+      mortgage: "$10,000",
+      initialMessage: '',
+      initialPhone: '',
+      initialEmail: '',
+      propertyLink: '#'
     }
   ];
 
