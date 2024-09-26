@@ -51,6 +51,7 @@ web_modules/
 
 # Optional npm cache directory
 .npm
+.npmrc
 
 # Optional eslint cache
 .eslintcache
@@ -130,7 +131,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# NPM and yarn locsk
+# NPM and yarn lock
 package-lock.json
 yarn.lock
 
