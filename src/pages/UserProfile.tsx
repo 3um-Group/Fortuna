@@ -10,7 +10,7 @@ const UserProfile: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-purple-700 to-blue-500 p-6">
+        <div className="min-h-screen  bg-gray-100 p-6">
             <ProfileHeader avatarUrl={user.avatarUrl} name={user.name} email={user.email} />
             <ProfileMenu />
         </div>
