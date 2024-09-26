@@ -17,12 +17,12 @@ const App: React.FC = () => {
                         alt: 'Company Logo',
                         customLightSrc: '/assets/3UM-dark-logo.png',
                         customDarkSrc: '/assets/3UM-white-logo.png',
-                        height: 50,
-                        width: 50,
+                        height: 100,
+                        width: 100,
                     }}
                     useAuth={useAuth}
                     sidebarProps={{
-                        children: <SidebarItems />, // Use SidebarItems component
+                        children: <SidebarItems />
                     }}
                 />
 
