@@ -9,7 +9,11 @@ module.exports = {
     themes: ["light", "dark",  "cupcake", "cmyk"], // Remove "dark" from this array
   },
   theme: {
-    extend: {},
+    extend: {
+      zIndex: {
+        '1': '1',
+      }
+    },
   },
   plugins: [require("daisyui")],
 };

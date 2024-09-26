@@ -1,10 +1,12 @@
 import { PropertyListCard } from '@3um-group/atomic-sdk';
+import { Link } from 'react-router-dom';
 import properties from 'src/data/properties';
 const PropertyCarousel = ({ }) => {
     return (
         <div className="overflow-x-auto whitespace-nowrap">
           <div className="flex space-x-4 p-4">
             {properties.map(property => (
+              <Link to={`/property-details/${property.id}`} key={property.id}>
               <div className="flex-none w-64 h-100" key={property.id}> {/* Fixed height added */}
                 <PropertyListCard
                   badgeColors={{
@@ -28,6 +30,7 @@ const PropertyCarousel = ({ }) => {
                   }}
                 />
               </div>
+              </Link>
             ))}
           </div>
         </div>
