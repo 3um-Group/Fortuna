@@ -11,17 +11,28 @@ export const SidebarItems: React.FC = () => {
   ];
 
   return (
-    <div className="h-screen w-64 z-1">
+    <div className="h-screen w-64  z-10">
       <div className="flex flex-col justify-between h-full">
-        {/* Sidebar content */}
-        <div>
-          <h2 className="text-2xl font-bold text-center py-6">Fortuna</h2>
+        {/* Sidebar Header */}
+        <div className="flex flex-col items-center py-8">
+          <img 
+            src="/assets/3UM-dark-logo.png" 
+            alt="Company Logo" 
+            className="w-20 h-20 mb-4 rounded-full border-4 border-gray-700 shadow-md" 
+          />
+          <h2 className="text-3xl font-extrabold tracking-wide">
+            Fortuna
+          </h2>
+        </div>
+
+        {/* Sidebar Menu */}
+        <div className="flex-grow">
           <ul className="space-y-4">
             {menuItems.map((item, index) => (
               <li key={index}>
                 <Link
-                    to={item.link}
-                  className="flex items-center space-x-4 py-3 px-6 text-lg font-medium hover:bg-gray-700 transition-colors duration-200"
+                  to={item.link}
+                  className="flex items-center space-x-4 py-3 px-6 text-lg font-medium hover:bg-gray-700 hover:text-white transition-colors duration-200"
                 >
                   <span className="text-xl">{item.icon}</span>
                   <span>{item.name}</span>
@@ -33,7 +44,7 @@ export const SidebarItems: React.FC = () => {
 
         {/* Footer */}
         <div className="pb-6">
-          <p className="text-center text-sm text-gray-400">© 2024 Your Company</p>
+          <p className="text-center text-sm text-gray-500">© 2024 Fortuna</p>
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ interface ProfileHeaderProps {
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({ avatarUrl, name, email }) => {
     return (
-        <div className="bg-gradient-to-b from-purple-600 to-indigo-700 text-white p-6 rounded-b-3xl">
+        <div className="bg-white p-6 rounded-3xl">
             <div className="flex items-center space-x-4">
                 <img
                     src={avatarUrl}
