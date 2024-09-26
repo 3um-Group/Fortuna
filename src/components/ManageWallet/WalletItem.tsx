@@ -13,7 +13,7 @@ const WalletItem: React.FC<WalletItemProps> = ({ icon: Icon, label, subLabel, on
     return (
         <div
             className={`flex items-center justify-between px-4 py-3 cursor-pointer 
-      ${addNew ? 'text-white bg-black-700 hover:bg-black-600' : 'text-black-200 hover:bg-black-800'} rounded-lg`}
+      ${addNew ? 'text-white bg-black hover:bg-black-600' : 'text-black-200 hover:bg-black-800'} rounded-lg`}
             onClick={onClick}
         >
             <div className="flex items-center space-x-3">

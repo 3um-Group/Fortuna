@@ -49,7 +49,7 @@ const Wallet: React.FC = () => {
           icon={<FaMoneyBill   />}
         />
       </div>
-      <div className="bg-white p-6 rounded-xl shadow-md w-80">
+      <div className="bg-white p-6 rounded-xl shadow-md w-10/12 my-10">
       <div className="space-y-2">
         {wallets.map((wallet) => (
           <WalletItem
@@ -64,7 +64,7 @@ const Wallet: React.FC = () => {
       <WalletItem
         icon={FaPlus}
         label="Add wallet"
-        addNew
+        addNew={true}
         onClick={handleAddWalletClick}
       />
     </div>
