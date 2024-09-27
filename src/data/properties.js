@@ -21,8 +21,12 @@ const properties = [
       initialMessage: '',
       initialPhone: '',
       initialEmail: '',
-      propertyLink: '#'
-
+      propertyLink: '#',
+      marketPriceData: [
+        { date: '2023-08-01', volume: 0.015, averagePrice: 0.020 },
+        { date: '2023-09-01', volume: 0.013, averagePrice: 0.018 },
+        { date: '2023-10-01', volume: 0.016, averagePrice: 0.021 },
+      ]
     },
     {
       id: "2",
@@ -45,8 +49,11 @@ const properties = [
       initialMessage: '',
       initialPhone: '',
       initialEmail: '',
-      propertyLink: '#'
-
+      propertyLink: '#',
+      marketPriceData: [
+        { date: '2023-08-01', volume: 0.015, averagePrice: 0.020 },
+        { date: '2023-09-01', volume: 0.013, averagePrice: 0.018 },
+      ]
     },
     {
       id: "3",
@@ -68,7 +75,14 @@ const properties = [
       initialMessage: '',
       initialPhone: '',
       initialEmail: '',
-      propertyLink: '#'
+      propertyLink: '#',
+      marketPriceData: [
+        { date: '2023-08-01', volume: 0.015, averagePrice: 0.020 },
+        { date: '2023-09-01', volume: 0.013, averagePrice: 0.018 },
+        { date: '2023-10-01', volume: 0.016, averagePrice: 0.021 },
+        { date: '2023-08-01', volume: 0.015, averagePrice: 0.020 },
+        { date: '2023-09-01', volume: 0.013, averagePrice: 0.018 },
+      ]
 
     },
     {
@@ -90,7 +104,12 @@ const properties = [
       initialMessage: '',
       initialPhone: '',
       initialEmail: '',
-      propertyLink: '#'
+      propertyLink: '#',
+      marketPriceData: [
+        { date: '2023-08-01', volume: 0.016, averagePrice: 0.020 },
+        { date: '2023-09-01', volume: 0.013, averagePrice: 0.018 },
+        { date: '2023-10-01', volume: 0.016, averagePrice: 0.021 },
+      ]
 
     },
     {
@@ -112,7 +131,12 @@ const properties = [
       initialMessage: '',
       initialPhone: '',
       initialEmail: '',
-      propertyLink: '#'
+      propertyLink: '#',
+      marketPriceData: [
+        { date: '2023-08-01', volume: 0.015, averagePrice: 0.020 },
+        { date: '2023-09-01', volume: 0.014, averagePrice: 0.018 },
+        { date: '2023-10-01', volume: 0.017, averagePrice: 0.021 },
+      ]
 
     },
     {
@@ -135,7 +159,12 @@ const properties = [
       initialMessage: '',
       initialPhone: '',
       initialEmail: '',
-      propertyLink: '#'
+      propertyLink: '#',
+      marketPriceData: [
+        { date: '2023-08-01', volume: 0.015, averagePrice: 0.020 },
+        { date: '2023-09-01', volume: 0.013, averagePrice: 0.018 },
+        { date: '2023-10-01', volume: 0.015, averagePrice: 0.018 },
+      ]
     }
   ];
 

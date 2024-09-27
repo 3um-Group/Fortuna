@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { PropertyDetailsPage } from '@3um-group/atomic-sdk';
+import { PropertyDetailsPage, MarketPriceChart } from '@3um-group/atomic-sdk';
 import properties from '../data/properties';
 import { useParams } from 'react-router-dom';
 import MapView from '../components/PropertyDetails/MapView';
@@ -32,15 +32,20 @@ const PropertyDetails: React.FC = () => {
                 description={property?.description || 'Description not available'}
                 propertyLink={property?.propertyLink || '#'}
                 location={property?.location || 'Location not available'}
-                initialPhone={property?.initialPhone || 'Phone not available'}
-                initialEmail={property?.initialEmail || 'Email not available'}
-                initialMessage={property?.initialMessage || 'Message not available'}
             />
 
             {/* Local Information Section */}
             <div className="h-500 w-full">
                 <div className="text-xl ms-4 py-2">Local Information</div>
                 <MapView />
+            </div>
+
+            <div className="h-500 w-full my-4 p-4 rounded-lg bg-gray-100">
+                {property?.marketPriceData ? (
+                    <MarketPriceChart data={property.marketPriceData} className="bg-gray-100 p-4 rounded-lg"  />
+                ) : (
+                    <p className="text-center text-gray-500">Market price data not available.</p>
+                )}
             </div>
 
             {/* Similar Homes Section */}
