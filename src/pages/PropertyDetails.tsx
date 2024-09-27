@@ -32,9 +32,6 @@ const PropertyDetails: React.FC = () => {
                 description={property?.description || 'Description not available'}
                 propertyLink={property?.propertyLink || '#'}
                 location={property?.location || 'Location not available'}
-                initialPhone={property?.initialPhone || 'Phone not available'}
-                initialEmail={property?.initialEmail || 'Email not available'}
-                initialMessage={property?.initialMessage || 'Message not available'}
             />
 
             {/* Local Information Section */}

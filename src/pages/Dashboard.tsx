@@ -26,7 +26,7 @@ function Dashboard() {
         <>
             <PropertyCarousel />
 
-            <div className="w-full md:w-1/4 flex flex-col gap-6">
+            <div className="w-full md:w-1/4 flex flex-col gap-6 p-3">
                 {loading ? (
                     <p>Loading news...</p>
                 ) : (
@@ -41,7 +41,7 @@ function Dashboard() {
                                 month: 'long',
                                 year: 'numeric',
                             })}
-                            linkUrl={article.url}
+                            linkUrl="/article"
                             className="w-full" />
                     ))
                 )}

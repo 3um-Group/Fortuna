@@ -1,13 +1,15 @@
 import React from 'react';
-import { FaHome, FaFileAlt, FaUser, FaWallet } from 'react-icons/fa';
+import { FaHome, FaFileAlt, FaWallet } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+// import useAuth from '../../hooks/useAuth';
 
 export const SidebarItems: React.FC = () => {
   const menuItems = [
-    { name: 'Home', icon: <FaHome />, link: '/' },
-    { name: 'Article', icon: <FaFileAlt />, link: '/article' },
-    { name: 'User Profile', icon: <FaUser />, link: '/profile' },
+    { name: 'My Feed', icon: <FaHome />, link: '/' },
+    { name: 'News Feed', icon: <FaFileAlt />, link: '/article' },
+    // { name: 'User Profile', icon: <FaUser />, link: '/profile' },
     { name: 'Wallet', icon: <FaWallet />, link: '/wallet' },
+    // { name: 'Login', icon: <FaUser />, link: {useAuth} }
   ];
 
   return (
@@ -15,11 +17,13 @@ export const SidebarItems: React.FC = () => {
       <div className="flex flex-col justify-between h-full">
         {/* Sidebar Header */}
         <div className="flex flex-col items-center py-8">
-          <img 
-            src="/assets/3UM-dark-logo.png" 
-            alt="Company Logo" 
-            className="w-20 h-20 mb-4 rounded-full border-4 border-gray-700 shadow-md" 
-          />
+          <Link to="/profile">
+            <img 
+              src="/assets/3UM-dark-logo.png" 
+              alt="Company Logo" 
+              className="w-20 h-20 mb-4 rounded-full border-4 border-gray-700 shadow-md" 
+            />
+            </Link>
           <h2 className="text-3xl font-extrabold tracking-wide">
             Fortuna
           </h2>
