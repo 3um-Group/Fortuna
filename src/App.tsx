@@ -1,5 +1,5 @@
 import React from 'react';
-import { Auth0Provider } from '@auth0/auth0-react';
+// import { Auth0Provider } from '@auth0/auth0-react';
 import { Header } from '@3um-group/atomic-sdk';
 import AppRoutes from './routes/AppRoutes';
 import useAuth from './hooks/useAuth';
@@ -7,10 +7,11 @@ import SidebarItems from './components/Sidebar/SidebarItems';
 
 const App: React.FC = () => {
     return (
-        <Auth0Provider
-            domain={process.env.REACT_APP_AUTH0_DOMAIN!}
-            clientId={process.env.REACT_APP_AUTH0_CLIENT_ID!}
-        >
+        // <Auth0Provider
+        <>
+            {/* domain={process.env.REACT_APP_AUTH0_DOMAIN!} */}
+            {/* clientId={process.env.REACT_APP_AUTH0_CLIENT_ID!} */}
+        {/* > */}
             <div className="h-screen flex flex-col z-1">
                 <Header
                     logoProps={{
@@ -32,7 +33,8 @@ const App: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </Auth0Provider>
+        {/* </Auth0Provider> */}
+        </>
     );
 };
 
