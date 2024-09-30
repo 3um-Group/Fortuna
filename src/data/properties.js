@@ -60,7 +60,7 @@ const properties = [
       location: "Miami, FL",
       address: "333 Lenox Rd NE",
       price: "$3,200,000",
-      imageSrc:"https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/192d9de7bbdd118f04606b8cdda1bfe-full.webp",
+      imageSrc:"https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/0192d9de7bbdd118f04606b8cdda1bfe-full.webp",
       imageAlt:"Beautiful Home",
       description:"Nestled in the heart of much sought-after Traditions in Wake Forest, this Pristine, Move-In Ready 3-story home is looking for its new owner. Enter through the covered Rocking Chair Front Porch. Welcome into the Bright, Open Floorplan. Prepare meals like a Pro in the Chef's Kitchen & serve with ease onto the oversized Eating Island. Formal Dining Rm with decorator wall mural & new chandelier is just a few steps away. 1st Floor Guest Bdrm with nearby Full Bath. Huge Primary EnSuite w Tray Ceiling, 2 Closets. Relax after a hard day on your Private Screened Porch with your favorite beverage. Flat, Usable Fenced Backyard is Ideal! Seller's relocation is your opportunity to live in this great Active Community w Pool, Playground, Sidewalks, Clubhouse, Gazebo & much more. Many upgrades! Close to Greenway.",
       badges: [
