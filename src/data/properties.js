@@ -23,9 +23,9 @@ const properties = [
       initialEmail: '',
       propertyLink: '#',
       marketPriceData: [
-        { date: '2023-08-01', volume: 0.015, averagePrice: 0.020 },
-        { date: '2023-09-01', volume: 0.013, averagePrice: 0.018 },
-        { date: '2023-10-01', volume: 0.016, averagePrice: 0.021 },
+        { date: '223-08-1', volume: 0.15, averagePrice: 0.20 },
+        { date: '223-09-1', volume: 0.13, averagePrice: 0.18 },
+        { date: '223-10-1', volume: 0.16, averagePrice: 0.21 },
       ]
     },
     {
@@ -51,8 +51,8 @@ const properties = [
       initialEmail: '',
       propertyLink: '#',
       marketPriceData: [
-        { date: '2023-08-01', volume: 0.015, averagePrice: 0.020 },
-        { date: '2023-09-01', volume: 0.013, averagePrice: 0.018 },
+        { date: '223-08-1', volume: 0.15, averagePrice: 0.20 },
+        { date: '223-09-1', volume: 0.13, averagePrice: 0.18 },
       ]
     },
     {
@@ -60,7 +60,7 @@ const properties = [
       location: "Miami, FL",
       address: "333 Lenox Rd NE",
       price: "$3,200,000",
-      imageSrc:"https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/0192d9de7bbdd118f04606b8cdda1bfe-full.webp",
+      imageSrc:"https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/192d9de7bbdd118f04606b8cdda1bfe-full.webp",
       imageAlt:"Beautiful Home",
       description:"Nestled in the heart of much sought-after Traditions in Wake Forest, this Pristine, Move-In Ready 3-story home is looking for its new owner. Enter through the covered Rocking Chair Front Porch. Welcome into the Bright, Open Floorplan. Prepare meals like a Pro in the Chef's Kitchen & serve with ease onto the oversized Eating Island. Formal Dining Rm with decorator wall mural & new chandelier is just a few steps away. 1st Floor Guest Bdrm with nearby Full Bath. Huge Primary EnSuite w Tray Ceiling, 2 Closets. Relax after a hard day on your Private Screened Porch with your favorite beverage. Flat, Usable Fenced Backyard is Ideal! Seller's relocation is your opportunity to live in this great Active Community w Pool, Playground, Sidewalks, Clubhouse, Gazebo & much more. Many upgrades! Close to Greenway.",
       badges: [
@@ -77,11 +77,11 @@ const properties = [
       initialEmail: '',
       propertyLink: '#',
       marketPriceData: [
-        { date: '2023-08-01', volume: 0.015, averagePrice: 0.020 },
-        { date: '2023-09-01', volume: 0.013, averagePrice: 0.018 },
-        { date: '2023-10-01', volume: 0.016, averagePrice: 0.021 },
-        { date: '2023-08-01', volume: 0.015, averagePrice: 0.020 },
-        { date: '2023-09-01', volume: 0.013, averagePrice: 0.018 },
+        { date: '223-08-1', volume: 0.15, averagePrice: 0.20 },
+        { date: '223-09-1', volume: 0.13, averagePrice: 0.18 },
+        { date: '223-10-1', volume: 0.16, averagePrice: 0.21 },
+        { date: '223-08-1', volume: 0.15, averagePrice: 0.20 },
+        { date: '223-09-1', volume: 0.13, averagePrice: 0.18 },
       ]
 
     },
@@ -106,9 +106,9 @@ const properties = [
       initialEmail: '',
       propertyLink: '#',
       marketPriceData: [
-        { date: '2023-08-01', volume: 0.016, averagePrice: 0.020 },
-        { date: '2023-09-01', volume: 0.013, averagePrice: 0.018 },
-        { date: '2023-10-01', volume: 0.016, averagePrice: 0.021 },
+        { date: '223-08-1', volume: 0.16, averagePrice: 0.17 },
+        { date: '223-09-1', volume: 0.13, averagePrice: 0.18 },
+        { date: '223-10-1', volume: 0.16, averagePrice: 0.21 },
       ]
 
     },
@@ -133,9 +133,9 @@ const properties = [
       initialEmail: '',
       propertyLink: '#',
       marketPriceData: [
-        { date: '2023-08-01', volume: 0.015, averagePrice: 0.020 },
-        { date: '2023-09-01', volume: 0.014, averagePrice: 0.018 },
-        { date: '2023-10-01', volume: 0.017, averagePrice: 0.021 },
+        { date: '223-08-1', volume: 0.15, averagePrice: 0.20 },
+        { date: '223-09-1', volume: 0.14, averagePrice: 0.18 },
+        { date: '223-10-1', volume: 0.17, averagePrice: 0.21 },
       ]
 
     },
@@ -161,9 +161,9 @@ const properties = [
       initialEmail: '',
       propertyLink: '#',
       marketPriceData: [
-        { date: '2023-08-01', volume: 0.015, averagePrice: 0.020 },
-        { date: '2023-09-01', volume: 0.013, averagePrice: 0.018 },
-        { date: '2023-10-01', volume: 0.015, averagePrice: 0.018 },
+        { date: '223-08-1', volume: 0.15, averagePrice: 0.20 },
+        { date: '223-09-1', volume: 0.13, averagePrice: 0.18 },
+        { date: '223-10-1', volume: 0.15, averagePrice: 0.18 },
       ]
     }
   ];
