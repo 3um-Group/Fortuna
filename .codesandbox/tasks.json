@@ -1,28 +1,7 @@
 {
-  // These tasks will run in order when initializing your CodeSandbox project.
-  "setupTasks": [],
-
-  // These tasks can be run from CodeSandbox. Running one will open a log in the app.
-  "tasks": {
-    "npm start": {
-      "name": "start dev server",
-      "command": "npm start",
-      "runAtStart": false,
-      "preview": {
-        "port": 3000
-      }
-    },
-    "npm test": {
-      "name": "run Unit Tests",
-      "command": "npm test",
-      "runAtStart": true,
-      "preview": {
-        "port": 3000
-      }
-    },
-    "npm build": {
-      "name": "npm build",
-      "command": "npm run build"
-    }
-  }
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
+  "node": "18",
+  "sandboxes": ["react-ts"],
+  "packages": ["./"]
 }
