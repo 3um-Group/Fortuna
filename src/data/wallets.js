@@ -1,7 +1,7 @@
 import { FaWallet, FaRegUserCircle } from 'react-icons/fa';
 
 const wallets = [
-    { label: 'coinbase.cb.id', subLabel: 'cb.id', icon: FaWallet },
+    { label: 'coinbase.cb.id', icon: FaWallet },
     { label: 'Degen', icon: FaRegUserCircle },
     { label: 'Savings', icon: FaWallet },
   ];

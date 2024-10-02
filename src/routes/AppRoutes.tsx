@@ -6,6 +6,7 @@ import PropertyDetails from '../pages/PropertyDetails';
 import Article from '../pages/Article';
 import UserProfile from '../pages/UserProfile';
 import Dashboard from '../pages/Dashboard';
+import AddWallet from '../pages/AddWallet';
 
 const AppRoutes: React.FC = () => {
     return (
@@ -15,6 +16,7 @@ const AppRoutes: React.FC = () => {
             <Route path="/property-details/:id" element={<PropertyDetails />} />
             <Route path="/article" element={<Article />} />
             <Route path="/profile" element={<UserProfile />} />
+            <Route path="/add-wallet" element={<AddWallet />} />
         </Routes>
     );
 };

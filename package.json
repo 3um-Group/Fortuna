@@ -24,7 +24,10 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@ethersproject/experimental": "^5.7.0",
+    "@metamask/detect-provider": "^2.0.0",
     "@playwright/test": "^1.46.1",
+    "@stripe/react-stripe-js": "^2.8.0",
+    "@stripe/stripe-js": "^4.6.0",
     "@types/mocha": "^10.0.7",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
@@ -41,6 +44,7 @@
     "ajv-keywords": "^5.1.0",
     "clsx": "^2.1.1",
     "daisyui": "^4.12.10",
+    "ethers": "^6.13.3",
     "jest-image-snapshot": "^6.4.0",
     "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
@@ -55,7 +59,8 @@
     "react-router-dom": "^6.23.1",
     "react-scripts": "^5.0.1",
     "tailwind-merge": "^2.5.2",
-    "urql": "^4.1.0"
+    "urql": "^4.1.0",
+    "web3": "^4.13.0"
   },
   "overrides": {
     "axios": "^0.27.2",

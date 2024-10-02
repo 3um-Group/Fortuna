@@ -5,15 +5,16 @@ import WalletCard from '../components/Wallet/WalletCard';
 import { FaPlus, FaAmazon, FaStore, FaMoneyBill } from "react-icons/fa";
 import WalletItem from '../components/ManageWallet/WalletItem';
 import wallets  from '../data/wallets';
+import { useNavigate } from 'react-router-dom';
 const Wallet: React.FC = () => {
+  const navigate = useNavigate();
   const handleWalletClick = (walletLabel: string) => {
     console.log(`Clicked on ${walletLabel}`);
     // Handle wallet click logic here (e.g., navigate to wallet details page)
   };
 
   const handleAddWalletClick = () => {
-    console.log('Add new wallet');
-    // Handle add wallet logic here (e.g., open a modal to add a new wallet)
+    navigate('/add-wallet');
   };
   return (
     <div className="flex flex-col items-center bg-gray-100 min-h-screen relative">
@@ -56,7 +57,6 @@ const Wallet: React.FC = () => {
             key={wallet.label}
             icon={wallet.icon}
             label={wallet.label}
-            subLabel={wallet.subLabel}
             onClick={() => handleWalletClick(wallet.label)}
           />
         ))}
