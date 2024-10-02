@@ -28,7 +28,6 @@ const App: React.FC = () => {
                         children: <SidebarItems />
                     }}
                 />
-
                 <div className="flex-1 flex justify-center items-start">
                     <div className="w-full max-w-6xl">
                         <AppRoutes /> {/* Separate Routes Configuration */}
