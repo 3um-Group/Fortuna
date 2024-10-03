@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { Header } from '@3um-group/atomic-sdk';
 import AppRoutes from './routes/AppRoutes';
-import useAuth from './hooks/useAuth';
 import SidebarItems from './components/Sidebar/SidebarItems';
 import SplashScreen from './pages/SplashScreen';
+import useAuth from './hooks/useAuth';
 
 const App: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -38,9 +38,9 @@ const App: React.FC = () => {
                                 height: 100,
                                 width: 100,
                             }}
-                            useAuth={useAuth}
                             sidebarProps={{
-                                children: <SidebarItems />
+                                children: <SidebarItems />,
+                                useAuth: useAuth
                             }}
                         />
                         <div className="flex-1 flex justify-center items-start">
