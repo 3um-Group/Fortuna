@@ -1,20 +1,32 @@
 import React from 'react';
-import { FaHome, FaFileAlt, FaWallet } from 'react-icons/fa';
+import { FaHome, FaFileAlt, FaWallet, FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-// import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 export const SidebarItems: React.FC = () => {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    window.location.href = window.location.origin;
+  };
+
   const menuItems = [
     { name: 'My Feed', icon: <FaHome />, link: '/' },
     { name: 'News Feed', icon: <FaFileAlt />, link: '/article' },
-    // { name: 'User Profile', icon: <FaUser />, link: '/profile' },
     { name: 'Wallet', icon: <FaWallet />, link: '/wallet' },
-    // { name: 'Login', icon: <FaUser />, link: {useAuth} }
+    {
+      name: isAuthenticated ? 'Logout' : 'Login',
+      icon: <FaUser />,
+      onClick: isAuthenticated ? handleLogout : loginWithRedirect,
+      link: '#'
+    }
   ];
 
   return (
-    <div className="h-screen w-64  z-10">
+    <div className="h-screen w-64 z-10">
       <div className="flex flex-col justify-between h-full">
+
         {/* Sidebar Header */}
         <div className="flex flex-col items-center py-8">
           <Link to="/profile">
@@ -23,7 +35,7 @@ export const SidebarItems: React.FC = () => {
               alt="Company Logo" 
               className="w-20 h-20 mb-4 rounded-full border-4 border-gray-700 shadow-md" 
             />
-            </Link>
+          </Link>
           <h2 className="text-3xl font-extrabold tracking-wide">
             Fortuna
           </h2>
