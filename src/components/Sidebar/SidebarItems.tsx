@@ -34,6 +34,7 @@ export const SidebarItems: React.FC = () => {
               src="/assets/3UM-dark-logo.png" 
               alt="Company Logo" 
               className="w-20 h-20 mb-4 rounded-full border-4 border-gray-700 shadow-md" 
+              
             />
           </Link>
           <h2 className="text-3xl font-extrabold tracking-wide">
@@ -46,13 +47,23 @@ export const SidebarItems: React.FC = () => {
           <ul className="space-y-4">
             {menuItems.map((item, index) => (
               <li key={index}>
-                <Link
-                  to={item.link}
-                  className="flex items-center space-x-4 py-3 px-6 text-lg font-medium hover:bg-gray-700 hover:text-white transition-colors duration-200"
-                >
-                  <span className="text-xl">{item.icon}</span>
-                  <span>{item.name}</span>
-                </Link>
+                {item.link === '#' ? (
+                  <button
+                    onClick={() => item.onClick && item.onClick()}
+                    className="flex items-center space-x-4 py-3 px-6 text-lg font-medium hover:bg-gray-700 hover:text-white transition-colors duration-200 w-full text-left"
+                  >
+                    <span className="text-xl">{item.icon}</span>
+                    <span>{item.name}</span>
+                  </button>
+                ) : (
+                  <Link
+                    to={item.link}
+                    className="flex items-center space-x-4 py-3 px-6 text-lg font-medium hover:bg-gray-700 hover:text-white transition-colors duration-200"
+                  >
+                    <span className="text-xl">{item.icon}</span>
+                    <span>{item.name}</span>
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
