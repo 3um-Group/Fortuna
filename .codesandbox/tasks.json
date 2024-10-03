@@ -1,27 +1,27 @@
 {
-  // These tasks will run in order when initializing your CodeSandbox project.
-  "setupTasks": [],
-
-  // These tasks can be run from CodeSandbox. Running one will open a log in the app.
+  "$schema": "https://codesandbox.io/schemas/tasks.json",
+  "setupTasks": [
+    {
+      "name": "Install Dependencies",
+      "command": "npm install"
+    }
+  ],
   "tasks": {
-    "npm start": {
-      "name": "start dev server",
+    "start": {
+      "name": "Start Dev Server",
       "command": "npm start",
-      "runAtStart": false,
-      "preview": {
-        "port": 3000
-      }
-    },
-    "npm test": {
-      "name": "run Unit Tests",
-      "command": "npm test",
       "runAtStart": true,
       "preview": {
         "port": 3000
       }
     },
-    "npm build": {
-      "name": "npm build",
+    "test": {
+      "name": "Run Unit Tests",
+      "command": "npm test",
+      "runAtStart": false
+    },
+    "build": {
+      "name": "Build Project",
       "command": "npm run build"
     }
   }

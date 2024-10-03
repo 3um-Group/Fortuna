@@ -12,7 +12,7 @@ interface WalletItemProps {
 const WalletItem: React.FC<WalletItemProps> = ({ icon: Icon, label, subLabel, onClick, addNew = false }) => {
     return (
         <div
-            className={`flex items-center justify-between px-4 py-3 cursor-pointer 
+            className={`flex items-center justify-between px-4 py-3 mt-2 cursor-pointer 
       ${addNew ? 'text-white bg-black hover:bg-black-600' : 'text-black-200 hover:bg-black-800'} rounded-lg`}
             onClick={onClick}
         >
