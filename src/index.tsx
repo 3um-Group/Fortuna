@@ -42,7 +42,7 @@ const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ThemeProvider> {/* Wrap your app with ThemeProvider */}
+      <ThemeProvider>
         <Auth0ProviderWithNavigate>
           <App />
         </Auth0ProviderWithNavigate>

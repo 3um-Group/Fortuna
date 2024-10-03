@@ -1,20 +1,18 @@
 import React from 'react';
 import { FaHome, FaFileAlt, FaWallet } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-// import useAuth from '../../hooks/useAuth';
 
 export const SidebarItems: React.FC = () => {
   const menuItems = [
     { name: 'My Feed', icon: <FaHome />, link: '/' },
     { name: 'News Feed', icon: <FaFileAlt />, link: '/article' },
-    // { name: 'User Profile', icon: <FaUser />, link: '/profile' },
     { name: 'Wallet', icon: <FaWallet />, link: '/wallet' },
-    // { name: 'Login', icon: <FaUser />, link: {useAuth} }
   ];
 
   return (
     <div className="h-screen w-64  z-10">
       <div className="flex flex-col justify-between h-full">
+
         {/* Sidebar Header */}
         <div className="flex flex-col items-center py-8">
           <Link to="/profile">
