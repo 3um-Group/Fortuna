@@ -49,9 +49,9 @@ const App: React.FC = () => {
                                 height: 50,
                                 width: 50,
                             }}
+                            useAuth={useAuth}
                             sidebarProps={{
-                                children: <SidebarItems />,
-                                useAuth: useAuth
+                                children: <SidebarItems />
                             }}
                         />
                         <div className="flex-1 flex justify-center items-start">
