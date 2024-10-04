@@ -1,14 +1,15 @@
 import React from 'react';
 import { FaHome, FaFileAlt, FaWallet, FaUser } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
 export const SidebarItems: React.FC = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    window.location.href = window.location.origin;
+    navigate('/');
   };
 
   const menuItems = [
