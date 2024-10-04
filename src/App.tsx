@@ -37,24 +37,30 @@ const App: React.FC = () => {
             }}
         >
             <div className="h-screen flex flex-col z-1">
-                <Header
-                    logoProps={{
-                        alt: 'Company Logo',
-                        customLightSrc: '/assets/3UM-dark-logo.png',
-                        customDarkSrc: '/assets/3UM-white-logo.png',
-                        height: 50,
-                        width: 50,
-                    }}
-                    useAuth={useAuth}
-                    sidebarProps={{
-                        children: <SidebarItems />
-                    }}
-                />
-                <div className="flex-1 flex justify-center items-start">
-                    <div className="w-full max-w-6xl">
-                        <AppRoutes />
-                    </div>
-                </div>
+                {loading ? (
+                    <SplashScreen />
+                ) : (
+                    <>
+                        <Header
+                            logoProps={{
+                                alt: 'Company Logo',
+                                customLightSrc: '/assets/3UM-dark-logo.png',
+                                customDarkSrc: '/assets/3UM-white-logo.png',
+                                height: 50,
+                                width: 50,
+                            }}
+                            sidebarProps={{
+                                children: <SidebarItems />,
+                                useAuth: useAuth
+                            }}
+                        />
+                        <div className="flex-1 flex justify-center items-start">
+                            <div className="w-full max-w-6xl">
+                                <AppRoutes />
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
         </Auth0Provider>
     );
