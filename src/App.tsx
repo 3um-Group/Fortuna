@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Auth0Provider } from '@auth0/auth0-react';
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 import { Header } from '@3um-group/atomic-sdk';
 import AppRoutes from './routes/AppRoutes';
 import SidebarItems from './components/Sidebar/SidebarItems';
@@ -7,15 +7,26 @@ import SplashScreen from './pages/SplashScreen';
 import useAuth from './hooks/useAuth';
 
 const App: React.FC = () => {
+    const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0();
     const [loading, setLoading] = useState(true);
+    const [isRedirecting, setIsRedirecting] = useState(false);
 
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false);
+
+            if (!isAuthenticated && !isRedirecting && !isLoading) {
+                setIsRedirecting(true);
+                loginWithRedirect();
+            }
         }, 2000);
 
         return () => clearTimeout(timer);
-    }, []);
+    }, [isAuthenticated, isRedirecting, loginWithRedirect, isLoading]);
+
+    if (loading || isLoading || (!isAuthenticated && !isRedirecting)) {
+        return <SplashScreen />;
+    }
 
     return (
         <Auth0Provider
