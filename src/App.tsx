@@ -35,8 +35,8 @@ const App: React.FC = () => {
                                 alt: 'Company Logo',
                                 customLightSrc: '/assets/3UM-dark-logo.png',
                                 customDarkSrc: '/assets/3UM-white-logo.png',
-                                height: 100,
-                                width: 100,
+                                height: 50,
+                                width: 50,
                             }}
                             sidebarProps={{
                                 children: <SidebarItems />,
