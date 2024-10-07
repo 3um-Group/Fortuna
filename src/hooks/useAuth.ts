@@ -6,6 +6,7 @@ const useAuth = () => {
         isAuthenticated: auth0.isAuthenticated,
         loginWithRedirect: auth0.loginWithRedirect,
         logout: auth0.logout,
+        user: auth0.user,
     };
 };
 
