@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
 export const SidebarItems: React.FC = () => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth();
+  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -23,7 +23,7 @@ export const SidebarItems: React.FC = () => {
       link: '#'
     }
   ];
-
+  const defaultImage = "/assets/3UM-dark-logo.png";
   return (
     <div className="h-screen w-64 z-10">
       <div className="flex flex-col justify-between h-full">
@@ -32,14 +32,14 @@ export const SidebarItems: React.FC = () => {
         <div className="flex flex-col items-center py-8">
           <Link to="/profile">
             <img 
-              src="/assets/3UM-dark-logo.png" 
+              src={user?.picture || defaultImage}
               alt="Company Logo" 
               className="w-20 h-20 mb-4 rounded-full border-4 border-gray-700 shadow-md" 
               
             />
           </Link>
           <h2 className="text-3xl font-extrabold tracking-wide">
-            Fortuna
+          {user?.name}
           </h2>
         </div>
 
