@@ -1,10 +1,8 @@
-// src/index.tsx
-
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { BrowserRouter, useNavigate } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
-import registerServiceWorker from "./registerServiceWorker";
+import { registerServiceWorker } from "./serviceWorker.js"; 
 import { ThemeProvider } from "./context/ThemeContext"; // Import ThemeProvider
 
 import App from "./App";
@@ -28,7 +26,8 @@ const Auth0ProviderWithNavigate = ({ children }: { children?: React.ReactNode })
       domain={process.env.REACT_APP_AUTH0_DOMAIN}
       clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
       authorizationParams={{ redirectUri: window.location.origin }}
-      onRedirectCallback={onRedirectCallback}>
+      onRedirectCallback={onRedirectCallback}
+    >
       {children}
     </Auth0Provider>
   );
