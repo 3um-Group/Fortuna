@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaEdit } from 'react-icons/fa';
 
 interface ProfileHeaderProps {
     avatarUrl: string;
@@ -9,20 +8,18 @@ interface ProfileHeaderProps {
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({ avatarUrl, name, email }) => {
     return (
-        <div className="bg-white p-6 rounded-3xl">
-            <div className="flex items-center space-x-4">
+        <div className="relative bg-gradient-to-r from-indigo-950 to-blue-900 rounded-t-3xl h-40 flex justify-center items-center">
+            <div className="absolute -bottom-10">
                 <img
                     src={avatarUrl}
                     alt="User Avatar"
-                    className="w-16 h-16 rounded-full border-2 border-white"
+                    className="w-24 h-24 rounded-full border-4 border-white"
                 />
-                <div>
-                    <h1 className="text-xl font-bold">{name}</h1>
-                    <p className="text-sm">{email}</p>
-                </div>
-                <button className="ml-auto bg-white p-2 rounded-full">
-                    <FaEdit className="text-indigo-700" />
-                </button>
+            </div>
+
+            <div className="absolute bottom-10 mb-6 text-center">
+                <h1 className="text-lg font-semibold text-white">{name}</h1>
+                <p className="text-sm text-gray-300">{email}</p>
             </div>
         </div>
     );

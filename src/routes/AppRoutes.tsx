@@ -12,8 +12,9 @@ import ProfileMenu from 'src/components/UserProfile/ProfileMenu';
 import Settings from 'src/components/UserProfile/Settings';
 import HelpCenter from 'src/components/UserProfile/HelpCenter';
 import ManageCards from 'src/components/UserProfile/ManageCards';
-import { Elements } from '@stripe/react-stripe-js'; // Import Elements
-import { loadStripe } from '@stripe/stripe-js'; // Import loadStripe
+import TransactionHistory from 'src/components/UserProfile/TransactionHistory';
+import { Elements } from '@stripe/react-stripe-js'; 
+import { loadStripe } from '@stripe/stripe-js'; 
 
 const stripePromise = loadStripe('your-publishable-key-here'); // Add your Stripe public key
 
@@ -33,8 +34,7 @@ const AppRoutes: React.FC = () => {
                 <Route path="my-account" element={<MyAccount />} />
                 <Route path="settings" element={<Settings />} />
                 <Route path="help-center" element={<HelpCenter />} />
-                
-                {/* Ensure ManageCards is wrapped in the Elements provider */}
+                <Route path="transaction-history" element={<TransactionHistory />} />
                 <Route
                     path="card-management"
                     element={
