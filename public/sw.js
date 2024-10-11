@@ -1,9 +1,9 @@
-const cacheName = 'app-cache-v1';  
+const cacheName = 'app-cache-v2';  
 const assetsToCache = [
   '/',                           
   '/index.html',                
   '/static/js/bundle.js',        
-  '/favicon.ico'           
+  '/favicon.ico'
 ];
 
 // Install event to cache files
@@ -13,6 +13,7 @@ self.addEventListener('install', (event) => {
       return cache.addAll(assetsToCache);
     })
   );
+  self.skipWaiting();  
 });
 
 // Activate event to clean up old caches
@@ -23,19 +24,25 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         cacheNames.map((cachedName) => {
           if (!cacheWhitelist.includes(cachedName)) {
-            return caches.delete(cachedName);
+            return caches.delete(cachedName);  
           }
         })
       );
     })
   );
+  self.clients.claim(); 
 });
 
-// Fetch event to serve cached files if available, else fetch from network
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+    caches.open(cacheName).then((cache) => {
+      return cache.match(event.request).then((cachedResponse) => {
+        const fetchPromise = fetch(event.request).then((networkResponse) => {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+        return cachedResponse || fetchPromise;
+      });
     })
   );
 });

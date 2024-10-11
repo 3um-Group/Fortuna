@@ -1,18 +1,23 @@
 import React from 'react';
 import ProfileHeader from '../components/UserProfile/ProfileHeader';
-import ProfileMenu from '../components/UserProfile/ProfileMenu';
+import { Outlet } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const UserProfile: React.FC = () => {
-    const user = {
-        avatarUrl: 'https://via.placeholder.com/64',
-        name: 'John Doe',
-        email: 'JohnDoe3524@gmail.com',
-    };
+    const { user, isLoading } = useAuth0(); 
+
+    if (isLoading || !user) {
+        return <div>Loading...</div>; 
+    }
 
     return (
-        <div className="min-h-screen  bg-gray-100 p-6">
-            <ProfileHeader avatarUrl={user.avatarUrl} name={user.name} email={user.email} />
-            <ProfileMenu />
+        <div className="min-h-screen bg-gray-100 p-6">
+            <ProfileHeader 
+                avatarUrl={user.picture || 'https://via.placeholder.com/64'} 
+                name={user.name || ''} 
+                email={user.email || ''} 
+            />
+            <Outlet />
         </div>
     );
 };
