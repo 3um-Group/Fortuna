@@ -15,6 +15,7 @@ import ManageCards from 'src/components/UserProfile/ManageCards';
 import TransactionHistory from 'src/components/UserProfile/TransactionHistory';
 import { Elements } from '@stripe/react-stripe-js'; 
 import { loadStripe } from '@stripe/stripe-js'; 
+import ContractPage from 'src/pages/ContractPage';
 
 const stripePromise = loadStripe('your-publishable-key-here'); // Add your Stripe public key
 
@@ -28,7 +29,7 @@ const AppRoutes: React.FC = () => {
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/add-wallet" element={<AddWallet />} />
             <Route path="/upload" element={<Upload />} />
-
+            <Route path="/contract" element={<ContractPage />} />
             <Route path="/profile" element={<UserProfile />}>
                 <Route index element={<ProfileMenu />} />
                 <Route path="my-account" element={<MyAccount />} />
