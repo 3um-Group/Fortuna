@@ -16,6 +16,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js'; 
 import ContractPage from 'src/pages/ContractPage';
 import NewsFeed from 'src/pages/NewsFeed';
+import Signup from 'src/pages/Signup';
 
 const stripePromise = loadStripe('your-publishable-key-here'); // Add your Stripe public key
 
@@ -23,6 +24,7 @@ const AppRoutes: React.FC = () => {
     return (
         <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/property-details/:id" element={<PropertyDetails />} />
             <Route path="/news" element={<NewsFeed numberOfArticles={10} />} />
