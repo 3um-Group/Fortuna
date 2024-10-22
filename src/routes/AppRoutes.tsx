@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Wallet from '../pages/Wallet';
 import PropertyDetails from '../pages/PropertyDetails';
-import Article from '../pages/Article';
 import UserProfile from '../pages/UserProfile';
 import Dashboard from '../pages/Dashboard';
 import AddWallet from '../pages/AddWallet';
@@ -16,6 +15,7 @@ import TransactionHistory from 'src/components/UserProfile/TransactionHistory';
 import { Elements } from '@stripe/react-stripe-js'; 
 import { loadStripe } from '@stripe/stripe-js'; 
 import ContractPage from 'src/pages/ContractPage';
+import NewsFeed from 'src/components/News/NewsFeed';
 
 const stripePromise = loadStripe('your-publishable-key-here'); // Add your Stripe public key
 
@@ -25,7 +25,7 @@ const AppRoutes: React.FC = () => {
             <Route path="/" element={<Dashboard />} />
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/property-details/:id" element={<PropertyDetails />} />
-            <Route path="/article" element={<Article />} />
+            <Route path="/news" element={<NewsFeed numberOfArticles={10} />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/add-wallet" element={<AddWallet />} />
             <Route path="/upload" element={<Upload />} />
