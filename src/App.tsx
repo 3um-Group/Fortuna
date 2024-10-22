@@ -5,6 +5,7 @@ import AppRoutes from './routes/AppRoutes';
 import SidebarItems from './components/Sidebar/SidebarItems';
 import SplashScreen from './pages/SplashScreen';
 import useAuth from './hooks/useAuth';
+import Signup from './pages/Signup';
 
 const App: React.FC = () => {
     const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0();

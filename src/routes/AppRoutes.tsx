@@ -15,7 +15,7 @@ import TransactionHistory from 'src/components/UserProfile/TransactionHistory';
 import { Elements } from '@stripe/react-stripe-js'; 
 import { loadStripe } from '@stripe/stripe-js'; 
 import ContractPage from 'src/pages/ContractPage';
-import NewsFeed from 'src/components/News/NewsFeed';
+import NewsFeed from 'src/pages/NewsFeed';
 
 const stripePromise = loadStripe('your-publishable-key-here'); // Add your Stripe public key
 
