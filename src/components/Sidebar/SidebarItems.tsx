@@ -14,7 +14,7 @@ export const SidebarItems: React.FC = () => {
 
   const menuItems = [
     { name: 'My Feed', icon: <FaHome />, link: '/' },
-    { name: 'News Feed', icon: <FaFileAlt />, link: '/article' },
+    { name: 'News Feed', icon: <FaFileAlt />, link: '/news' },
     { name: 'Wallet', icon: <FaWallet />, link: '/wallet' },
     {
       name: isAuthenticated ? 'Logout' : 'Login',

@@ -1,5 +1,5 @@
 import PropertyCarousel from "../components/PropertyDetails/PropertyCarousel";
-import NewsFeed from "../components/News/NewsFeed";
+import NewsFeed from "./NewsFeed";
 
 function Dashboard() {
   return (
