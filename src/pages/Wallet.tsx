@@ -1,11 +1,31 @@
-import React from 'react';
-import BalanceCard from '../components/Wallet/BalanceCard';
-import TransactionItem from '../components/Wallet/TransactionItem';
-import WalletCard from '../components/Wallet/WalletCard';
-import { FaPlus, FaAmazon, FaStore, FaMoneyBill } from "react-icons/fa";
-import WalletItem from '../components/ManageWallet/WalletItem';
-import wallets from '../data/wallets';
-import { Link, useNavigate } from 'react-router-dom';
+import React from "react";
+import TransactionItem from "../components/Wallet/TransactionItem";
+import TokenItem from "../components/Wallet/TokenItem";
+import WalletCard from "../components/Wallet/WalletCard";
+import {
+  FaPlus,
+  FaBitcoin,
+  FaDollarSign,
+  FaCube,
+  FaSkull,
+  FaPaintBrush,
+  FaEthereum,
+  FaHome,
+} from "react-icons/fa";
+import WalletItem from "../components/ManageWallet/WalletItem";
+// import wallets from '../data/wallets';
+
+import { IconType } from "react-icons";
+
+interface Wallet {
+  label: string;
+  icon: IconType;
+}
+
+const wallets: Wallet[] = [
+  // Add your wallet objects here
+];
+import { Link, useNavigate } from "react-router-dom";
 const Wallet: React.FC = () => {
   const navigate = useNavigate();
   const handleWalletClick = (walletLabel: string) => {
@@ -14,45 +34,115 @@ const Wallet: React.FC = () => {
   };
 
   const handleAddWalletClick = () => {
-    navigate('/add-wallet');
+    navigate("/add-wallet");
   };
   return (
-    <div className="flex flex-col items-center bg-gray-100 min-h-screen relative">
+    <div className="flex flex-col items-center bg-gray-100 min-h-[125vh] relative">
       <div className="mt-6 grid grid-cols-1 gap-4 w-10/12">
         <WalletCard />
       </div>
-      <div className="mt-6 grid grid-cols-2 gap-4 w-10/12">
-        <BalanceCard title="Income" amount="$10,000" />
-        <BalanceCard title="Expenses" amount="$4,800" />
+      <div role="tablist" className="tabs tabs-bordered w-full px-10">
+        {/* Tokens Tab */}
+        <input
+          type="radio"
+          name="my_tabs_1"
+          role="tab"
+          className="tab my-4"
+          aria-label="Tokens"
+          defaultChecked
+        />
+        <div role="tabpanel" className="tab-content">
+          <TokenItem
+            title="1.3135 ETH"
+            amount="$120.00"
+            icon={<FaEthereum />}
+            isNegative={false}
+          />
+          <TokenItem
+            title="0.045 BTC"
+            amount="$1,200.00"
+            icon={<FaBitcoin />}
+            isNegative={false}
+          />
+          <TokenItem
+            title="50 USDT"
+            amount="$50.00"
+            icon={<FaDollarSign />}
+            isNegative={false}
+          />
+        </div>
+
+        {/* NFTs Tab */}
+        <input
+          type="radio"
+          name="my_tabs_1"
+          role="tab"
+          className="tab my-4"
+          aria-label="NFTs"
+        />
+        <div role="tabpanel" className="tab-content mb-4">
+          <TokenItem
+            title="CryptoPunk #1234"
+            amount="Not for Sale"
+            icon={<FaCube />}
+            isNegative={false}
+          />
+          <TokenItem
+            title="Bored Ape #4567"
+            amount="$300,000.00"
+            icon={<FaSkull />}
+            isNegative={false}
+          />
+          <TokenItem
+            title="Art Block #7890"
+            amount="$15,000.00"
+            icon={<FaPaintBrush />}
+            isNegative={false}
+          />
+        </div>
+
+        <input
+          type="radio"
+          name="my_tabs_1"
+          role="tab"
+          className="tab my-4"
+          aria-label="Activity"
+        />
+        <div role="tabpanel" className="tab-content">
+          <div className="w-full">
+            <TransactionItem
+              title="Property Purchase"
+              time="Today, 9:00 AM"
+              amount="$250,000.00"
+              icon={<FaHome />}
+            />
+            <TransactionItem
+              title="NFT Purchase - Bored Ape #4567"
+              time="Yesterday, 5:30 PM"
+              amount="$300,000.00"
+              icon={<FaSkull />}
+              isNegative
+            />
+            <TransactionItem
+              title="Crypto Purchase - 0.1 BTC"
+              time="Yesterday, 3:45 PM"
+              amount="$6,500.00"
+              icon={<FaBitcoin />}
+              isNegative
+            />
+            <TransactionItem
+              title="NFT Sale - Art Block #7890"
+              time="Last Week, 11:00 AM"
+              amount="$15,000.00"
+              icon={<FaPaintBrush />}
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="w-10/12 mt-8">
-        <h3 className="text-gray-500 font-bold mb-4">Recent Transactions</h3>
-        {/* Send components as children for icon */}
-        <TransactionItem
-          title="Amazon"
-          time="Today, 8:00 AM"
-          amount="$200.00"
-          icon={<FaAmazon />}
-          isNegative
-        />
-        <TransactionItem
-          title="Grocery Store"
-          time="Today, 10:00 AM"
-          amount="$120.00"
-          icon={<FaStore />}
-          isNegative
-        />
-        <TransactionItem
-          title="Salary"
-          time="Yesterday, 2:00 PM"
-          amount="$4,000.00"
-          icon={<FaMoneyBill />}
-        />
-      </div>
       <div className="bg-white p-6 rounded-xl shadow-md w-10/12 my-10">
         <div className="space-y-2">
-          {wallets.map((wallet) => (
+          {wallets?.map((wallet) => (
             <WalletItem
               key={wallet.label}
               icon={wallet.icon}
@@ -68,10 +158,11 @@ const Wallet: React.FC = () => {
           onClick={handleAddWalletClick}
         />
       </div>
-      <Link to="/contract" className="bg-white p-6 rounded-xl shadow-md w-10/12 hover:shadow-lg transition-all duration-300 mb-6">
-        <div className="space-y-2">
-          Contract
-        </div>
+      <Link
+        to="/contract"
+        className="bg-white p-6 rounded-xl shadow-md w-10/12 hover:shadow-lg transition-all duration-300 mb-6"
+      >
+        <div className="space-y-2">Contract</div>
       </Link>
     </div>
   );
