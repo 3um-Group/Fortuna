@@ -38,7 +38,7 @@ export const SidebarItems: React.FC = () => {
               
             />
           </Link>
-          <h2 className="text-3xl font-extrabold tracking-wide">
+          <h2 className="text-2xl font-extrabold tracking-wide">
           {user?.name}
           </h2>
         </div>

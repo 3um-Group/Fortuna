@@ -5,7 +5,7 @@ function Dashboard() {
   return (
     <>
       <PropertyCarousel />
-      <NewsFeed numberOfArticles={4} />
+      <NewsFeed numberOfArticles={10} />
     </>
   );
 }

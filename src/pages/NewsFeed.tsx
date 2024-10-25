@@ -13,7 +13,7 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ numberOfArticles }) => {
     const fetchNews = async () => {
       try {
         const response = await fetch(
-          'https://newsapi.org/v2/top-headlines?country=us&category=crypto&apiKey=07f43684d91543c3a708314441a617d0'
+          'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=07f43684d91543c3a708314441a617d0'
         );
         const data = await response.json();
         setNewsArticles(data.articles);
