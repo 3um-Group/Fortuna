@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaArrowDown, FaArrowRight, FaCreditCard, FaExchangeAlt, FaPlus } from 'react-icons/fa';
+import { FaArrowDown, FaArrowRight, FaCreditCard } from 'react-icons/fa';
 
 const WalletCard: React.FC = () => {
   return (
@@ -10,12 +10,6 @@ const WalletCard: React.FC = () => {
           <span className="text-gray-500 text-sm">Total Balance</span>
           <h1 className="text-3xl font-bold">$ 2,562.50</h1>
         </div>
-
-        <div>
-          <button className="bg-yellow-500 p-3 rounded-full text-white mr-3">
-            <FaPlus />
-          </button>
-        </div>
       </div>
 
       {/* Wallet Footer */}
@@ -23,7 +17,6 @@ const WalletCard: React.FC = () => {
         <FooterItem icon={<FaArrowDown />} label="Withdraw" bgColor="bg-red-500" />
         <FooterItem icon={<FaArrowRight />} label="Send" />
         <FooterItem icon={<FaCreditCard />} label="Cards" bgColor="bg-green-500" />
-        <FooterItem icon={<FaExchangeAlt />} label="Exchange" bgColor="bg-yellow-500" />
       </div>
     </div>
   );
