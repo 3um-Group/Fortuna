@@ -62,7 +62,7 @@ describe('ContractService', () => {
   });
 
   describe('getUserBalance', () => {
-    const userAddress = '0x1234567890123456789012345678901234567890';
+    const userAddress = '0xE2C23613ae509312d4889b685442F27B191A3067';
     it('should return user balance of tokens', async () => {
       const balance = await getUserBalance(userAddress);
       expect(balance).toBe(5000);
