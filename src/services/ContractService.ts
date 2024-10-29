@@ -4,7 +4,7 @@ const contractABI: any[] = [
   // ABI of your ERC-1155 or other token contract
 ];
 
-const contractAddress = 'YOUR_CONTRACT_ADDRESS'; // Replace with your contract address
+const contractAddress = '0xE2C23613ae509312d4889b685442F27B191A3067';
 const web3 = new Web3(Web3.givenProvider);
 
 const contract = new web3.eth.Contract(contractABI, contractAddress);
