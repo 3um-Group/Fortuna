@@ -1,2 +1,2 @@
-export const stripePublishableKey = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
+export const stripePublishableKey = "pk_test_51Q5J4nL0gLjZCfDfU2zLSzH47w99m7QwStYRnkMiyjImgKxihjqlhvKfQVdkBN8nByMY0b0XlsLAkJnJTUpYGICy00GxXOeUHM";
 export const etherscanAPIKey = process.env.REACT_APP_ETHERSCAN_API_KEY;

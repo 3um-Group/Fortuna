@@ -22,7 +22,7 @@ export interface Property {
     orderby?: string,
     propertytype?: string
   ): Promise<Property[]> => {
-    const apiKey = '2b1e86b638620bf2404521e6e9e1b19e'; // Replace with your actual API key
+    const apiKey = '8b797cd2f116087923bb52b214f17947'; // Replace with your actual API key
   
     // Construct the query parameters
     const params = new URLSearchParams({
