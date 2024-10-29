@@ -1,7 +1,27 @@
 import { PropertyListCard } from '@3um-group/atomic-sdk';
 import { Link } from 'react-router-dom';
-import properties from 'src/data/properties';
+import { fetchProperties, Property } from "../../api/attomData/propertyAddressApi";
+import { useEffect, useState } from "react";
+
 const PropertyCarousel = ({ }) => {
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadProperties = async () => {
+      try {
+        const propertiesData = await fetchProperties();
+        setProperties(propertiesData);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : "An error occurred");
+      }
+    };
+
+    loadProperties();
+  }, []);
+   if (error) {
+    return <div>Error: {error}</div>;
+  }
     return (
         <div className="overflow-x-auto whitespace-nowrap">
           <div className="flex space-x-4 p-4">
