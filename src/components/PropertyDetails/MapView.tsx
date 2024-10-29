@@ -2,9 +2,12 @@ import 'leaflet/dist/leaflet.css'; // Import the leaflet CSS
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { LatLngExpression } from 'leaflet';
 
-function MapView() {
-  const position: LatLngExpression = [51.505, -0.09]; // Coordinates for the map center
+interface MapViewProps {
+  position: LatLngExpression; // Coordinates for the marker
+  popupContent: string;       // Content to display in the popup
+}
 
+function MapView({ position, popupContent }: MapViewProps) {
   return (
     <div style={{ height: '500px', width: '100%' }}>
       <MapContainer center={position} zoom={13} style={{ height: '100%', width: '100%' }}>
@@ -14,7 +17,7 @@ function MapView() {
         />
         <Marker position={position}>
           <Popup>
-            A pretty popup.<br /> Easily customizable.
+            {popupContent}
           </Popup>
         </Marker>
       </MapContainer>
