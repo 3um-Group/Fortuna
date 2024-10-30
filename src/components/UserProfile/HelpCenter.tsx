@@ -1,23 +1,10 @@
 import React, { useState } from 'react';
-import { FaChevronDown, FaChevronUp, FaPlus, FaMinus } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
-interface FAQItemProps {
-    question: string;
-    answer: string;
-    icon?: 'default' | 'alternate';
-}
-
-const FAQItem: React.FC<FAQItemProps> = ({ question, answer, icon = 'default' }) => {
+const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const toggleDropdown = () => setIsOpen(!isOpen);
 
-    const IconComponent = isOpen
-        ? icon === 'default'
-            ? FaChevronUp
-            : FaMinus
-        : icon === 'default'
-        ? FaChevronDown
-        : FaPlus;
+    const toggleDropdown = () => setIsOpen(!isOpen);
 
     return (
         <div>
@@ -26,22 +13,14 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, icon = 'default' })
                 className="w-full text-left p-3 bg-gray-100 rounded-md flex justify-between items-center"
             >
                 <span className="font-semibold">{question}</span>
-                <IconComponent />
+                {isOpen ? <FaChevronUp /> : <FaChevronDown />}
             </button>
             {isOpen && <p className="mt-2 p-3 bg-gray-50 rounded-md">{answer}</p>}
         </div>
     );
 };
 
-interface HelpCenterProps {
-    icon?: 'default' | 'alternate';
-    showContactInfo?: boolean;
-}
-
-const HelpCenter: React.FC<HelpCenterProps> = ({
-    icon = 'default',
-    showContactInfo = true,
-}) => {
+const HelpCenter: React.FC = () => {
     const faqs = [
         {
             question: 'How do I update my profile?',
@@ -61,18 +40,14 @@ const HelpCenter: React.FC<HelpCenterProps> = ({
                 <ul className="mt-4 space-y-4">
                     {faqs.map((faq, index) => (
                         <li key={index}>
-                            <FAQItem question={faq.question} answer={faq.answer} icon={icon} />
+                            <FAQItem question={faq.question} answer={faq.answer} />
                         </li>
                     ))}
                 </ul>
-
-                {/* Conditionally render the "Contact Us" section based on A/B test */}
-                {showContactInfo && (
-                    <div className="mt-8">
-                        <h2 className="font-semibold">Contact Us</h2>
-                        <p>Email: support@yourapp.com</p>
-                    </div>
-                )}
+                <div className="mt-8">
+                    <h2 className="font-semibold">Contact Us</h2>
+                    <p>Email: support@yourapp.com</p>
+                </div>
             </div>
         </div>
     );
