@@ -5,20 +5,26 @@ import MapView from '../components/PropertyDetails/MapView';
 import PropertyCarousel from '../components/PropertyDetails/PropertyCarousel';
 import PropertyDrawerMenu from '../components/PropertyDetails/PropertyDrawerMenu';
 
-// Assuming the PropertyDetail interface and fetchPropertyDetail function are defined elsewhere in your project
-import { fetchPropertyDetail, PropertyDetail } from '../api/attomData/propertyDetail'; // Adjust the import path as needed
+import { fetchPropertyDetail, PropertyDetail } from '../api/attomData/propertyDetail';
 
-const PropertyDetails: React.FC = () => {
+interface PropertyDetailsProps {
+    showMarketPriceChart?: boolean;
+    showSimilarHomes?: boolean;
+}
+
+const PropertyDetails: React.FC<PropertyDetailsProps> = ({
+    showMarketPriceChart = true,
+    showSimilarHomes = true,
+}) => {
     const { id } = useParams<{ id: string }>();
     const [property, setProperty] = useState<PropertyDetail | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        // Fetch property details when component mounts or ID changes
         const fetchDetail = async () => {
             try {
-                const propertyDetail = await fetchPropertyDetail(id!); // Parse ID as a number
+                const propertyDetail = await fetchPropertyDetail(id!);
                 setProperty(propertyDetail);
             } catch (err) {
                 setError('Failed to fetch property details');
@@ -30,7 +36,6 @@ const PropertyDetails: React.FC = () => {
         fetchDetail();
     }, [id]);
 
-    // Scroll to top when component mounts or property ID changes
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [id]);
@@ -45,7 +50,6 @@ const PropertyDetails: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center bg-gray-100 min-h-[215vh] relative">
-            {/* Property Details */}
             <PropertyDetailsPage
                 imageUrl={property?.imageSrc || 'default-image-url.jpg'}
                 address={property?.address || 'Address not available'}
@@ -69,21 +73,25 @@ const PropertyDetails: React.FC = () => {
                 />
             </div>
 
-            <div className="h-500 w-full my-4 p-4 rounded-lg bg-gray-100">
-                {property?.marketPriceData ? (
-                    <MarketPriceChart data={property.marketPriceData} className="bg-gray-100 p-4 rounded-lg" />
-                ) : (
-                    <p className="text-center text-gray-500">Market price data not available.</p>
-                )}
-            </div>
+            {/* Market Price Chart - conditional rendering based on A/B test */}
+            {showMarketPriceChart && (
+                <div className="h-500 w-full my-4 p-4 rounded-lg bg-gray-100">
+                    {property?.marketPriceData ? (
+                        <MarketPriceChart data={property.marketPriceData} className="bg-gray-100 p-4 rounded-lg" />
+                    ) : (
+                        <p className="text-center text-gray-500">Market price data not available.</p>
+                    )}
+                </div>
+            )}
 
-            {/* Similar Homes Section */}
-            <div className="h-500 w-full">
-                <div className="text-xl ms-4 py-2">Similar Homes You May Like</div>
-                <PropertyCarousel />
-            </div>
+            {/* Similar Homes Section - conditional rendering based on A/B test */}
+            {showSimilarHomes && (
+                <div className="h-500 w-full">
+                    <div className="text-xl ms-4 py-2">Similar Homes You May Like</div>
+                    <PropertyCarousel />
+                </div>
+            )}
 
-            {/* Property Drawer Menu */}
             <PropertyDrawerMenu />
         </div>
     );

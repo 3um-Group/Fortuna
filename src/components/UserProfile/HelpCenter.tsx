@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp, FaPlus, FaMinus } from 'react-icons/fa';
 
-const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
+interface FAQItemProps {
+    question: string;
+    answer: string;
+    icon?: 'default' | 'alternate';
+}
+
+const FAQItem: React.FC<FAQItemProps> = ({ question, answer, icon = 'default' }) => {
     const [isOpen, setIsOpen] = useState(false);
-
     const toggleDropdown = () => setIsOpen(!isOpen);
+
+    const IconComponent = isOpen
+        ? icon === 'default'
+            ? FaChevronUp
+            : FaMinus
+        : icon === 'default'
+        ? FaChevronDown
+        : FaPlus;
 
     return (
         <div>
@@ -13,14 +26,22 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
                 className="w-full text-left p-3 bg-gray-100 rounded-md flex justify-between items-center"
             >
                 <span className="font-semibold">{question}</span>
-                {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+                <IconComponent />
             </button>
             {isOpen && <p className="mt-2 p-3 bg-gray-50 rounded-md">{answer}</p>}
         </div>
     );
 };
 
-const HelpCenter: React.FC = () => {
+interface HelpCenterProps {
+    icon?: 'default' | 'alternate';
+    showContactInfo?: boolean;
+}
+
+const HelpCenter: React.FC<HelpCenterProps> = ({
+    icon = 'default',
+    showContactInfo = true,
+}) => {
     const faqs = [
         {
             question: 'How do I update my profile?',
@@ -40,14 +61,18 @@ const HelpCenter: React.FC = () => {
                 <ul className="mt-4 space-y-4">
                     {faqs.map((faq, index) => (
                         <li key={index}>
-                            <FAQItem question={faq.question} answer={faq.answer} />
+                            <FAQItem question={faq.question} answer={faq.answer} icon={icon} />
                         </li>
                     ))}
                 </ul>
-                <div className="mt-8">
-                    <h2 className="font-semibold">Contact Us</h2>
-                    <p>Email: support@yourapp.com</p>
-                </div>
+
+                {/* Conditionally render the "Contact Us" section based on A/B test */}
+                {showContactInfo && (
+                    <div className="mt-8">
+                        <h2 className="font-semibold">Contact Us</h2>
+                        <p>Email: support@yourapp.com</p>
+                    </div>
+                )}
             </div>
         </div>
     );
