@@ -1,11 +1,12 @@
 {
-  "name": "dapp",
-  "version": "1.0.0",
+  "name": "3umgroup-Fortuna",
+  "version": "1.0.1",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "jest.config.js",
   "scripts": {
     "start": "react-scripts start",
     "preinstall": "npx npm-force-resolutions",
+    "prebuild": "npm test",
     "build": "cross-env REACT_APP_ENV=production react-scripts build",
     "start:prod": "REACT_APP_ENV=production react-scripts start",
     "eject": "react-scripts eject",
@@ -13,10 +14,12 @@
     "build-storybook": "storybook build",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "version": "npm run build && git add -A dist",
+    "postversion": "git push && git push --tags && rm -rf build/temp"
   },
   "keywords": [],
-  "author": "",
+  "author": "3umgroup.com",
   "license": "ISC",
   "dependencies": {
     "@3um-group/atomic-sdk": "^1.0.32",
