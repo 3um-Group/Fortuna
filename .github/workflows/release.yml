@@ -29,8 +29,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Setup Nodejs
-        uses: actions/setup-node@master
+      - uses: actions/setup-node@v1
+        with:
+          registry-url: https://npm.pkg.github.com/
+      
+      - name: Install dependencies based on package-lock.json
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
+
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -43,13 +50,44 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - run: npm install
+
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: test
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Nodejs
+        uses: actions/setup-node@v1
+        with:
+          registry-url: https://npm.pkg.github.com/
+      
+      - name: Install dependencies based on package-lock.json
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Execute Unit tests
+        run: npm test
+
   deploy:
     environment:
       name: github-pages
@@ -60,6 +98,17 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Nodejs
         uses: actions/setup-node@v1
+        with:
+          registry-url: https://npm.pkg.github.com/
+      
+      - name: Install dependencies based on package-lock.json
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
+          
+      - name: Run unit tests
+        run: npm build
+
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -95,8 +144,9 @@ jobs:
             ${{ steps.Changelog.outputs.changelog }}
           draft: false
           prerelease: false
-      - run: npm install
+
       - run: npm build
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
