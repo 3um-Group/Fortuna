@@ -32,9 +32,9 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           registry-url: https://npm.pkg.github.com/
-      
-      - name: Install dependencies based on package-lock.json
-        run: npm ci
+
+      - name: Install dependencies
+        run: npm install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
 
@@ -101,8 +101,8 @@ jobs:
         with:
           registry-url: https://npm.pkg.github.com/
       
-      - name: Install dependencies based on package-lock.json
-        run: npm ci
+      - name: Install dependencies
+        run: npm i
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
           
