@@ -132,7 +132,7 @@ dist
 .pnp.*
 
 # NPM and yarn lock
-package-lock.json
+# package-lock.json
 yarn.lock
 
 ## Build assets
