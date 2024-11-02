@@ -11,6 +11,10 @@ on:
 jobs:
   continuous_integration:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
     concurrency:
       group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
       cancel-in-progress: true
@@ -26,11 +30,14 @@ jobs:
         with:
           node-version: 20.13.1
           registry-url: https://npm.pkg.github.com/
+          scope: '@3um-group'
+        env:
+         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}} # <--- ENV before npm ci
 
       - name: Setup .npmrc file
         run: |
-          echo "@3um-group:registry=https://npm.pkg.github.com/" > ~/.npmrc
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NODE_AUTH_TOKEN }}" >> ~/.npmrc
+          npm config set "@3um-group:registry" "https://npm.pkg.github.com/"
+          npm config set "//npm.pkg.github.com/:_authToken" "${{ secrets.NODE_AUTH_TOKEN }}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
 
@@ -54,9 +61,7 @@ jobs:
         run: npm list
         
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
+        run: npm ci
 
       - name: Run Test
         run: npm test
