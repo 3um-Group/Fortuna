@@ -32,7 +32,7 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: '@3um-group'
         env:
-         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}} # <--- ENV before npm ci
+         NODE_AUTH_TOKEN: ${{secrets.GPR_PRIVATE_READ_TOKEN}} # <--- ENV before npm ci
 
       - name: Setup .npmrc file
         run: |
