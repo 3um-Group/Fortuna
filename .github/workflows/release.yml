@@ -66,6 +66,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           registry-url: https://npm.pkg.github.com/
+
+      - name: Set private registry config
+        run: npm config set '@3um-group:registry' "https://npm.pkg.github.com"
+
+      - name: Set publishing config
+        run: npm config set '//npm.pkg.github.com/:_authToken' "${NODE_AUTH_TOKEN}"
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GPR_PRIVATE_READ_TOKEN}}
       
       - name: Install dependencies based on package-lock.json
         run: npm ci
@@ -101,8 +109,16 @@ jobs:
         with:
           registry-url: https://npm.pkg.github.com/
       
+      - name: Set private registry config
+        run: npm config set '@3um-group:registry' "https://npm.pkg.github.com"
+
+      - name: Set publishing config
+        run: npm config set '//npm.pkg.github.com/:_authToken' "${NODE_AUTH_TOKEN}"
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GPR_PRIVATE_READ_TOKEN}}
+      
       - name: Install dependencies
-        run: npm i
+        run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
           
