@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PlaceAutocomplete from 'src/components/Global/PlaceAutocomplete';
 import FileUpload from 'src/components/Global/FileUpload';
-import ContractPage from 'src/pages/ContractPage'; // Import the ContractPage component
+import ContractPage from 'src/pages/ContractPage';
 
 interface Location {
   display_name: string;
@@ -14,13 +14,13 @@ const MapWithUpload: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<Location[]>([]);
-  const [filesUploaded, setFilesUploaded] = useState(false); // State to track file uploads
+  const [filesUploaded, setFilesUploaded] = useState(false); 
 
   const goToNextStep = () => {
     if (currentStep === 1 && locationSelected) {
       setCurrentStep(2);
     } else if (currentStep === 2 && filesUploaded) {
-      setCurrentStep(3); // Move to ContractPage
+      setCurrentStep(3); 
     }
   };
 
@@ -37,7 +37,7 @@ const MapWithUpload: React.FC = () => {
   };
 
   const handleFileUpload = (uploaded: boolean) => {
-    setFilesUploaded(uploaded); // Update file upload status
+    setFilesUploaded(uploaded); 
   };
 
   return (

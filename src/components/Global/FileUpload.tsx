@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FaFilePdf, FaFileWord, FaFileImage, FaFileAlt } from 'react-icons/fa';
 
 interface FileUploadProps {
-  onFileUpload: (uploaded: boolean) => void; // Callback prop
+  onFileUpload: (uploaded: boolean) => void; 
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
@@ -11,9 +11,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    // Notify the parent component if files are uploaded
     onFileUpload(files.length > 0);
-  }, [files]); // Only run when `files` changes
+  }, [files]);
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -29,11 +28,9 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
   };
 
   const processFiles = (selectedFiles: File[]) => {
-    // Append new files to the existing ones using concat
     const newFiles = files.concat(selectedFiles);
     setFiles(newFiles);
 
-    // Initialize progress for new files
     const initialProgress = new Array(newFiles.length).fill(0);
     setUploadProgress(initialProgress);
     simulateUpload();
@@ -61,7 +58,6 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
     fileInputRef.current?.click();
   };
 
-  // Determine the icon based on file type
   const getFileIcon = (file: File) => {
     if (file.type.includes('pdf')) return <FaFilePdf className="text-red-500" />;
     if (file.type.includes('word')) return <FaFileWord className="text-blue-500" />;
