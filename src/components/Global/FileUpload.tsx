@@ -1,10 +1,19 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FaFilePdf, FaFileWord, FaFileImage, FaFileAlt } from 'react-icons/fa';
 
-const FileUpload = () => {
+interface FileUploadProps {
+  onFileUpload: (uploaded: boolean) => void; // Callback prop
+}
+
+const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
   const [files, setFiles] = useState<File[]>([]);
   const [uploadProgress, setUploadProgress] = useState<number[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    // Notify the parent component if files are uploaded
+    onFileUpload(files.length > 0);
+  }, [files]); // Only run when `files` changes
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -96,12 +105,12 @@ const FileUpload = () => {
               </div>
             </div>
             <div className="flex ml-2 mt-2">
-                {uploadProgress[index] === 100 ? (
-                  <span className="text-green-500">✔</span>
-                ) : (
-                  <span className="text-gray-400">⏳</span>
-                )}
-                <div className="w-full ml-2 mt-2">
+              {uploadProgress[index] === 100 ? (
+                <span className="text-green-500">✔</span>
+              ) : (
+                <span className="text-gray-400">⏳</span>
+              )}
+              <div className="w-full ml-2 mt-2">
                 <div className="bg-gray-200 rounded-full h-2 w-full">
                   <div
                     className={`h-2 rounded-full ${uploadProgress[index] === 100 ? 'bg-green-500' : 'bg-blue-500'}`}
@@ -109,7 +118,7 @@ const FileUpload = () => {
                   ></div>
                 </div>
               </div>
-              </div>
+            </div>
           </div>
         ))}
       </div>
