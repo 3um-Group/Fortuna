@@ -1,10 +1,18 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FaFilePdf, FaFileWord, FaFileImage, FaFileAlt } from 'react-icons/fa';
 
-const FileUpload = () => {
+interface FileUploadProps {
+  onFileUpload: (uploaded: boolean) => void; 
+}
+
+const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
   const [files, setFiles] = useState<File[]>([]);
   const [uploadProgress, setUploadProgress] = useState<number[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    onFileUpload(files.length > 0);
+  }, [files]);
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -20,11 +28,9 @@ const FileUpload = () => {
   };
 
   const processFiles = (selectedFiles: File[]) => {
-    // Append new files to the existing ones using concat
     const newFiles = files.concat(selectedFiles);
     setFiles(newFiles);
 
-    // Initialize progress for new files
     const initialProgress = new Array(newFiles.length).fill(0);
     setUploadProgress(initialProgress);
     simulateUpload();
@@ -52,7 +58,6 @@ const FileUpload = () => {
     fileInputRef.current?.click();
   };
 
-  // Determine the icon based on file type
   const getFileIcon = (file: File) => {
     if (file.type.includes('pdf')) return <FaFilePdf className="text-red-500" />;
     if (file.type.includes('word')) return <FaFileWord className="text-blue-500" />;
@@ -96,12 +101,12 @@ const FileUpload = () => {
               </div>
             </div>
             <div className="flex ml-2 mt-2">
-                {uploadProgress[index] === 100 ? (
-                  <span className="text-green-500">✔</span>
-                ) : (
-                  <span className="text-gray-400">⏳</span>
-                )}
-                <div className="w-full ml-2 mt-2">
+              {uploadProgress[index] === 100 ? (
+                <span className="text-green-500">✔</span>
+              ) : (
+                <span className="text-gray-400">⏳</span>
+              )}
+              <div className="w-full ml-2 mt-2">
                 <div className="bg-gray-200 rounded-full h-2 w-full">
                   <div
                     className={`h-2 rounded-full ${uploadProgress[index] === 100 ? 'bg-green-500' : 'bg-blue-500'}`}
@@ -109,7 +114,7 @@ const FileUpload = () => {
                   ></div>
                 </div>
               </div>
-              </div>
+            </div>
           </div>
         ))}
       </div>
