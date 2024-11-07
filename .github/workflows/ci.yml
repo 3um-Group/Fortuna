@@ -1,4 +1,4 @@
-name: Continuous Integration and Deployment
+name: Test on Push or PR to main branch
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   continuous_integration:
@@ -14,6 +15,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
 
     concurrency:
       group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -26,20 +28,13 @@ jobs:
           clean: true
 
       - name: Set Node Version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.13.1
+          node-version: 18.20.4
           registry-url: https://npm.pkg.github.com/
           scope: '@3um-group'
-        env:
-         NODE_AUTH_TOKEN: ${{secrets.GPR_PRIVATE_READ_TOKEN}} # <--- ENV before npm ci
-
-      - name: Setup .npmrc file
-        run: |
-          npm config set "@3um-group:registry" "https://npm.pkg.github.com/"
-          npm config set "//npm.pkg.github.com/:_authToken" "${{ secrets.NODE_AUTH_TOKEN }}"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
+          token:  ${{secrets.GPR_PRIVATE_READ_TOKEN}}
+          cache: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: Cache node modules
         id: cache-npm
@@ -61,7 +56,17 @@ jobs:
         run: npm list
         
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm ci
 
       - name: Run Test
         run: npm test
+
+      - name: Report on coverage
+        run: npm test:coverage
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test
