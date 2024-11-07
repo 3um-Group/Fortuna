@@ -29,9 +29,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
           registry-url: https://npm.pkg.github.com/
+          node-version: 18.20.4
+          token: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
+          cache: 'npm'
+          scope: '@3um-Group'
 
       - name: Install dependencies
         run: npm install
@@ -62,10 +66,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Nodejs
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
           registry-url: https://npm.pkg.github.com/
+          node-version: 18.20.4
+          token: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
+          cache: 'npm'
+          scope: '@3um-Group'
 
       - name: Set private registry config
         run: npm config set '@3um-group:registry' "https://npm.pkg.github.com"
@@ -104,10 +111,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Nodejs
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
           registry-url: https://npm.pkg.github.com/
+          node-version: 18.20.4
+          token: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
+          cache: 'npm'
+          scope: '@3um-Group'
       
       - name: Set private registry config
         run: npm config set '@3um-group:registry' "https://npm.pkg.github.com"
