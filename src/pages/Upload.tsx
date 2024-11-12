@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import PlaceAutocomplete from 'src/components/Global/PlaceAutocomplete';
-import FileUpload from 'src/components/Global/FileUpload';
-import ContractPage from 'src/pages/ContractPage';
+import PlaceAutocomplete from '../components/Global/PlaceAutocomplete';
+import FileUpload from '../components/Global/FileUpload';
+import ContractPage from '../pages/ContractPage';
 
 interface Location {
   display_name: string;

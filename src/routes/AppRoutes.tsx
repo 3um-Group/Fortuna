@@ -6,17 +6,17 @@ import UserProfile from '../pages/UserProfile';
 import Dashboard from '../pages/Dashboard';
 import AddWallet from '../pages/AddWallet';
 import Upload from '../pages/Upload';
-import MyAccount from 'src/components/UserProfile/MyAccount';
-import ProfileMenu from 'src/components/UserProfile/ProfileMenu';
-import Settings from 'src/components/UserProfile/Settings';
-import HelpCenter from 'src/components/UserProfile/HelpCenter';
-import ManageCards from 'src/components/UserProfile/ManageCards';
-import TransactionHistory from 'src/components/UserProfile/TransactionHistory';
+import MyAccount from '../components/UserProfile/MyAccount';
+import ProfileMenu from '../components/UserProfile/ProfileMenu';
+import Settings from '../components/UserProfile/Settings';
+import HelpCenter from '../components/UserProfile/HelpCenter';
+import ManageCards from '../components/UserProfile/ManageCards';
+import TransactionHistory from '../components/UserProfile/TransactionHistory';
 import { Elements } from '@stripe/react-stripe-js'; 
 import { loadStripe } from '@stripe/stripe-js'; 
-import ContractPage from 'src/pages/ContractPage';
-import NewsFeed from 'src/pages/NewsFeed';
-import Signup from 'src/pages/Signup';
+import ContractPage from '../pages/ContractPage';
+import NewsFeed from '../pages/NewsFeed';
+import Signup from '../pages/Signup';
 
 const stripePromise = loadStripe('your-publishable-key-here'); // Add your Stripe public key
 
