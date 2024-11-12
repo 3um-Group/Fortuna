@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import detectEthereumProvider from '@metamask/detect-provider';
-import {stripePublishableKey} from '../config/default';
+const { stripePublishableKey } = require('../config/default');
 const stripePromise = loadStripe(stripePublishableKey || '');
 
 const WalletForm: React.FC = () => {

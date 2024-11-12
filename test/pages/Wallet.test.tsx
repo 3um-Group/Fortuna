@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import Wallet from '../../src/pages/Wallet';
 
@@ -10,7 +11,11 @@ jest.mock('../../src/components/Wallet/WalletCard', () => () => <div>WalletCard<
 
 describe('Wallet', () => {
   beforeEach(() => {
-    render(<Wallet />);
+    render(
+      <MemoryRouter>
+        <Wallet />
+      </MemoryRouter>
+    );
   });
 
   it('renders WalletCard component', () => {
