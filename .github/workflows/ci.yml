@@ -27,14 +27,15 @@ jobs:
         with:
           clean: true
 
+      - name: Set up .npmrc for GitHub Package Registry authentication
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GPR_PRIVATE_READ_TOKEN }}" > ~/.npmrc
+          echo "@3um-group:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+
       - name: Set Node Version
         uses: actions/setup-node@v4
         with:
           node-version: 18.20.4
-          registry-url: https://npm.pkg.github.com/
-          scope: '@3um-group'
-          # This is where the token should be used to authenticate
-          token: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
 
       - name: Cache node modules
         id: cache-npm
