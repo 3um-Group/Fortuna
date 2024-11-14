@@ -16,6 +16,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js'; 
 import ContractPage from '../pages/ContractPage';
 import NewsFeed from '../pages/NewsFeed';
+import Article from '../pages/Article';
 import Signup from '../pages/Signup';
 
 const stripePromise = loadStripe('your-publishable-key-here'); // Add your Stripe public key
@@ -28,25 +29,24 @@ const AppRoutes: React.FC = () => {
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/property-details/:id" element={<PropertyDetails />} />
             <Route path="/news" element={<NewsFeed numberOfArticles={10} />} />
+            <Route path="/article" element={<Article />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/add-wallet" element={<AddWallet />} />
             <Route path="/upload" element={<Upload />} />
             <Route path="/contract" element={<ContractPage />} />
-            <Route path="/profile" element={<UserProfile />}>
-                <Route index element={<ProfileMenu />} />
-                <Route path="my-account" element={<MyAccount />} />
-                <Route path="settings" element={<Settings />} />
-                <Route path="help-center" element={<HelpCenter />} />
-                <Route path="transaction-history" element={<TransactionHistory />} />
-                <Route
-                    path="card-management"
-                    element={
-                        <Elements stripe={stripePromise}>
-                            <ManageCards />
-                        </Elements>
-                    }
-                />
-            </Route>
+            <Route index element={<ProfileMenu />} />
+            <Route path="my-account" element={<MyAccount />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="help-center" element={<HelpCenter />} />
+            <Route path="transaction-history" element={<TransactionHistory />} />
+            <Route
+                path="card-management"
+                element={
+                    <Elements stripe={stripePromise}>
+                        <ManageCards />
+                    </Elements>
+                }
+            />
         </Routes>
     );
 };
