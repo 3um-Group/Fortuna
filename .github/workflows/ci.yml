@@ -34,7 +34,6 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: '@3um-group'
           token:  ${{secrets.GPR_PRIVATE_READ_TOKEN}}
-          cache: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: Cache node modules
         id: cache-npm
