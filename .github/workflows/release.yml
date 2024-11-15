@@ -84,7 +84,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: build
 
       # Update version in package.json according to the tag
       - name: Check package version
