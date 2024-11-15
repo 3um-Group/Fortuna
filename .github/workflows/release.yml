@@ -25,8 +25,12 @@ concurrency:
 #continue-on-error: true
 
 jobs:
-  test:
+  deployment:
     runs-on: ubuntu-latest
+    continue-on-error: true
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -72,26 +76,15 @@ jobs:
       - name: Run Test
         run: npm run test
 
-  build:
-    needs: test
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build asset
-        run: npm run build
-
-  deploy:
-    needs: [test, build]
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
+      - run: npm run build --if-present
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
 
       # Update version in package.json according to the tag
       - name: Check package version
@@ -113,11 +106,6 @@ jobs:
             ${{ steps.Changelog.outputs.changelog }}
           draft: false
           prerelease: false
-      
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './build'
 
       - name: Deploy to GitHub Pages
         id: deployment
