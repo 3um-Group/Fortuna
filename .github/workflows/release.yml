@@ -35,11 +35,13 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           node-version: 18.20.4
           token: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
-          cache: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
+          cache: npm
           scope: '@3um-Group'
 
       - name: Set private registry config
-        run: npm config set '@3um-group:registry' "https://npm.pkg.github.com"
+        run: |
+          npm config set '@3um-group:registry' "https://npm.pkg.github.com"
+          npm config set '//npm.pkg.github.com/:_authToken' "${{ secrets.GPR_PRIVATE_READ_TOKEN }}"
 
       - name: Set publishing config
         run: npm config set '//npm.pkg.github.com/:_authToken' "${NODE_AUTH_TOKEN}"
@@ -65,7 +67,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Execute Unit tests
-        run: npm test
+        run: npm run test
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
