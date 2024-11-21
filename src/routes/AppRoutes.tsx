@@ -26,31 +26,35 @@ const AppRoutes: React.FC = () => {
     const { loginWithRedirect, logout } = useAuth0();
     return (
         <Routes>
-            <Route index element={<ProfileMenu />} />
+
             <Route path="/" element={<Dashboard />} />
+            
             <Route path="/login" element={<LoginPage loginWithRedirect={loginWithRedirect} />} />
             <Route path="/logout" element={<LogoutPage logout={logout} />} />
             <Route path="/signup" element={<Signup />} />
+
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/property-details/:id" element={<PropertyDetails />} />
             <Route path="/news" element={<NewsFeed numberOfArticles={10} />} />
             <Route path="/article" element={<Article />} />
-            <Route path="/profile" element={<UserProfile />} />
             <Route path="/add-wallet" element={<AddWallet />} />
             <Route path="/upload" element={<Upload />} />
             <Route path="/contract" element={<ContractPage />} />
-            <Route path="my-account" element={<MyAccount />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="help-center" element={<HelpCenter />} />
-            <Route path="transaction-history" element={<TransactionHistory />} />
-            <Route
-                path="card-management"
-                element={
-                    <Elements stripe={stripePromise}>
-                        <ManageCards />
-                    </Elements>
-                }
-            />
+
+            <Route path="/profile" element={<ProfileMenu />} />
+                <Route path="profile/user" element={<UserProfile />} />
+                <Route path="profile/my-account" element={<MyAccount />} />
+                <Route path="profile/settings" element={<Settings />} />
+                <Route path="profile/help-center" element={<HelpCenter />} />
+                <Route path="profile/transaction-history" element={<TransactionHistory />} />
+                <Route
+                    path="profile/card-management"
+                    element={
+                        <Elements stripe={stripePromise}>
+                            <ManageCards />
+                        </Elements>
+                    }
+                />
         </Routes>
     );
 };
