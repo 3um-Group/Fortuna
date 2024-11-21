@@ -8,6 +8,7 @@ interface NewsFeedProps {
 const NewsFeed: React.FC<NewsFeedProps> = ({ numberOfArticles }) => {
   const [newsArticles, setNewsArticles] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -15,11 +16,20 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ numberOfArticles }) => {
         const response = await fetch(
           'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=07f43684d91543c3a708314441a617d0'
         );
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
-        setNewsArticles(data.articles);
+        
+        // Ensure articles exist and is an array
+        const articles = data.articles || [];
+        setNewsArticles(articles);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching news:', error);
+        setError(error instanceof Error ? error.message : 'An unknown error occurred');
         setLoading(false);
       }
     };
@@ -27,31 +37,32 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ numberOfArticles }) => {
     fetchNews();
   }, []);
 
+  if (loading) {
+    return <p>Loading news...</p>;
+  }
+
+  if (error) {
+    return <p>Error loading news: {error}</p>;
+  }
+
   return (
     <div className="w-full md:w-1/4 flex flex-col gap-6 p-3">
-      {loading ? (
-        <p>Loading news...</p>
-      ) : (
-        // Ensure `slice` is applied on a valid array
-        (newsArticles.length > 0 ? newsArticles : [])
-          .slice(0, numberOfArticles)
-          .map((article, index) => (
-          <NewsCard
-            key={index}
-            imageSrc={article.urlToImage || 'https://via.placeholder.com/150'}
-            title={article.title}
-            description={article.description}
-            date={new Date(article.publishedAt).toLocaleDateString('en-GB', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric',
-            })}
-            linkUrl="/article"
-            className="w-full"
-          />
-        ))
-      )}
-    </div>
+    {newsArticles.slice(0, numberOfArticles).map((article, index) => (
+      <NewsCard
+        key={index}
+        imageSrc={article.urlToImage || 'https://via.placeholder.com/150'}
+        title={article.title}
+        description={article.description}
+        date={new Date(article.publishedAt).toLocaleDateString('en-GB', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        })}
+        linkUrl="/article"
+        className="w-full"
+      />
+    ))}
+  </div>
   );
 };
 
