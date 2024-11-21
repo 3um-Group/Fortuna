@@ -32,7 +32,10 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ numberOfArticles }) => {
       {loading ? (
         <p>Loading news...</p>
       ) : (
-        newsArticles.slice(0, numberOfArticles).map((article, index) => (
+        // Ensure `slice` is applied on a valid array
+        (newsArticles.length > 0 ? newsArticles : [])
+          .slice(0, numberOfArticles)
+          .map((article, index) => (
           <NewsCard
             key={index}
             imageSrc={article.urlToImage || 'https://via.placeholder.com/150'}

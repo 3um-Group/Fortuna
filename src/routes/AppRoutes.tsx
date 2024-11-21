@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth0, Auth0ContextInterface } from '@auth0/auth0-react';
 import Wallet from '../pages/Wallet';
 import PropertyDetails from '../pages/PropertyDetails';
@@ -28,6 +28,7 @@ const AppRoutes: React.FC = () => {
         <Routes>
 
             <Route path="/" element={<Dashboard />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
             
             <Route path="/login" element={<LoginPage loginWithRedirect={loginWithRedirect} />} />
             <Route path="/logout" element={<LogoutPage logout={logout} />} />
