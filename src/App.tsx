@@ -103,4 +103,4 @@ const App: React.FC = () => {
   );
 };
 
-export { App, NewRelicErrorBoundary, initNewRelic };
+export default App;
