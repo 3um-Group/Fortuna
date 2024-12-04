@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { initNewRelic, NewRelicErrorBoundary } from './newRelic';
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 import { Header } from '@3um-group/atomic-sdk';
 import AppRoutes from './routes/AppRoutes';
@@ -49,6 +50,7 @@ const AppWrapper: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    initNewRelic();
     // Handle authentication redirect after splash screen
     if (!showingSplash && !isAuthenticated && !isRedirecting && !isLoading) {
       const path = window.location.pathname;
@@ -93,7 +95,9 @@ const App: React.FC = () => {
       }}
     >
       <div className="h-screen flex flex-col z-1">
-        <AppWrapper />
+        <NewRelicErrorBoundary>
+          <AppWrapper />
+        </NewRelicErrorBoundary>
       </div>
     </Auth0Provider>
   );
