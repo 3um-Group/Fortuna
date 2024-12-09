@@ -1,3 +1,5 @@
+<a href="https://3umgroup.com/" ><img alt="3um, Inc. Ai platform" src="https://3umgroup.com/_next/static/media/3UM-light.2725140a.png" height="120px"/></a>
+
 # Fortuna
 Fortuna is 3um's Vendor, Datalake, and AI Model marketplace application born out of early standardization R&D. With Fortuna one is able about to manage billing and account detais, search for 3rd party tools, provided datalakes, AI models and cloud offerings as Add-Ons to a workspace in Metis
 
